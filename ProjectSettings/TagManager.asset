@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - DropDown1
+  - DropDown2
+  - Cell1
+  - Cell2
+  - Cell3
+  - Cell4
+  - Cell5
+  - Cell6
+  - Bar
   layers:
   - Default
   - TransparentFX
@@ -11,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
