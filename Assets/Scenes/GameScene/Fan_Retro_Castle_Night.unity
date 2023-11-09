@@ -1920,6 +1920,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.57
       objectReference: {fileID: 0}
@@ -1958,6 +1970,10 @@ PrefabInstance:
     - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781837670905223902, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+      propertyPath: runMultiplayer
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223903, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_Name
