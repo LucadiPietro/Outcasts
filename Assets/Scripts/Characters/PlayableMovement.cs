@@ -72,11 +72,13 @@ public class PlayableMovement : MonoBehaviour
     
     private void OnRunStarted()
     {
+        animator.SetBool("isRun", true);
         runMulti = runMultiplayer;
     }
 
     private void OnRunCanceled()
     {
+        animator.SetBool("isRun", false);
         runMulti = 1f;
     }
 }
