@@ -7,6 +7,8 @@ public class PlayableMovement : MonoBehaviour
     public Vector2 idle_input_Movement;
     public float moveSpeedHorizontal = 3f;
     public float moveSpeedVertical = 2f;
+    public float runMultiplayer = 1f;
+    private float runMulti = 1;
     public Animator animator;
 
     [SerializeField] private float moveDuration = 1f;
@@ -20,6 +22,8 @@ public class PlayableMovement : MonoBehaviour
         defaultInput = new DefaultInput();
 
         defaultInput.Player.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
+        defaultInput.Player.Run.started += e => OnRunStarted();
+        defaultInput.Player.Run.canceled += e => OnRunCanceled();
 
         defaultInput.Enable();
     }
@@ -36,12 +40,11 @@ public class PlayableMovement : MonoBehaviour
 
         if (isColliding)
         {
-            // Controlla se il movimento è nella stessa direzione della normale di collisione
             float dotProduct = Vector2.Dot(moveDirection, collisionNormal);
 
             if (dotProduct > 0)
             {
-                return; // Blocca il movimento nella direzione della collisione
+                return;
             }
         }
 
@@ -49,7 +52,7 @@ public class PlayableMovement : MonoBehaviour
         float verticalSpeed = moveSpeedVertical * Time.deltaTime;
 
         Vector3 move = new Vector3(moveDirection.x * horizontalSpeed, moveDirection.y * verticalSpeed, 0);
-        transform.Translate(move);
+        transform.Translate(move * runMulti);
 
         if (moveInput.magnitude > 0)
         {
@@ -65,5 +68,15 @@ public class PlayableMovement : MonoBehaviour
             animator.SetFloat("idle_x_input", idle_input_Movement.x);
             idle_input_Movement.y = input_Movement.y;
         }
+    }
+    
+    private void OnRunStarted()
+    {
+        runMulti = runMultiplayer;
+    }
+
+    private void OnRunCanceled()
+    {
+        runMulti = 1f;
     }
 }
