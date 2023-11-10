@@ -101,12 +101,12 @@ BlendTree:
     m_DirectBlendParameter: x_Input
     m_Mirror: 0
   m_BlendParameter: x_Input
-  m_BlendParameterY: x_Input
+  m_BlendParameterY: y_Input
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 1
 --- !u!206 &-7558666644473199846
 BlendTree:
   m_ObjectHideFlags: 1
@@ -460,7 +460,7 @@ BlendTree:
     m_DirectBlendParameter: x_Input
     m_Mirror: 0
   m_BlendParameter: x_Input
-  m_BlendParameterY: x_Input
+  m_BlendParameterY: y_Input
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
