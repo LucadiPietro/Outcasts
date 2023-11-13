@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4464544682914339639}
   - component: {fileID: 5464874574333276060}
   - component: {fileID: 5464874574333276061}
-  - component: {fileID: 5464874574333276034}
   - component: {fileID: 511118234908529656}
   - component: {fileID: 3773891003804274195}
+  - component: {fileID: 8515414692703645661}
   m_Layer: 0
   m_Name: Andre
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 5464874573963476749}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5464874574333276060
 Animator:
@@ -109,25 +109,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5464874574333276034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688180895654863831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d683763ddfc64449a8afb369b39496a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input_Movement: {x: 0, y: 0}
-  idle_input_Movement: {x: 0, y: 0}
-  moveSpeedHorizontal: 5
-  moveSpeedVertical: 2.5
-  runMultiplayer: 1.5
-  animator: {fileID: 5464874574333276060}
-  moveDuration: 1
 --- !u!61 &511118234908529656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1.2241945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -171,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6, y: 3.6}
+  m_Size: {x: 0.54, y: 0.6116108}
   m_EdgeRadius: 0
 --- !u!50 &3773891003804274195
 Rigidbody2D:
@@ -200,6 +181,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8515414692703645661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688180895654863831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d683763ddfc64449a8afb369b39496a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input_Movement: {x: 0, y: 0}
+  idle_input_Movement: {x: 0, y: 0}
+  moveSpeedHorizontal: 3
+  moveSpeedVertical: 2
+  runMultiplayer: 1
+  animator: {fileID: 0}
+  moveDuration: 1
 --- !u!1 &5464874573963476850
 GameObject:
   m_ObjectHideFlags: 0
