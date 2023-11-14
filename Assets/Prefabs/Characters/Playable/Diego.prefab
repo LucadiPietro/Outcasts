@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7781837670905223899}
   - component: {fileID: 7781837670905223896}
-  - component: {fileID: 7781837670905223897}
   - component: {fileID: 7781837670905223902}
   - component: {fileID: 7781837670905223898}
   m_Layer: 0
@@ -87,32 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!143 &7781837670905223897
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7781837670905223903}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7781837670905223902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +102,7 @@ MonoBehaviour:
   idle_input_Movement: {x: 0, y: 0}
   moveSpeedHorizontal: 5
   moveSpeedVertical: 2.5
+  runMultiplayer: 1
   animator: {fileID: 7781837670905223898}
   moveDuration: 1
 --- !u!95 &7781837670905223898
