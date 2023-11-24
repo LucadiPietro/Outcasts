@@ -24,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 1;
     public float runMultiplayer = 1.5f;
     private float runMulti = 1;
-
+    public float timeBeforeStartMovement = 1;
     private bool movementBool;
 
     [Space(10)]
@@ -37,6 +37,18 @@ public class EnemyMovement : MonoBehaviour
     public List<Transform> checkPoint;
 
     public float restTime = 1;
+
+    #endregion
+
+    #region --------------------------------------------Special Configuration-------------------------------------------
+
+    public enum Special
+    {
+        Animation,
+        None
+    }
+    [Space(10)]
+    [Header("Special")] public Special specialEvent;
 
     //[Space(10)]
 
@@ -58,6 +70,9 @@ public class EnemyMovement : MonoBehaviour
         {
             case Enemy.EnemyState.Patrol:
                 StartCoroutine(Patrol());
+                break;
+            case Enemy.EnemyState.FixedMovement:
+                StartCoroutine(FixedMovemnt());
                 break;
             default:
                 break;
@@ -107,13 +122,12 @@ public class EnemyMovement : MonoBehaviour
     #endregion
 
     #region --------------------------------------------Movement Functions----------------------------------------------
-    
+
     public IEnumerator Patrol()
     {
         int index = 0;
         while (enemy.enemyState == Enemy.EnemyState.Patrol)
         {
-            
             Movement(checkPoint[index].position, false);
 
             yield return new WaitUntil(() => !movementBool);
@@ -123,6 +137,28 @@ public class EnemyMovement : MonoBehaviour
             if (index == checkPoint.Count) index = 0;
         }
     }
-    
+
+    public IEnumerator FixedMovemnt()
+    {
+        yield return new WaitForSeconds(timeBeforeStartMovement);
+
+        foreach (var t in checkPoint)
+        {
+            Movement(t.position, false);
+
+            yield return new WaitUntil(() => !movementBool);
+        }
+
+        animator.SetFloat("idle_x_input", 0);
+        animator.SetFloat("idle_y_input", -1);
+
+        yield return new WaitForSeconds(restTime);
+
+        if (specialEvent == Special.Animation)
+        {
+            animator.SetTrigger("pee");
+        }
+    }
+
     #endregion
 }

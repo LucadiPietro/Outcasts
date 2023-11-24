@@ -8,6 +8,7 @@ public class Enemy : PlayableCharacters
     {
         Idle,
         Patrol,
+        FixedMovement,
         Warning
     }
 
