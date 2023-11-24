@@ -14,6 +14,14 @@ public class Player : PlayableCharacters
 
     public float voteMultiplayer = 1;
 
+    public enum PlayerState
+    {
+        CutScene,
+        Playable
+    }
+
+    public PlayerState playerState;
+
     public void retrieveParameters(out int totHealth, out int actHealt, out int exp, out int abPoint,
         out Sprite actPortrait, out List<ActiveAbilities> actAbilities)
     {
