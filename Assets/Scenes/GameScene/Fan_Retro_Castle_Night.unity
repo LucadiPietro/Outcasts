@@ -1505,6 +1505,17 @@ MonoBehaviour:
   positionMultiplayer: 0
   voteMultiplayer: 1
   playerState: 0
+--- !u!114 &281709226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -31131964298302024, guid: c71e6fd1b9028d742a48c5dd7b2246c3, type: 3}
+  m_PrefabInstance: {fileID: 2082139735}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281709216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d683763ddfc64449a8afb369b39496a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &287063848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1513,6 +1524,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -892936679740017408, guid: dacc6bb5fd869374fabf24c205c20586, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -70604858230084817, guid: dacc6bb5fd869374fabf24c205c20586, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -1917,7 +1932,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 18
+    FieldOfView: 23.7988
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2204,6 +2219,17 @@ MonoBehaviour:
   additionalHealth: 0
   totalHealth: 0
   enemyState: 1
+--- !u!114 &475006636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+  m_PrefabInstance: {fileID: 701564888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475006629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a929a2596bc961549b18445f6221e02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &510644706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2562,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 457167041, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2562,7 +2592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223899, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2627,7 +2657,7 @@ PrefabInstance:
     - target: {fileID: 7781837670905223902, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: checkPoint.Array.data[4]
       value: 
-      objectReference: {fileID: 1352298980}
+      objectReference: {fileID: 2077046805}
     - target: {fileID: 7781837670905223903, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
       propertyPath: m_Name
       value: Brogan
@@ -4400,6 +4430,17 @@ MonoBehaviour:
   additionalHealth: 0
   totalHealth: 0
   enemyState: 1
+--- !u!114 &1511912815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+  m_PrefabInstance: {fileID: 873048967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511912808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a929a2596bc961549b18445f6221e02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1533209658
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,6 +4818,17 @@ MonoBehaviour:
   positionMultiplayer: 0
   voteMultiplayer: 1
   playerState: 0
+--- !u!114 &1596835062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5477818095396762380, guid: dacc6bb5fd869374fabf24c205c20586, type: 3}
+  m_PrefabInstance: {fileID: 287063848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596835052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d683763ddfc64449a8afb369b39496a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1631251025
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,14 +5137,14 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 18
+  field of view: 23.7988
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -5481,6 +5533,17 @@ MonoBehaviour:
   positionMultiplayer: 0
   voteMultiplayer: 1
   playerState: 0
+--- !u!114 &1919159756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7781837670905223902, guid: c1c41db990b0e5a4c9cbfe180c20b33f, type: 3}
+  m_PrefabInstance: {fileID: 668847711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919159745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d683763ddfc64449a8afb369b39496a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1920573282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5854,6 +5917,17 @@ MonoBehaviour:
   additionalHealth: 0
   totalHealth: 0
   enemyState: 1
+--- !u!114 &2043076059 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+  m_PrefabInstance: {fileID: 1395240982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043076052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a929a2596bc961549b18445f6221e02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2077046804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5893,6 +5967,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4633330372766800206, guid: c71e6fd1b9028d742a48c5dd7b2246c3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -31131964298302024, guid: c71e6fd1b9028d742a48c5dd7b2246c3, type: 3}
       propertyPath: moveSpeed
       value: 0.3
@@ -5924,7 +6002,7 @@ PrefabInstance:
     - target: {fileID: -31131964298302024, guid: c71e6fd1b9028d742a48c5dd7b2246c3, type: 3}
       propertyPath: checkPoint.Array.data[4]
       value: 
-      objectReference: {fileID: 2077046805}
+      objectReference: {fileID: 1352298980}
     - target: {fileID: 5380583165974234352, guid: c71e6fd1b9028d742a48c5dd7b2246c3, type: 3}
       propertyPath: m_Name
       value: Malphayt
@@ -6039,6 +6117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2113971467}
   - component: {fileID: 2113971466}
+  - component: {fileID: 2113971468}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -6078,6 +6157,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2113971468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113971465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc712ed6d254b74f9b61b1225297b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 421254463}
+  players:
+  - {fileID: 281709226}
+  - {fileID: 1919159756}
+  - {fileID: 1596835062}
+  patrolsGuard:
+  - {fileID: 2043076059}
+  - {fileID: 1511912815}
+  - {fileID: 475006636}
+  santiagoAndGuards:
+  - {fileID: 1428908434}
+  - {fileID: 880041433}
+  - {fileID: 193821922}
 --- !u!1 &2136654545
 GameObject:
   m_ObjectHideFlags: 0

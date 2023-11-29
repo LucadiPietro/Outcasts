@@ -171,6 +171,10 @@ public class PlayableMovement : MonoBehaviour
 
     public IEnumerator FirstMovemnt()
     {
+        animator.SetFloat("idle_x_input", 0);
+        animator.SetFloat("idle_y_input", -1);
+        animator.SetBool("isCrouch", true);
+        
         yield return new WaitForSeconds(timeBeforeStartMovement);
         
         foreach (var t in checkPoint)
