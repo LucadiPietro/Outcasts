@@ -98,7 +98,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e9613633e7beda459994fc63708f731, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d2599b33764dd548a583f696e9ac849, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,11 +195,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input_Movement: {x: 0, y: 0}
   idle_input_Movement: {x: 0, y: 0}
+  animator: {fileID: 0}
   moveSpeedHorizontal: 3
   moveSpeedVertical: 2
   runMultiplayer: 1
-  animator: {fileID: 0}
   moveDuration: 1
+  checkPoint: []
+  timeBeforeStartMovement: 1
+  restTime: 1
+  moveSpeed: 1
 --- !u!1 &5464874573963476850
 GameObject:
   m_ObjectHideFlags: 0
