@@ -27,7 +27,6 @@ public class PlayableMovement : MonoBehaviour
     public float moveSpeedVertical = 2f;
     public float runMultiplayer = 1f;
     private float runMulti = 1;
-    [SerializeField] private float moveDuration = 1f;
     private float moveTimer = 0f;
 
     [Space(10)]
@@ -64,9 +63,6 @@ public class PlayableMovement : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
-
-        StartCoroutine(FirstMovemnt());
-
     }
 
     private void Update()
@@ -171,7 +167,7 @@ public class PlayableMovement : MonoBehaviour
 
     public IEnumerator FirstMovemnt()
     {
-        animator.SetFloat("idle_x_input", 0);
+        animator.SetFloat("idle_x_input", -1);
         animator.SetFloat("idle_y_input", -1);
         animator.SetBool("isCrouch", true);
         

@@ -71,9 +71,6 @@ public class EnemyMovement : MonoBehaviour
             case Enemy.EnemyState.Patrol:
                 StartCoroutine(Patrol());
                 break;
-            case Enemy.EnemyState.FixedMovement:
-                StartCoroutine(FixedMovemnt());
-                break;
             default:
                 break;
         }
