@@ -36,6 +36,11 @@ public class Textbox : MonoBehaviour
     [Header("Text Animation Settings")]
     [SerializeField] private TextAnimations textAnimations;
 
+    // Evento per notificare quando il testo è completamente visualizzato
+    public event Action OnTextFullyDisplayed;
+
+    // Variabile per tenere traccia dello stato di visualizzazione completa
+    public bool isTextFullyDisplayed = false;
 
     public void InitializeTextbox(string dialogue) {
         audioSource = GetComponent<AudioSource>();
@@ -90,19 +95,17 @@ public class Textbox : MonoBehaviour
                 characterSpriteBackground.gameObject.SetActive(false);
             }
         }
-        
-        
     }
 
     public void DisplayText() {
         dialogueText.text = dialogue;
+        isTextFullyDisplayed = true;
+        OnTextFullyDisplayed?.Invoke();
     }
 
     public void DisplayText(float typeSpeed) {
         dialogueText.text = "";
-
         StartCoroutine(OneLetterAtAtime(typeSpeed));
-        
     }
 
     private IEnumerator OneLetterAtAtime(float typeSpeed) {
@@ -191,6 +194,11 @@ public class Textbox : MonoBehaviour
         
         
         foreach (char letter in cleanDialogue) {
+            if (isTextFullyDisplayed) {
+                // Attendi il click prima di passare al messaggio successivo
+                yield return null;
+            }
+
             if (styleTextChunks.Count > 0) {
                 StyleTextChunk currentStyleChunk = styleTextChunks[styleChunkIndex];
 
@@ -227,7 +235,6 @@ public class Textbox : MonoBehaviour
 
             dialogueText.text = displayText;
 
-
             if (useAudioBlips) {
                 if (myCharater != null) {
                     if (myCharater.speechSFXBlips.Length > 0) {
@@ -248,6 +255,11 @@ public class Textbox : MonoBehaviour
                 yield return new WaitForSeconds(typeSpeed);
             }
             
+            if (workingIndex >= cleanDialogue.Length - 1) {
+                // Se l'indice di lavoro supera la lunghezza del testo pulito, il testo è completamente visualizzato
+                isTextFullyDisplayed = true;
+                OnTextFullyDisplayed?.Invoke();
+            }
         }
     }
     
@@ -267,23 +279,12 @@ public class Textbox : MonoBehaviour
         public int GetLength() {
             return openTagString.Length + styledText.Length + closeTagString.Length;
         }
-        
-        public void PrintInfo() {
-            Debug.Log("New Style Chunk: \n" +
-                      "Index: " +
-                      styledTextStartIndex +
-                      "\n" +
-                      "String: " +
-                      styledText +
-                      "\n"+
-                      "Uses Animations" + usesAnimations + "\n"
-                      + "Animation Tags: " + animationTags);
-            // "Open Tag: " +
-            // openTagString +
-            // "\n" +
-            // "Close Tag: " +
-            // closeTagString);
-        }
     }
-
+    
+    public void DisplayTextImmediately()
+    {
+        StopAllCoroutines();
+        dialogueText.text = dialogue;
+        isTextFullyDisplayed = true;
+    }
 }

@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 30.00932
+    FieldOfView: 18
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -3853,6 +3853,10 @@ PrefabInstance:
       propertyPath: characterList
       value: 
       objectReference: {fileID: 11400000, guid: 88ab707a1f7716f43b72fcce672ad33e, type: 2}
+    - target: {fileID: 9059049030029370658, guid: 2a7576eda578cdf428847899fc5fd4dc, type: 3}
+      propertyPath: textTypeSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 9059049030029370659, guid: 2a7576eda578cdf428847899fc5fd4dc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5407,7 +5411,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 30.00932
+  field of view: 18
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
