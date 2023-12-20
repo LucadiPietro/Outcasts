@@ -31,6 +31,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField][Tooltip("True: Lerp effect is only applied to the first box showing up in the que. \n" +
                             "False: Lerp effect is applied to every box in the que.")] 
     private bool onlyLerpFirstBoxInQue = false;
+    private bool isWaitingForInput = false;
+    private bool isTextFullyDisplayed = false; 
     
     
     private List<GameObject> dialogueInstanceQue = new List<GameObject>();
@@ -157,7 +159,7 @@ public class DialogueController : MonoBehaviour
                     return rawString;
                 }
                 
-                //Apply RichText tags here!!!!!!!!!!!! 
+                //Apply RichText tags here!
                 if (textStyle.isAllCaps) {
                     taglessString = "<allcaps>" + taglessString + "</allcaps>";
                 }

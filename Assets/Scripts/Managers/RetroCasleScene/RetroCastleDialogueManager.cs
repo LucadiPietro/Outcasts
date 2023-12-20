@@ -53,4 +53,13 @@ public class RetroCastleDialogueManager : MonoBehaviour
             dialogueElements.Add(newDialogueElement); 
         }
     }
+
+    public void StartDialague(int index)
+    {
+        var element = dialogueElements[index];
+        for (int i = 0; i < element.dialogue.Count; i++)
+        {
+            dialogueController.NewDialogueInstance(element.dialogue[i], element.characters[i]);
+        }
+    }
 }

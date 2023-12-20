@@ -11,6 +11,7 @@ public class RetroCastleLevelManager : MonoBehaviour
     public List<PlayableMovement> players;
     public List<EnemyMovement> patrolsGuard;
     public List<Enemy> santiagoAndGuards;
+    public RetroCastleDialogueManager dialogueManager;
 
     #endregion
     
@@ -47,10 +48,12 @@ public class RetroCastleLevelManager : MonoBehaviour
         }
 
         yield return coroutine;
+        yield return new WaitForSeconds(1);
 
-        foreach (var ene in santiagoAndGuards)
+        dialogueManager.StartDialague(0);
+        /*foreach (var ene in santiagoAndGuards)
         {
             StartCoroutine(ene.GetComponent<EnemyMovement>().FixedMovemnt());
-        }
+        }*/
     }
 }

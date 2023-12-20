@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCharacterList", menuName = "EvMeshPro/New Character List", order = 1)]
+[CreateAssetMenu(fileName = "NewCharacterList", menuName = "DialogueCharacters/New Character List")]
 public class SO_CharacterList : ScriptableObject
 {
 	public List<CharacterProfile> characterProfiles = new List<CharacterProfile>();
