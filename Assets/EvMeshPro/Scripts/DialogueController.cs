@@ -40,8 +40,18 @@ public class DialogueController : MonoBehaviour
     private Coroutine queIterationCoroutine;
     private bool firstQueIndex = false;
 
+    public bool notDialogue;
+
     private void Update()
     {
+        if(dialogueInstanceQue.Count == 0)
+        {
+            notDialogue = true;
+            return;
+        }
+
+        notDialogue = false;
+        
         if ((Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
             (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
@@ -142,11 +152,10 @@ public class DialogueController : MonoBehaviour
         if (currentTextBox.isTextFullyDisplayed)
         {
             isTextFullyDisplayed = true;
-            isWaitingForInput = true; // Wait for input only if the text is not fully displayed
+            isWaitingForInput = true;
         }
         else
         {
-            float displayLength = currentTextBox.dialogue.Split(' ').Length / (wpmReadingSpeed / 60);
             currentTextBox.DisplayText(textTypeSpeed);
 
             yield return new WaitUntil(() => currentTextBox.isTextFullyDisplayed);

@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7781837670905223903, guid: 17ddd492be71ac446ab22ca52074c678, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1412,7 +1412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5380583165974234352, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8263574686513772235, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_RootOrder
@@ -5970,7 +5970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5380583165974234352, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8263574686513772235, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_RootOrder
@@ -6440,9 +6440,10 @@ MonoBehaviour:
   - {fileID: 880041433}
   - {fileID: 193821922}
   dialogueManager: {fileID: 2113971469}
-  cameraConfig:
-  - {fileID: 11400000, guid: a9d7665c1f662c54ab992a11b3975856, type: 2}
-  - {fileID: 11400000, guid: 787aa85b0b54042408f1fe5d21fd15bd, type: 2}
+  cameraConfigCollectionsList:
+  - {fileID: 11400000, guid: 6ab72e63118bcde4fa04d1505ace6996, type: 2}
+  cameraCanMove: 0
+  canMove: 0
 --- !u!114 &2113971469
 MonoBehaviour:
   m_ObjectHideFlags: 0

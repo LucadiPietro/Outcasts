@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "RetroCastleNight Camera Configuration/Camera Configuration", fileName = "Camera Configuration")]
+[CreateAssetMenu(menuName = "Camera Configuration/Camera Config", fileName = "CameraConfig")]
 [System.Serializable]
-public class RetroCastleNightConfig : ScriptableObject
+public class CameraConfig : ScriptableObject
 {
     public Vector3 position;
     public float FOV;
