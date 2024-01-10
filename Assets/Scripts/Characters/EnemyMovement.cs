@@ -148,12 +148,15 @@ public class EnemyMovement : MonoBehaviour
 
         animator.SetFloat("idle_x_input", 0);
         animator.SetFloat("idle_y_input", -1);
+    }
 
+    public IEnumerator SpecialAnimaiton(string trigger)
+    {
         yield return new WaitForSeconds(restTime);
-
+        
         if (specialEvent == Special.Animation)
         {
-            animator.SetTrigger("pee");
+            animator.SetTrigger(trigger);
         }
     }
 

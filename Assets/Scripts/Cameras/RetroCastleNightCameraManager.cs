@@ -12,9 +12,12 @@ public class RetroCastleNightCameraManager : MonoBehaviour
     {
         yield return new WaitForSeconds(restTime);
 
+        bool end = false;
         
         DOTween.To(() => virtualCamera.m_Lens.FieldOfView, x => virtualCamera.m_Lens.FieldOfView = x, FOV1, duration).SetEase(Ease.InQuad);
-        virtualCamera.transform.DOMove(pos1, duration).SetEase(Ease.InQuad);
+        virtualCamera.transform.DOMove(pos1, duration).SetEase(Ease.InQuad).OnComplete(() => end = true);
+
+        yield return new WaitUntil(() => end);
     }
 
     public void SetCameraPosition(Vector3 initPosition, float initFOV)

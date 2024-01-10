@@ -730,7 +730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183648192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.9, y: 17.7, z: -0.3185817}
+  m_LocalPosition: {x: -2.25, y: 18.53, z: -0.3185817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1403,9 +1403,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: moveSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: specialEvent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: runMultiplayer
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 183648193}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 2084127537}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[2]
+      value: 
+      objectReference: {fileID: 1321139724}
     - target: {fileID: 5380583165974234352, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_Name
       value: NPC_Guard (4)
@@ -2674,6 +2698,7 @@ Transform:
   m_Children:
   - {fileID: 183648193}
   - {fileID: 2084127537}
+  - {fileID: 1321139724}
   m_Father: {fileID: 1806775420}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3974,7 +3999,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096068742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.3, y: 16.8, z: -0.3185817}
+  m_LocalPosition: {x: -8.65, y: 18.04, z: -0.3185817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4381,6 +4406,37 @@ Transform:
   m_Father: {fileID: 2037996921}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1321139723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321139724}
+  m_Layer: 0
+  m_Name: PointC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1321139724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321139723}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.42, y: 17.09, z: -0.3185817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597972070}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352132079
 GameObject:
   m_ObjectHideFlags: 0
@@ -4671,6 +4727,37 @@ MonoBehaviour:
   additionalHealth: 0
   totalHealth: 0
   enemyState: 2
+--- !u!1 &1472739225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1472739226}
+  m_Layer: 0
+  m_Name: PointC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1472739226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472739225}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.69, y: 17.32, z: -0.3185817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1825925209}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1511912808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5380583165974234352, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
@@ -5539,6 +5626,7 @@ Transform:
   m_Children:
   - {fileID: 2009224544}
   - {fileID: 1096068743}
+  - {fileID: 1472739226}
   m_Father: {fileID: 1806775420}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5961,9 +6049,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: moveSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: specialEvent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: runMultiplayer
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 2009224544}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 1096068743}
+    - target: {fileID: 265471634827789499, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
+      propertyPath: checkPoint.Array.data[2]
+      value: 
+      objectReference: {fileID: 1472739226}
     - target: {fileID: 5380583165974234352, guid: 0ae8fd63e24a2974080d8eb3550827e6, type: 3}
       propertyPath: m_Name
       value: NPC_Guard (3)
@@ -6112,7 +6224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009224543}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 16.8, z: -0.3185817}
+  m_LocalPosition: {x: -5.17, y: 19.12, z: -0.3185817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6374,7 +6486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084127536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 16.4, z: -0.3185817}
+  m_LocalPosition: {x: -5.65, y: 17.62, z: -0.3185817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6442,6 +6554,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 2113971469}
   cameraConfigCollectionsList:
   - {fileID: 11400000, guid: 6ab72e63118bcde4fa04d1505ace6996, type: 2}
+  - {fileID: 11400000, guid: 3f0b15ba6db594243969e3d403c8d697, type: 2}
   cameraCanMove: 0
   canMove: 0
 --- !u!114 &2113971469
@@ -6458,6 +6571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueController: {fileID: 752858034}
   dialoguesTextAssetsPaths:
+  - Assets/Resources/DialogueSystem/Dialogues/DIALOGUE_TEST.xlsx
   - Assets/Resources/DialogueSystem/Dialogues/DIALOGUE_TEST.xlsx
   dialogueElements: []
 --- !u!1 &2136654545
