@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SAP2D;
 using UnityEngine;
 
 public class PlayableMovement : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayableMovement : MonoBehaviour
     public Animator animator;
     private bool isColliding = false;
     private Vector2 collisionNormal;
+    public SAP2DAgent agent;
 
     [Space(10)]
 
@@ -36,8 +38,6 @@ public class PlayableMovement : MonoBehaviour
     #region --------------------------------------------CutScene Configuration------------------------------------------
 
     [Header("CutScene Movement")]
-    
-    public List<Transform> checkPoint;
 
     public float timeBeforeStartMovement = 1;
     public float restTime = 1;
@@ -172,14 +172,20 @@ public class PlayableMovement : MonoBehaviour
         animator.SetBool("isCrouch", true);
         
         yield return new WaitForSeconds(timeBeforeStartMovement);
-        
-        foreach (var t in checkPoint)
+        agent.CanMove = true;
+        while (Vector2.Distance(agent.Target.position, transform.position)>0.1f)
         {
-            Movement(t.position, false);
+            var direction = (agent.Target.position - transform.position).normalized;
 
-            yield return new WaitUntil(() => !movementBool);
+            print(direction);
+            animator.SetBool("Movement", true);
+            animator.SetFloat("x_Input", direction.x);
+            animator.SetFloat("y_Input", direction.y);
+
+            yield return null;
         }
-
+        agent.CanMove = true;
+        animator.SetBool("Movement", false);
         yield return new WaitForSeconds(restTime);
     }
     
