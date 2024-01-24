@@ -62,6 +62,20 @@ public class RetroCastleLevelManager : MonoBehaviour
         canMove = true;
 
         yield return new WaitUntil((() => cameraCanMove));
+        
+        cameraConfig = cameraConfigCollectionsList[2].cameraConfigs;
+        virtualCameraManager.SetCameraPosition(cameraConfig[0].position, cameraConfig[0].FOV);
+
+        for (int i = 1; i < cameraConfig.Count; i++)
+        {
+            var ele = cameraConfig[i];
+            yield return StartCoroutine(
+                virtualCameraManager.MoveCameraRoutine(ele.position, ele.FOV, ele.restTime, ele.duration));
+        }
+
+        canMove = true;
+
+        yield return new WaitUntil((() => cameraCanMove));
     }
 
     private IEnumerator StartingCharMovement()
@@ -111,7 +125,19 @@ public class RetroCastleLevelManager : MonoBehaviour
         yield return new WaitUntil((() => DialogueController.instance.notDialogue));
         
         coroutine = StartCoroutine(santiagoAndGuards[0].GetComponent<EnemyMovement>().SpecialAnimaiton("pee"));
-        
+
         yield return coroutine;
+        yield return new WaitForSeconds(2);
+
+        cameraCanMove = true;
+        
+        yield return new WaitUntil((() => canMove));
+        
+        coroutine = StartCoroutine(players[0].SpecialAnimaiton("pee"));
+
+        yield return coroutine;
+        yield return new WaitForSeconds(2);
+        
+        players[0].GetComponent<Player>().playerState = Player.PlayerState.Playable;
     }
 }

@@ -183,5 +183,12 @@ public class PlayableMovement : MonoBehaviour
         yield return new WaitForSeconds(restTime);
     }
     
+    public IEnumerator SpecialAnimaiton(string trigger)
+    {
+        yield return new WaitForSeconds(restTime);
+        
+        animator.SetTrigger(trigger);
+    }
+    
     #endregion
 }

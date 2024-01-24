@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Others/Battle.unity
-    guid: 697ee05c44614b041aae47ed1dfd6484
-  - enabled: 1
-    path: Assets/Scenes/BeatMaking2.unity
-    guid: 4c703adedc2032348a183f89fcd70faf
+    path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night.unity
+    guid: d21916879763b35488733288309e536e
   m_configObjects: {}

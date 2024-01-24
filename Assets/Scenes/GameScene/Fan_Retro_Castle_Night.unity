@@ -6555,6 +6555,7 @@ MonoBehaviour:
   cameraConfigCollectionsList:
   - {fileID: 11400000, guid: 6ab72e63118bcde4fa04d1505ace6996, type: 2}
   - {fileID: 11400000, guid: 3f0b15ba6db594243969e3d403c8d697, type: 2}
+  - {fileID: 11400000, guid: 6c8f8a1d1cc2d064498dfe5f57e7693c, type: 2}
   cameraCanMove: 0
   canMove: 0
 --- !u!114 &2113971469
