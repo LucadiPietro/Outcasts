@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -7,6 +8,11 @@ using UnityEngine;
 public class RetroCastleNightCameraManager : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera;
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     public IEnumerator MoveCameraRoutine(Vector3 pos1, float FOV1, float restTime, float duration)
     {

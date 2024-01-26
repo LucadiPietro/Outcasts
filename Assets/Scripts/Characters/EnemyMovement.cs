@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using SAP2D;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Configuration")] public Animator animator;
     private Enemy enemy;
+    public SAP2DAgent agent;
 
     [Space(10)]
 
@@ -50,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
     [Space(10)]
     [Header("Special")] public Special specialEvent;
 
-    //[Space(10)]
+    [Space(10)] public GameObject special;
 
     #endregion
 
@@ -139,12 +141,19 @@ public class EnemyMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBeforeStartMovement);
 
-        foreach (var t in checkPoint)
+        agent.CanMove = true;
+        while (Vector2.Distance(agent.Target.position, transform.position)>0.1f)
         {
-            Movement(t.position, false);
+            var direction = (agent.Target.position - transform.position).normalized;
+            
+            animator.SetBool("Movement", true);
+            animator.SetFloat("x_Input", direction.x);
+            animator.SetFloat("y_Input", direction.y);
 
-            yield return new WaitUntil(() => !movementBool);
+            yield return null;
         }
+        agent.CanMove = false;
+        animator.SetBool("Movement", false);
 
         animator.SetFloat("idle_x_input", 0);
         animator.SetFloat("idle_y_input", -1);
@@ -157,6 +166,8 @@ public class EnemyMovement : MonoBehaviour
         if (specialEvent == Special.Animation)
         {
             animator.SetTrigger(trigger);
+
+            special.SetActive(true);
         }
     }
 

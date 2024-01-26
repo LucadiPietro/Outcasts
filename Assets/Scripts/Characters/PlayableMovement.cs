@@ -176,15 +176,14 @@ public class PlayableMovement : MonoBehaviour
         while (Vector2.Distance(agent.Target.position, transform.position)>0.1f)
         {
             var direction = (agent.Target.position - transform.position).normalized;
-
-            print(direction);
+            
             animator.SetBool("Movement", true);
             animator.SetFloat("x_Input", direction.x);
             animator.SetFloat("y_Input", direction.y);
 
             yield return null;
         }
-        agent.CanMove = true;
+        agent.CanMove = false;
         animator.SetBool("Movement", false);
         yield return new WaitForSeconds(restTime);
     }
