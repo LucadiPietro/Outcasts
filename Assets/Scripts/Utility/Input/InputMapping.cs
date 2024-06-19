@@ -398,6 +398,138 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GameGo"",
+            ""id"": ""35db5536-8aa5-4fdd-92ce-2e118492f7b4"",
+            ""actions"": [
+                {
+                    ""name"": ""ButtonUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""a330af8c-d5f8-44af-8acb-cccb17bb6e1d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ButtonLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2232ee65-2609-419b-9bdb-8c012185874f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ButtonDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""16257d19-c1e8-4dc0-8fea-f48ece09591c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ButtonRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d36054a-6429-49ee-898a-41f59e4fd93c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""331a6bfa-5537-4777-8de9-88294b9d81cd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b88d3fb7-430c-4d6d-ae13-08997bf22b8a"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51dd1ad5-1ed4-4373-837d-aa2ea44c2bfb"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04e9ff71-7f7c-47e6-b262-5438e6b4d9c6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""966f04ca-a592-40f8-8b1e-adae9f1dab31"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68c82dd5-6864-475a-bfaa-a33fc4124132"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""307cecf1-8db6-4306-8703-5500de3fd000"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f459470-0648-4291-ad5e-8f0850ab2bca"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -418,6 +550,12 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
         m_ActionMap_RB = m_ActionMap.FindAction("RB", throwIfNotFound: true);
         m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
         m_ActionMap_Select = m_ActionMap.FindAction("Select", throwIfNotFound: true);
+        // GameGo
+        m_GameGo = asset.FindActionMap("GameGo", throwIfNotFound: true);
+        m_GameGo_ButtonUp = m_GameGo.FindAction("ButtonUp", throwIfNotFound: true);
+        m_GameGo_ButtonLeft = m_GameGo.FindAction("ButtonLeft", throwIfNotFound: true);
+        m_GameGo_ButtonDown = m_GameGo.FindAction("ButtonDown", throwIfNotFound: true);
+        m_GameGo_ButtonRight = m_GameGo.FindAction("ButtonRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -610,6 +748,63 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
         }
     }
     public ActionMapActions @ActionMap => new ActionMapActions(this);
+
+    // GameGo
+    private readonly InputActionMap m_GameGo;
+    private IGameGoActions m_GameGoActionsCallbackInterface;
+    private readonly InputAction m_GameGo_ButtonUp;
+    private readonly InputAction m_GameGo_ButtonLeft;
+    private readonly InputAction m_GameGo_ButtonDown;
+    private readonly InputAction m_GameGo_ButtonRight;
+    public struct GameGoActions
+    {
+        private @InputMapping m_Wrapper;
+        public GameGoActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ButtonUp => m_Wrapper.m_GameGo_ButtonUp;
+        public InputAction @ButtonLeft => m_Wrapper.m_GameGo_ButtonLeft;
+        public InputAction @ButtonDown => m_Wrapper.m_GameGo_ButtonDown;
+        public InputAction @ButtonRight => m_Wrapper.m_GameGo_ButtonRight;
+        public InputActionMap Get() { return m_Wrapper.m_GameGo; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameGoActions set) { return set.Get(); }
+        public void SetCallbacks(IGameGoActions instance)
+        {
+            if (m_Wrapper.m_GameGoActionsCallbackInterface != null)
+            {
+                @ButtonUp.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                @ButtonUp.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                @ButtonUp.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                @ButtonLeft.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                @ButtonLeft.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                @ButtonLeft.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                @ButtonDown.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                @ButtonDown.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                @ButtonDown.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                @ButtonRight.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+                @ButtonRight.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+                @ButtonRight.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+            }
+            m_Wrapper.m_GameGoActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ButtonUp.started += instance.OnButtonUp;
+                @ButtonUp.performed += instance.OnButtonUp;
+                @ButtonUp.canceled += instance.OnButtonUp;
+                @ButtonLeft.started += instance.OnButtonLeft;
+                @ButtonLeft.performed += instance.OnButtonLeft;
+                @ButtonLeft.canceled += instance.OnButtonLeft;
+                @ButtonDown.started += instance.OnButtonDown;
+                @ButtonDown.performed += instance.OnButtonDown;
+                @ButtonDown.canceled += instance.OnButtonDown;
+                @ButtonRight.started += instance.OnButtonRight;
+                @ButtonRight.performed += instance.OnButtonRight;
+                @ButtonRight.canceled += instance.OnButtonRight;
+            }
+        }
+    }
+    public GameGoActions @GameGo => new GameGoActions(this);
     public interface IActionMapActions
     {
         void OnRight(InputAction.CallbackContext context);
@@ -626,5 +821,12 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
         void OnRB(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+    }
+    public interface IGameGoActions
+    {
+        void OnButtonUp(InputAction.CallbackContext context);
+        void OnButtonLeft(InputAction.CallbackContext context);
+        void OnButtonDown(InputAction.CallbackContext context);
+        void OnButtonRight(InputAction.CallbackContext context);
     }
 }
