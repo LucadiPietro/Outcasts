@@ -22,6 +22,7 @@
         [SerializeField] GameManager m_Manager;
         [SerializeField] ScrollRect m_ScrollView;
         [SerializeField] TextMeshProUGUI m_TimerLabel;
+        [SerializeField] CanvasGroup m_GameStateCanvas;
         [SerializeField] CanvasGroup m_AlertCanvas;
 
         [Header("Characters")]
@@ -74,7 +75,7 @@
                 var prefab = m_ActionToPrefab[stealAction];
                 var view = Instantiate(prefab, ActionContainer);
                 view.Action = stealAction;
-                view.SetActive(i == 0);
+                view.SetSize(GetActionSize(i));
                 m_SpawnedViews.Add(view);
             }
 
@@ -89,6 +90,8 @@
 
             m_Input.GameGo.Enable();
             m_IsGameRunning = true;
+
+            m_GameStateCanvas.DOFade(1f, 0.2f);
         }
         // Called when the game is over (might be delayed by some animation playing)
         void StopView()
@@ -105,6 +108,8 @@
                 if (view != null) Destroy(view);
             }
             m_SpawnedViews.Clear();
+
+            m_GameStateCanvas.DOFade(0f, 0.2f);
         }
 
         // Called by the input system. Forwards the action to the Manager and shows the correct feedback based on the result
@@ -160,10 +165,14 @@
                 // If there's at least one more view, activate it and scroll to focus on it
                 if (m_SpawnedViews.Count > 0)
                 {
-                    var nextView = m_SpawnedViews[0];
                     // This starts an animation that spans the next m_ButtonTransitionDuration seconds
-                    nextView.SetActive(true, m_ButtonTransitionDuration);
+                    for (int i = 0; i < Mathf.Min(4, m_SpawnedViews.Count); i++)
+                    {
+                        var viewToResize = m_SpawnedViews[i];
+                        viewToResize.SetSize(GetActionSize(i), m_ButtonTransitionDuration);
+                    }
 
+                    var nextView = m_SpawnedViews[0];
                     // Since the animation might change the size of the view, we need to recalculate the desired scroll position every frame
                     float elapsed = 0f;
                     float startScrollPosition = m_ScrollView.verticalNormalizedPosition;
@@ -190,6 +199,7 @@
                 }
             }
         }
+        float GetActionSize(int index) => 1f - (Mathf.Clamp(index, 0, 4) / 3f);
 
         // Tints the timer red
         void ShowTimePenalty()

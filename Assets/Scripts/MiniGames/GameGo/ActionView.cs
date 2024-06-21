@@ -35,20 +35,18 @@
             // TODO: Implement VFX
         }
 
-        bool m_IsActive;
-        public bool IsActive => m_IsActive;
-
         /// <summary>
-        /// Makes the view Active or Inactive (Active means it's the current button to press)
+        /// Makes the view bigger or smaller based on the sizePercentage; 0 is the smallest, 1 is full size
         /// </summary>
-        public void SetActive(bool isActive, float animationDuration = 0)
+        public void SetSize(float sizePercentage, float animationDuration = 0)
         {
+            sizePercentage = Mathf.Clamp01(sizePercentage);
+
             bool isImmediate = animationDuration == 0;
-            m_IsActive = isActive;
 
             m_UiElement.DOKill();
             // Inactive buttons are smaller
-            var size = GetSize(isActive);
+            var size = GetSize(sizePercentage);
             if (isImmediate)
             {
                 m_UiElement.preferredWidth = size.x;
@@ -57,19 +55,18 @@
             else m_UiElement.DOPreferredSize(size, animationDuration);
         }
 
-        const float kPreviewScale = 0.6f;
+        const float kPreviewScale = 0.5f;
         const float kSize = 150f;
         public static float FullSize => kSize;
         public static float ReducedSize => kSize * kPreviewScale;
 
-        Vector2 GetSize(bool isActive)
+        Vector2 GetSize(float sizePercentage)
         {
-            var result = new Vector2(kSize, kSize);
-            if (!isActive) result *= kPreviewScale;
-            return result;
+            float size = kSize * Mathf.Lerp(kPreviewScale, 1f, sizePercentage);
+            return new Vector2(size, size);
         }
 
-        void OnEnable() => SetActive(false);
-        void OnDisable() => SetActive(true);
+        void OnEnable() => SetSize(0);
+        void OnDisable() => SetSize(1);
     }
 }
