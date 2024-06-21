@@ -24,7 +24,7 @@
         /// </summary>
         public void ShowSuccess()
         {
-            m_Canvas.alpha = 0f;
+            m_Canvas.DOFade(0, 0.2f);
             // TODO: Implement VFX
         }
         /// <summary>

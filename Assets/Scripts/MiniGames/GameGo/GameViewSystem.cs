@@ -52,13 +52,18 @@
 
         void OnEnable()
         {
-            m_Manager.GameStarted += SetupView;
+            m_Manager.GameStarted += Show;
+            m_Manager.GameLost += HideIfTimeUp;
             m_Guard.FocusChanged += UpdateAlertCanvas;
             UpdateAlertCanvas();
         }
         void OnDisable()
         {
-            if (m_Manager != null) m_Manager.GameStarted -= SetupView;
+            if (m_Manager != null)
+            {
+                m_Manager.GameStarted -= Show;
+                m_Manager.GameLost -= HideIfTimeUp;
+            }
             if (m_Guard != null) m_Guard.FocusChanged -= UpdateAlertCanvas;
         }
 
@@ -66,7 +71,7 @@
         bool m_IsGameRunning = false;
 
         // Called when the game starts
-        void SetupView()
+        void Show()
         {
             // Spawn views for each action to perform
             for (int i = 0; i < m_Manager.GameDefinition.ActionsToPerform.Count; i++)
@@ -94,7 +99,7 @@
             m_GameStateCanvas.DOFade(1f, 0.2f);
         }
         // Called when the game is over (might be delayed by some animation playing)
-        void StopView()
+        void Hide()
         {
             if (!m_IsGameRunning) return;
 
@@ -111,18 +116,26 @@
 
             m_GameStateCanvas.DOFade(0f, 0.2f);
         }
+        void HideIfTimeUp(FailReason failReason)
+        {
+            // Only hide if the time ran out while not performing any action, because it's already handled by PerformAction otherwise
+            if (!m_IsPerformingActions && failReason == FailReason.OutOfTime) Hide();
+        }
 
+        bool m_IsPerformingActions = false;
         // Called by the input system. Forwards the action to the Manager and shows the correct feedback based on the result
         void PerformAction(StealAction actionPerformed)
         {
             IEnumerator PerformActionAwaitable(StealAction actionPerformed)
             {
+                m_IsPerformingActions = true;
                 m_Input.GameGo.Disable();
                 var result = m_Manager.PerformAction(actionPerformed);
                 m_Stealer.Steal();
                 yield return ShowFeedback(result);
-                if (m_Manager.GameState != GameState.Running) StopView();
+                if (m_Manager.GameState != GameState.Running) Hide();
                 else m_Input.GameGo.Enable();
+                m_IsPerformingActions = false;
             }
             StartCoroutine(PerformActionAwaitable(actionPerformed));
         }
@@ -137,7 +150,7 @@
                 // TODO: Show FX for when you get caught
                 currentView.ShowError();
                 m_SfxGameLost.Play();
-                if (m_Manager.GameState == GameState.Lost) StopView();
+                if (m_Manager.GameState == GameState.Lost) Hide();
             }
             // You've pressed the wrong button
             else if (actionSummary.ActionPerformed != actionSummary.ActionToPerform)
@@ -148,7 +161,7 @@
                 if (m_Manager.GameState == GameState.Lost)
                 {
                     m_SfxGameLost.Play();
-                    StopView();
+                    Hide();
                 }
                 else m_SfxStealMistake.Play();
             }
@@ -195,7 +208,7 @@
                 if (m_Manager.GameState == GameState.Won)
                 {
                     m_SfxGameWon.Play();
-                    StopView();
+                    Hide();
                 }
             }
         }
