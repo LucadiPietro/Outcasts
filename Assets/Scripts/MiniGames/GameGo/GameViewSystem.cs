@@ -1,5 +1,6 @@
 ﻿namespace Minigames.GameGo
 {
+    using Common.Cutscenes;
     using DG.Tweening;
     using LemonGames;
     using System.Collections;
@@ -24,12 +25,13 @@
         [SerializeField] TextMeshProUGUI m_TimerLabel;
         [SerializeField] CanvasGroup m_GameStateCanvas;
         [SerializeField] CanvasGroup m_AlertCanvas;
+        [SerializeField] AwaitableAnimation m_StealAction;
 
         [Header("Characters")]
-        [SerializeField] StealerCharacterController m_Stealer;
-        [SerializeField] CharacterController m_Cover1;
-        [SerializeField] CharacterController m_Cover2;
-        [SerializeField] CharacterController m_Diversion;
+        [SerializeField] CharacterView m_Stealer;
+        [SerializeField] CharacterView m_Cover1;
+        [SerializeField] CharacterView m_Cover2;
+        [SerializeField] CharacterView m_Diversion;
         [SerializeField] GuardBrain m_Guard;
 
         [Space(5)]
@@ -131,7 +133,8 @@
                 m_IsPerformingActions = true;
                 m_Input.GameGo.Disable();
                 var result = m_Manager.PerformAction(actionPerformed);
-                m_Stealer.Steal();
+                m_StealAction.Execute();
+                //m_Stealer.Animator.SetTrigger(kSteal);
                 yield return ShowFeedback(result);
                 if (m_Manager.GameState != GameState.Running) Hide();
                 else m_Input.GameGo.Enable();

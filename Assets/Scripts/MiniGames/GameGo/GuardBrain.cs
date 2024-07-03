@@ -8,7 +8,7 @@
 
     public sealed class GuardBrain : MonoBehaviour
     {
-        [SerializeField] CharacterController m_Controller;
+        [SerializeField] CharacterView m_Controller;
 
         [SerializeField] Transform m_Stealer;
         [SerializeField] Transform m_Diversion;
