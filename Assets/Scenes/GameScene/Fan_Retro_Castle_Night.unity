@@ -1973,7 +1973,7 @@ MonoBehaviour:
     ShowGridParameters: 1
     ShowPathfindingSettings: 1
     ShowGridGraphSettigs: 0
-    ScaleLvl: 1
+    ScaleLvl: 2
   EditorSettings: {fileID: 11400000, guid: f54fe2e0866d59148bb49fcb7b6fd41b, type: 2}
   grids:
   - GridName: Default Grid 0
@@ -7394,10 +7394,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueController: {fileID: 752858034}
-  dialoguesTextAssetsPaths:
-  - Assets/Resources/DialogueSystem/Dialogues/DIALOGUE_TEST.xlsx
-  - Assets/Resources/DialogueSystem/Dialogues/DIALOGUE_TEST.xlsx
-  dialogueElements: []
+  m_Dialogues:
+  - {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+  - {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
 --- !u!1 &2136654545
 GameObject:
   m_ObjectHideFlags: 0

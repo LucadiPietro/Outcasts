@@ -1,3 +1,4 @@
+using Common.Dialogues;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ public class DialogueController : MonoBehaviour
     {
         instance = this;
     }
-    #endregion 
+    #endregion
 
     [Header("Important References")]
     [SerializeField] private GameObject dialogueBoxPrefab;
@@ -23,18 +24,20 @@ public class DialogueController : MonoBehaviour
 
     [Header("Dialogue Settings")]
     [SerializeField][Tooltip("This dictates how long dialogue boxes stay on screen. Lower/Higher to make them last longer/shorter")] private int wpmReadingSpeed;
-    [SerializeField] [Tooltip("Dictates how fast text appears in the box. Use 0 if you wish for it to appear immediately.")] private float textTypeSpeed = 0.1f;
+    [SerializeField][Tooltip("Dictates how fast text appears in the box. Use 0 if you wish for it to appear immediately.")] private float textTypeSpeed = 0.1f;
     public SO_CharacterList characterList;
     public SO_TextStyleList textStyleList;
 
     [Header("Textbox Lerp Settings")]
-    [SerializeField][Tooltip("Lerp the texbox into place once it is called. This can be configured on the TextBox prefabs UiLerpElement component.")] 
+    [SerializeField]
+    [Tooltip("Lerp the texbox into place once it is called. This can be configured on the TextBox prefabs UiLerpElement component.")]
     private bool lerpDialogueBoxesIn = false;
-    [SerializeField][Tooltip("True: Lerp effect is only applied to the first box showing up in the que. \n" +
-                            "False: Lerp effect is applied to every box in the que.")] 
+    [SerializeField]
+    [Tooltip("True: Lerp effect is only applied to the first box showing up in the que. \n" +
+                            "False: Lerp effect is applied to every box in the que.")]
     private bool onlyLerpFirstBoxInQue = false;
     private bool isWaitingForInput = false;
-    private bool isTextFullyDisplayed = false; 
+    private bool isTextFullyDisplayed = false;
 
     private List<GameObject> dialogueInstanceQue = new List<GameObject>();
     private Coroutine queIterationCoroutine;
@@ -44,14 +47,14 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
-        if(dialogueInstanceQue.Count == 0)
+        if (dialogueInstanceQue.Count == 0)
         {
             notDialogue = true;
             return;
         }
 
         notDialogue = false;
-        
+
         if ((Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
             (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
@@ -61,8 +64,8 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
-                 dialogueInstanceQue[0].GetComponent<Textbox>().DisplayTextImmediately();
-                 Invoke(nameof(SetNextTime), 0.2f);
+                dialogueInstanceQue[0].GetComponent<Textbox>().DisplayTextImmediately();
+                Invoke(nameof(SetNextTime), 0.2f);
             }
         }
     }
@@ -93,6 +96,7 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    [Obsolete("Use PlayDialogue instead")]
     public void NewDialogueInstance(string dialogue, string characterID)
     {
         if (characterList == null)
@@ -120,6 +124,56 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    public void PlayDialogue(DialogueData dialogue)
+    {
+        if (dialogueInstanceQue.Count > 0)
+        {
+            Debug.Log("<color=cyan>Already playing a dialogue. Cannot start playing a second one. Please, wait for the previous one to complete before calling this method again</color>", this);
+            return;
+        }
+
+        int lineCount = dialogue.Lines.Count;
+        for (int i = 0; i < lineCount; i++)
+        {
+            var line = dialogue.Lines[i];
+
+            var text = line.Text;
+
+            var speaker = line.Speaker;
+
+            if (speaker == null)
+            {
+                Debug.Log($"<color=cyan>Dialogue {dialogue.name} contains a null character at line {i}</color>");
+                return;
+            }
+            var emotion = line.GetEmotion();
+
+            GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
+            newDialogueBox.GetComponent<Textbox>().InitializeTextbox(ParseDialogueCustomStyle(text), speaker, emotion);
+            newDialogueBox.SetActive(false);
+            dialogueInstanceQue.Add(newDialogueBox);
+        }
+
+        if (queIterationCoroutine == null)
+        {
+            firstQueIndex = true;
+            queIterationCoroutine = StartCoroutine(IterateQue());
+        }
+    }
+    public IEnumerator PlayDialogueAwaitable(DialogueData dialogue)
+    {
+        if (dialogueInstanceQue.Count > 0)
+        {
+            Debug.Log("<color=cyan>Already playing a dialogue. Cannot start playing a second one. Please, wait for the previous one to complete before calling this method again</color>", this);
+            yield break;
+        }
+
+        PlayDialogue(dialogue);
+
+        // Wait until there's nothing in the queue
+        while (dialogueInstanceQue.Count > 0) yield return null;
+    }
+
     private IEnumerator IterateQue()
     {
         dialogueInstanceQue[0].SetActive(true);
@@ -138,7 +192,7 @@ public class DialogueController : MonoBehaviour
                 {
                     lerpElement.StartLerp();
                 }
-                
+
             }
             else
             {
@@ -160,7 +214,7 @@ public class DialogueController : MonoBehaviour
 
             yield return new WaitUntil(() => currentTextBox.isTextFullyDisplayed);
             yield return new WaitForSeconds(0.2f);
-            
+
             isTextFullyDisplayed = true;
             isWaitingForInput = true;
         }
@@ -193,7 +247,7 @@ public class DialogueController : MonoBehaviour
                 string matchedTag = match.ToString();
                 int tagStartIndex = rawString.IndexOf(matchedTag);
                 int stringStartIndex = tagStartIndex + matchedTag.Length;
-                
+
                 //Get our ending tag index in our raw string
                 string closeTag = matchedTag.Insert(1, @"/");
                 int tagEndIndex = rawString.IndexOf(closeTag) + closeTag.Length;
@@ -207,21 +261,21 @@ public class DialogueController : MonoBehaviour
                 CustomTextStyle textStyle = textStyleList.GetTextStyle(matchedTag.Replace("[", "").Replace("]", ""));
                 if (textStyle == null)
                 {
-                    Debug.Log("<color=cyan>Could not find the custom text style [" + matchedTag + "] in your text: "+ rawString +"</color>");
+                    Debug.Log("<color=cyan>Could not find the custom text style [" + matchedTag + "] in your text: " + rawString + "</color>");
                     return rawString;
                 }
-                
+
                 //Apply RichText tags here!
                 if (textStyle.isAllCaps)
                 {
                     taglessString = "<allcaps>" + taglessString + "</allcaps>";
                 }
-                
+
                 if (textStyle.overrideCharacterSpacing)
                 {
                     taglessString = "<cspace=" + textStyle.spacingSize + ">" + taglessString + "</cspace>";
                 }
-                
+
                 if (textStyle.isStrikeThrough)
                 {
                     taglessString = "<s>" + taglessString + "</s>";
@@ -236,7 +290,7 @@ public class DialogueController : MonoBehaviour
                 {
                     taglessString = "<b>" + taglessString + "</b>";
                 }
-                
+
                 if (textStyle.isItalic)
                 {
                     taglessString = "<i>" + taglessString + "</i>";
@@ -263,11 +317,11 @@ public class DialogueController : MonoBehaviour
                 if (textStyle.useTextAnimation)
                 {
                     taglessString = "<animate=" + textStyle.textAnimationSettings.GetSettingsSeed() + ">" + taglessString + "</animate>";
-                }      
-                
+                }
+
                 rawString = rawString.Replace(taggedString, taglessString);
             }
-            
+
             return rawString;
         }
         else

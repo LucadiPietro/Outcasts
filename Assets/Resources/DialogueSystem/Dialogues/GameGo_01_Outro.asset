@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b4ae4e47a3e1142abb0821ebec2533, type: 3}
+  m_Name: GameGo_01_Outro
+  m_EditorClassIdentifier: 
+  m_Lines:
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'Such a gut wrenching commentary of
+
+      the state of affairs in this
+
+      country.'
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: "The hell you\u2019re looking at me for?"
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'Jason, you truly are a special kind
+
+      of ignorant.'
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: Bye.
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: Cheers.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: Lovely shop you have.
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: You had one job Diego!
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: 'Hell if I know, they must have a
+
+      backup somewhere.'
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: Sons of bitches... what now?
+  - m_Speaker: {fileID: 11400000, guid: d701a65494f9bac4ea988441509161c9, type: 2}
+    m_Emotion: 3
+    m_Text: THIEVES!
+  - m_Speaker: {fileID: 11400000, guid: 7e4299804ffc0e4419837a80e81f1dac, type: 2}
+    m_Emotion: 3
+    m_Text: SCOUNDRELS!
+  - m_Speaker: {fileID: 11400000, guid: 18124adcffe9f0c4090196873ee0ba48, type: 2}
+    m_Emotion: 3
+    m_Text: DELINQUENTS!
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: 'What the fuck guys, you were
+
+      stealing again!?'
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'I admit nothing! Come on Mister,
+
+      this is where we run!'
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: You used me as bait Alex!

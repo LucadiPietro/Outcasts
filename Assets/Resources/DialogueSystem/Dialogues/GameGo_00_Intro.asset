@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b4ae4e47a3e1142abb0821ebec2533, type: 3}
+  m_Name: GameGo_00_Intro
+  m_EditorClassIdentifier: 
+  m_Lines:
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'No more than two bags worth, you
+
+      got that? We take what we can
+
+      carry.'
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: "How\u2019s the distraction?"
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: "How\u2019s it going there, Mister? You\njust keep looking around we\u2019ll
+      be a\nminute."
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: 'Guys, Neverending Quest 19 is on
+
+      sale!'
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'See if they have any copies of 20
+
+      left.'
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: "The collector\u2019s edition!"
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: "We\u2019re good."
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "What if it doesn\u2019t work?"
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: 'Have faith. The pox of internalized
+
+      racism will make it work.'
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: 'I think I finally get what white
+
+      privilege means.'
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "He\u2019s getting closer!"
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: Your move, Diego.
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: "Move it! I\u2019m too pretty to go to\njail."
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: ...this is messed up.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: Pardon me good sir.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "First of all, I\u2019m no racist, far be\nif from me. "
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: 'But. You see over there
+
+      is a black fellow with the look of
+
+      a
+      miscreant about him over there,
+
+'
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "not that I\u2019m saying the two are\nnecessarily related "
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: 'it could just
+
+      as well have been a Caucasian or an
+
+      Asian, '
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "the point is that we\nshouldn\u2019t discriminate based on\n"
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "something so trivial as the color\nof one\u2019s skin do you see where
+      I\u2019m\ncoming from? "
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "Be that as it may it\u2019s the\ngentleman in question over there\nwith
+      a large backpack,"
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: " in a sort of\npuddle of mud brownish grey that\nlooks well past it\u2019s
+      prime. "
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: "I\u2019m\njust doing my civic duty, I\u2019m sure\nyou understand\u2026"
+  - m_Speaker: {fileID: 11400000, guid: d701a65494f9bac4ea988441509161c9, type: 2}
+    m_Emotion: 0
+    m_Text: Hey, you there! With the backpack!
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: What did I do?
+  - m_Speaker: {fileID: 11400000, guid: d17b5624f21961844bb47abb349807ec, type: 2}
+    m_Emotion: 0
+    m_Text: Showtime.

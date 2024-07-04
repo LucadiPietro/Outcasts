@@ -1,65 +1,15 @@
-using System;
-using System.Collections;
+using Common.Dialogues;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using ExcelDataReader;
-
-[Serializable]
-public class DialogueElement
-{
-    public List<string> characters;
-    public List<string> dialogue;
-    
-    public DialogueElement()
-    {
-        characters = new List<string>();
-        dialogue = new List<string>();
-    }
-}
 
 public class RetroCastleDialogueManager : MonoBehaviour
 {
     public DialogueController dialogueController;
-    public List<string> dialoguesTextAssetsPaths;
-
-    public List<DialogueElement> dialogueElements;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        dialogueElements = new List<DialogueElement>();
-        LoadData();
-    }
-
-
-    void LoadData()
-    {
-        foreach (var excelFile in dialoguesTextAssetsPaths)
-        {
-            DialogueElement newDialogueElement = new DialogueElement();
-            using (var stream = File.Open(excelFile, FileMode.Open, FileAccess.Read))
-            {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
-                {
-                    while (reader.Read())
-                    {
-                        newDialogueElement.characters.Add(reader.GetString(0)); 
-                        newDialogueElement.dialogue.Add(reader.GetString(1)); 
-                    }
-                }
-            }
-
-            dialogueElements.Add(newDialogueElement); 
-        }
-    }
+    [SerializeField] List<DialogueData> m_Dialogues;
 
     public void StartDialague(int index)
     {
-        var element = dialogueElements[index];
-        for (int i = 0; i < element.dialogue.Count; i++)
-        {
-            dialogueController.NewDialogueInstance(element.dialogue[i], element.characters[i]);
-        }
+        var element = m_Dialogues[index];
+        dialogueController.PlayDialogue(element);
     }
 }

@@ -13,6 +13,8 @@
     /// </summary>
     public sealed class AwaitableAnimation : AwaitableActionBase
     {
+        public string Trigger => m_Trigger;
+
         public override void Execute()
         {
             m_Animator.SetTrigger(TriggerHash);

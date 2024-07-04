@@ -28,10 +28,10 @@
         [SerializeField] AwaitableAnimation m_StealAction;
 
         [Header("Characters")]
-        [SerializeField] CharacterView m_Stealer;
-        [SerializeField] CharacterView m_Cover1;
-        [SerializeField] CharacterView m_Cover2;
-        [SerializeField] CharacterView m_Diversion;
+        [SerializeField] CutsceneCharacter m_Stealer;
+        [SerializeField] CutsceneCharacter m_Cover1;
+        [SerializeField] CutsceneCharacter m_Cover2;
+        [SerializeField] CutsceneCharacter m_Diversion;
         [SerializeField] GuardBrain m_Guard;
 
         [Space(5)]
@@ -90,10 +90,10 @@
             m_ScrollView.verticalNormalizedPosition = 0;
 
             // Prepare characters
-            m_Stealer.LookAtDirection(Vector2.up);
-            m_Cover1.LookAtDirection(Vector2.up);
-            m_Cover2.LookAtDirection(Vector2.up);
-            m_Diversion.LookAtDirection(Vector2.right);
+            m_Stealer.View.LookAtDirection(Vector2.up);
+            m_Cover1.View.LookAtDirection(Vector2.up);
+            m_Cover2.View.LookAtDirection(Vector2.up);
+            m_Diversion.View.LookAtDirection(Vector2.right);
 
             m_Input.GameGo.Enable();
             m_IsGameRunning = true;
@@ -231,7 +231,7 @@
 
         void UpdateAlertCanvas()
         {
-            float alpha = m_Guard.IsFocusedOnStealer ? 1f : 0f;
+            float alpha = m_Manager.GameState == GameState.Running && m_Guard.IsFocusedOnStealer ? 1f : 0f;
             m_AlertCanvas.DOFade(alpha, 0.1f);
         }
 

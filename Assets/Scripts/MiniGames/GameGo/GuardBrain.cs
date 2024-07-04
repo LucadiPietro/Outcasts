@@ -32,12 +32,18 @@
         /// </summary>
         public void StopPattern()
         {
+            var transparent = m_AlertedColor;
+            transparent.a = 0;
+
+            m_Cone.ApplySettings(m_Cone.ViewAngle, m_Cone.ViewRadius, transparent);
             m_Pattern = null;
             StopAllCoroutines();
         }
         IEnumerator ExecutePatternAwaitable(GuardPattern pattern)
         {
             if (pattern.States.Count == 0) yield break;
+
+            m_Cone.ApplySettings(m_Cone.ViewAngle, m_Cone.ViewRadius, m_AlertedColor);
 
             int i = 0;
             // The guard can go on forever...
@@ -113,7 +119,7 @@
                 m_CurrentTarget = value;
 
                 var coneColor = IsFocusedOnStealer ? m_AlertedColor : m_DistractedColor;
-                m_Cone.ApplySettings(m_Cone.ViewAngle, m_Cone.ViewRadius, coneColor);
+                if (m_Pattern != null) m_Cone.ApplySettings(m_Cone.ViewAngle, m_Cone.ViewRadius, coneColor);
 
                 OnFocusChanged();
             }
