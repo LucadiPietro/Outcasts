@@ -75,9 +75,10 @@ public class Textbox : MonoBehaviour
                 nameTextImage.color = emotion.Color;
             }
 
+            bool showAvatar = emotion.Image != null;
             if (characterSpriteBackground != null)
             {
-                characterSpriteBackground.gameObject.SetActive(true);
+                characterSpriteBackground.gameObject.SetActive(showAvatar);
                 characterSpriteBackground.color = emotion.Color;
             }
 

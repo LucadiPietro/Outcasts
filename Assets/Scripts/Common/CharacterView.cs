@@ -1,4 +1,4 @@
-﻿namespace Minigames.GameGo
+﻿namespace Common
 {
     using LemonGames;
     using System.Collections;

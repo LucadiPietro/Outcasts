@@ -14,8 +14,13 @@
         [SerializeField] Color m_WinColor;
         [SerializeField] Color m_FailColor;
 
+        GameState m_State;
+        public GameState State => m_State;
+
         public void Show(GameState gameState, string message = "")
         {
+            m_State = gameState;
+
             m_FeedbackLabel.text = message;
             m_FeedbackLabel.gameObject.SetActive(!string.IsNullOrEmpty(message));
 

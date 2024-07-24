@@ -1,6 +1,6 @@
 ﻿namespace Common.Dialogues
 {
-
+    using NaughtyAttributes;
     using System;
     using UnityEngine;
 
@@ -13,7 +13,7 @@
         [SerializeField] EmotionId m_Emotion;
         public EmotionId Emotion => m_Emotion;
 
-        [SerializeField] string m_Text;
+        [SerializeField, ResizableTextArea, AllowNesting] string m_Text;
         public string Text => m_Text;
 
         public Speaker.Emotion GetEmotion() => Speaker.GetEmotion(Emotion);

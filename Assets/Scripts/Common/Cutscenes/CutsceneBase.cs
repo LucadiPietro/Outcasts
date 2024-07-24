@@ -22,12 +22,12 @@ namespace Common.Cutscenes
             get => false;
             private set
             {
-                Debug.LogError($"{nameof(WasPlayed)} is not implemented yet");
+                Debug.LogWarning($"{nameof(WasPlayed)} is not implemented yet");
             }
         }
 
         public void Play() => StartCoroutine(PlayAwaitable());
-        public void MoveToEnd()
+        protected void StopPlaying()
         {
             if (m_IsPlaying)
             {
@@ -43,6 +43,8 @@ namespace Common.Cutscenes
             }
         }
 
+        public virtual void FastForward() { }
+
         Coroutine m_SequenceCoroutine = default;
         bool m_IsPlaying = false;
         public IEnumerator PlayAwaitable()
@@ -55,7 +57,7 @@ namespace Common.Cutscenes
                 m_SequenceCoroutine = StartCoroutine(Sequence());
                 yield return m_SequenceCoroutine;
                 WasPlayed = true;
-                MoveToEnd();
+                StopPlaying();
             }
             else OnSkipped();
         }

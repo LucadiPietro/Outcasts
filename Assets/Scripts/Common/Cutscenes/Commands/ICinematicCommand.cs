@@ -7,5 +7,6 @@
         bool ShouldWaitEnd { get; }
         void Execute();
         IEnumerator ExecuteAwaitable();
+        void FastForward();
     }
 }

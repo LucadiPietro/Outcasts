@@ -1,6 +1,5 @@
 ﻿namespace Common.Cutscenes
 {
-    using Minigames.GameGo;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -15,5 +14,8 @@
 
         [SerializeField] CharacterView m_View;
         public CharacterView View => m_View;
+
+        [SerializeField] Movable m_Movable;
+        public Movable Movable => m_Movable;
     }
 }

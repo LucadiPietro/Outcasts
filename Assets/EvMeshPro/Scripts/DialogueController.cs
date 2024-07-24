@@ -123,17 +123,16 @@ public class DialogueController : MonoBehaviour
             queIterationCoroutine = StartCoroutine(IterateQue());
         }
     }
-
-    public void PlayDialogue(DialogueData dialogue)
+    public void PlayDialogue(DialogueData dialogue) => PlayDialogue((DialogueSlice)dialogue);
+    public void PlayDialogue(DialogueSlice dialogueSlice)
     {
         if (dialogueInstanceQue.Count > 0)
         {
             Debug.Log("<color=cyan>Already playing a dialogue. Cannot start playing a second one. Please, wait for the previous one to complete before calling this method again</color>", this);
             return;
         }
-
-        int lineCount = dialogue.Lines.Count;
-        for (int i = 0; i < lineCount; i++)
+        var dialogue = dialogueSlice.Dialogue;
+        for (int i = dialogueSlice.StartLineIndex; i < dialogueSlice.StartLineIndex + dialogueSlice.LineCount; i++)
         {
             var line = dialogue.Lines[i];
 
@@ -162,16 +161,29 @@ public class DialogueController : MonoBehaviour
     }
     public IEnumerator PlayDialogueAwaitable(DialogueData dialogue)
     {
+        yield return PlayDialogueAwaitable((DialogueSlice)dialogue);
+    }
+    public IEnumerator PlayDialogueAwaitable(DialogueSlice dialogueSlice)
+    {
         if (dialogueInstanceQue.Count > 0)
         {
             Debug.Log("<color=cyan>Already playing a dialogue. Cannot start playing a second one. Please, wait for the previous one to complete before calling this method again</color>", this);
             yield break;
         }
 
-        PlayDialogue(dialogue);
+        PlayDialogue(dialogueSlice);
 
         // Wait until there's nothing in the queue
         while (dialogueInstanceQue.Count > 0) yield return null;
+    }
+    public void StopCurrentDialogue()
+    {
+        if (dialogueInstanceQue.Count > 0) dialogueInstanceQue.Clear();
+        if (queIterationCoroutine != null)
+        {
+            StopCoroutine(queIterationCoroutine);
+            queIterationCoroutine = null;
+        }
     }
 
     private IEnumerator IterateQue()

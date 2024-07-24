@@ -140,7 +140,7 @@ Transform:
   m_Children:
   - {fileID: 6573479176939714128}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6181325224391211450
 MonoBehaviour:
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_View: {fileID: 2694653505928447662}
+  m_Movable: {fileID: 5110326470049612007}
 --- !u!114 &5110326470049612007
 MonoBehaviour:
   m_ObjectHideFlags: 0

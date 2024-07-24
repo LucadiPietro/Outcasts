@@ -1,10 +1,9 @@
-﻿namespace Minigames.GameGo
+﻿namespace Common
 {
     using NaughtyAttributes;
     using Pathfinding;
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public sealed class Movable : MonoBehaviour
@@ -21,11 +20,12 @@
         [SerializeField] CharacterView m_View;
 
         bool m_IsMoving = false;
-        public void MoveTo(Vector2 destination, MoveType walkType = MoveType.Walk)
+        public void MoveTo(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk)
         {
-            StartCoroutine(MoveToAwaitable(destination, walkType));
+            StartCoroutine(MoveToAwaitable(destination, lookAt, walkType));
         }
-        public IEnumerator MoveToAwaitable(Vector2 destination, MoveType walkType = MoveType.Walk)
+
+        public IEnumerator MoveToAwaitable(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk)
         {
             if (m_IsMoving) throw new InvalidOperationException($"Character {gameObject.name} cannot start moving because it already is");
 
@@ -63,6 +63,8 @@
 
             m_Agent.maxSpeed = previousMaxSpeed;
             m_IsMoving = false;
+
+            if (lookAt.HasValue) m_View.LookAtPosition(lookAt.Value);
         }
 
         /// <summary>
@@ -84,52 +86,6 @@
                 case MoveType.Walk:
                 default: return m_WalkSpeed;
             }
-        }
-    }
-    public enum MoveType
-    {
-        Walk,
-        Run,
-        Crouch,
-    }
-
-    public abstract class ObjectCollection<T> : MonoBehaviour where T : UnityEngine.Object
-    {
-        [SerializeField] List<T> m_List;
-        public IReadOnlyList<T> List => m_List;
-
-        public void Add(T item)
-        {
-            m_List.Add(item);
-            OnAdded(item);
-        }
-        public bool Remove(T item)
-        {
-            bool wasRemoved = m_List.Remove(item);
-            if (wasRemoved) OnRemoved(item);
-            return wasRemoved;
-        }
-
-        Action<T> m_Added;
-        public event Action<T> Added
-        {
-            add { m_Added += value; }
-            remove { m_Added -= value; }
-        }
-        void OnAdded(T item)
-        {
-            if (m_Added != null) m_Added(item);
-        }
-
-        Action<T> m_Removed;
-        public event Action<T> Removed
-        {
-            add { m_Removed += value; }
-            remove { m_Removed -= value; }
-        }
-        void OnRemoved(T item)
-        {
-            if (m_Removed != null) m_Removed(item);
         }
     }
 }

@@ -13,153 +13,116 @@ MonoBehaviour:
   m_Name: DIALOGUE_TEST
   m_EditorClassIdentifier: 
   m_Lines:
-  - m_CharacterId: DIEGO_DUBBIO
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 1
     m_Text: Are we completely sure there aren't any dragons inside the castle?
-  - m_CharacterId: ANDRE_4
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: I hate dragons!
-  - m_CharacterId: DIEGO_SORPRESA
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 5
     m_Text: This is the first I'm hearing of this, what do you mean you hate dragons?
-  - m_CharacterId: ANDRE_2
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: "They're\u2026"
-  - m_CharacterId: DIEGO_IRRITATO
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 3
     m_Text: Out with it man, we haven't got all day!
-  - m_CharacterId: ANDRE_3
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: 'They''re overrated, OK? '
-  - m_CharacterId: ANDRE_5
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: There, I said it.
-  - m_CharacterId: DIEGO_DUBBIO
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 1
     m_Text: Say what now?
-  - m_CharacterId: ANDRE_2
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: 'I do, I think they''re overrated. '
-  - m_CharacterId: ANDRE_6
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: It's always dragons, everywhere you look, always dragons.
-  - m_CharacterId: DIEGO_5
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: 'Well... I mean yeah. '
-  - m_CharacterId: ANDRE_1
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: All I'm saying is, would it kill them to put in a manticore every once
       in a while?
-  - m_CharacterId: DIEGO_4
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: It's true, you don't see many manticores about these days.
-  - m_CharacterId: JIMMY_1
-    m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
     m_Emotion: 0
     m_Text: Castle's empty by the way, we've all been waiting on you for the past
       10 minutes.
-  - m_CharacterId: ANDRE_6
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: You might have called us, you know.
-  - m_CharacterId: JIMMY_1
-    m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
     m_Emotion: 0
     m_Text: Whatever.
-  - m_CharacterId: DIEGO_3
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: We might as well be on our way.
-  - m_CharacterId: ANDRE_1
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: 'I guess. '
-  - m_CharacterId: DIEGO_4
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: How about wyverns?
-  - m_CharacterId: ANDRE_2
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: What's that now?
-  - m_CharacterId: DIEGO_1
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: Wyverns.
-  - m_CharacterId: ANDRE_1
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: What about them?
-  - m_CharacterId: DIEGO_3
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: I mean is it all dragons, or are you cool with wyverns?
-  - m_CharacterId: ANDRE_3
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: Wyverns aren't dragons, they're wyverns.
-  - m_CharacterId: DIEGO_4
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: You know what I mean, and yes they are.
-  - m_CharacterId: ANDRE_4
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: They are not!
-  - m_CharacterId: DIEGO_5
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: Dude, come on.
-  - m_CharacterId: ANDRE_5
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: I am holding fast on this one, they are two entirely different things.
-  - m_CharacterId: DIEGO_1
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: So?
-  - m_CharacterId: ANDRE_6
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: I guess they're a little bit better, but not by much.
-  - m_CharacterId: JASON_6
-    m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
     m_Emotion: 0
     m_Text: Where the hell have you guys been?
-  - m_CharacterId: JIMMY_1
-    m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
     m_Emotion: 0
     m_Text: Something about manticores.
-  - m_CharacterId: JASON_3
-    m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
     m_Emotion: 0
     m_Text: What's a manticore?
-  - m_CharacterId: ANDRE_7
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: So a manticore-
-  - m_CharacterId: JASON_7
-    m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
     m_Emotion: 0
     m_Text: Actually wait, I just remembered I don't care.
-  - m_CharacterId: ANDRE_5
-    m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: You're a horse's ass, Jason.
-  - m_CharacterId: DIEGO_6
-    m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
     m_Emotion: 0
     m_Text: Now that we can agree on.

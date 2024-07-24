@@ -28,10 +28,6 @@
         [SerializeField] AwaitableAnimation m_StealAction;
 
         [Header("Characters")]
-        [SerializeField] CutsceneCharacter m_Stealer;
-        [SerializeField] CutsceneCharacter m_Cover1;
-        [SerializeField] CutsceneCharacter m_Cover2;
-        [SerializeField] CutsceneCharacter m_Diversion;
         [SerializeField] GuardBrain m_Guard;
 
         [Space(5)]
@@ -88,12 +84,6 @@
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(ActionContainer);
             m_ScrollView.verticalNormalizedPosition = 0;
-
-            // Prepare characters
-            m_Stealer.View.LookAtDirection(Vector2.up);
-            m_Cover1.View.LookAtDirection(Vector2.up);
-            m_Cover2.View.LookAtDirection(Vector2.up);
-            m_Diversion.View.LookAtDirection(Vector2.right);
 
             m_Input.GameGo.Enable();
             m_IsGameRunning = true;
@@ -233,6 +223,13 @@
         {
             float alpha = m_Manager.GameState == GameState.Running && m_Guard.IsFocusedOnStealer ? 1f : 0f;
             m_AlertCanvas.DOFade(alpha, 0.1f);
+        }
+
+        [SerializeField] SpriteRenderer m_AlarmLights;
+        public void StartAlarm()
+        {
+            m_AlarmLights.DOFade(1f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+            m_AlertCanvas.DOFade(1f, 0.5f).SetLoops(-1, LoopType.Yoyo);
         }
 
         #region IGameGoAction implementation

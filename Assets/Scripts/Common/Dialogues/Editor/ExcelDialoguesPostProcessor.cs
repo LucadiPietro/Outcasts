@@ -112,7 +112,7 @@ namespace Common.Dialogues.Editor
                         if (string.IsNullOrEmpty(characterName)) break;
 
                         var emotionId = EmotionIdExtensions.FromString(reader.GetString(1));
-                        var text = reader.GetString(2);
+                        var text = reader.GetString(2).Replace(" \n ", "  ").Replace(" \n", " ").Replace("\n ", " ").Replace("\n", " ");
 
                         if (!database.TryGetSpeakerById(characterName, out var speaker))
                         {

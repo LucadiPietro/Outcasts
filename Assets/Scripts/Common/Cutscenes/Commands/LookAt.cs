@@ -7,27 +7,21 @@
     using System.Linq;
     using UnityEngine;
 
-    /// <summary>
-    /// Makes a Movable character Walk/Run/Crouch until it reaches a target Transform and then look into the Transform.up direction
-    /// </summary>
     [Serializable]
-    [AddTypeMenu("Character/Move")]
-    public sealed class MoveCharacter : ICinematicCommand
+    [AddTypeMenu("Character/Look at")]
+    public sealed class LookAt : ICinematicCommand
     {
-        public bool ShouldWaitEnd => m_ShouldWaitEnd;
+        public bool ShouldWaitEnd => true;
 
-        public void Execute()
-        {
-            m_Character.Movable.MoveTo(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType);
-        }
+        public void Execute() => m_Character.View.LookAtPosition(m_Target.position);
         public IEnumerator ExecuteAwaitable()
         {
-            yield return m_Character.Movable.MoveToAwaitable(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType);
+            Execute();
+            if (ShouldWaitEnd) yield break;
         }
         public void FastForward()
         {
-            m_Character.transform.position = m_Target.position;
-            m_Character.View.LookAtDirection(m_Target.up);
+            Execute();
         }
 
 #if UNITY_EDITOR
@@ -67,7 +61,7 @@
                 m_CharacterId = 0;
                 m_Character = null;
             }
-            else m_CharacterId = CharactersById.First(pair => pair.Value == m_Character).Key;
+            else m_CharacterId = m_CharactersById.First(pair => pair.Value == m_Character).Key;
 
             return list;
         }
@@ -77,17 +71,7 @@
         }
         #endregion
 #endif
-
         [SerializeField, Label("CharacterReference"), HideInInspector] CutsceneCharacter m_Character;
-        [SerializeField] MoveType m_WalkType;
         [SerializeField] Transform m_Target;
-
-        [SerializeField] bool m_ShouldWaitEnd = true;
-    }
-
-    public enum DestinationType
-    {
-        Transform,
-        Vector,
     }
 }

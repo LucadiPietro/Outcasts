@@ -8,6 +8,7 @@
     using UnityEngine;
 
     [Serializable]
+    [AddTypeMenu("Character/Animation")]
     public sealed class PlayAwaitableAnimation : ICinematicCommand
     {
         public bool ShouldWaitEnd => m_ShouldWaitEnd;
@@ -22,8 +23,9 @@
             if (m_Animation != null) yield return m_Animation.ExecuteAwaitable();
             else Debug.LogError($"The {nameof(PlayAwaitableAnimation)} that is currently playing has a null reference");
         }
+        public void FastForward() { }
 
-        [SerializeField] bool m_ShouldWaitEnd = default;
+        [SerializeField] bool m_ShouldWaitEnd = true;
 
         [SerializeField, Label("CharacterReference"), HideInInspector] CutsceneCharacter m_Character;
         [SerializeField, Label("AnimationReference"), HideInInspector] AwaitableAnimation m_Animation;
@@ -65,6 +67,8 @@
                 m_CharacterId = 0;
                 m_Character = null;
             }
+            else m_CharacterId = m_CharactersById.First(pair => pair.Value == m_Character).Key;
+
             return list;
         }
         void SceneCharacterChanged()

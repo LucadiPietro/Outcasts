@@ -21,19 +21,24 @@
 
         bool m_RestartRequested = false;
 
+        int m_GamesWon = 0;
+
         // On Start, start a minigame
         IEnumerator Start()
         {
             if (m_GameDefinitions.Count != m_GameIntros.Count) throw new System.Exception($"GameDefinitions and GameIntros lists must have the same length");
             m_Manager.GameLost += ShowLost;
 
-            int gamesWon = 0;
+            m_GamesWon = 0;
+#if UNITY_EDITOR
+            m_GamesWon = (int)m_StartPhase;
+#endif
             int attempts = 0;
-            while (gamesWon < m_GameDefinitions.Count)
+            while (m_GamesWon < m_GameDefinitions.Count)
             {
                 if (attempts == 0)
                 {
-                    var currentIntro = m_GameIntros[gamesWon];
+                    var currentIntro = m_GameIntros[m_GamesWon];
                     if (currentIntro != null) yield return currentIntro.PlayAwaitable();
                 }
                 else
@@ -42,13 +47,13 @@
                     m_RestartRequested = false;
                 }
 
-                var currentGameDefinition = m_GameDefinitions[gamesWon];
+                var currentGameDefinition = m_GameDefinitions[m_GamesWon];
                 m_Manager.StartGame(currentGameDefinition);
                 while (m_Manager.GameState == GameState.Running) yield return null;
 
                 if (m_Manager.GameState == GameState.Won)
                 {
-                    gamesWon++;
+                    m_GamesWon++;
                     attempts = 0;
                 }
                 else attempts++;
@@ -76,8 +81,28 @@
         // Called by inspector events
         public void Restart()
         {
-            m_GameOverScreen.Hide();
-            m_RestartRequested = true;
+            // If this came form the final GameOver screen after winning all games, reload the scene
+            if (m_GameOverScreen.State == GameState.Won)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            }
+            // If this came from a GameOver screen for a failed game, request to restart the game
+            else
+            {
+                m_GameOverScreen.Hide();
+                m_RestartRequested = true;
+            }
         }
+
+#if UNITY_EDITOR
+        enum Phase
+        {
+            Start,
+            Game2,
+            Game3,
+            Outro,
+        }
+        [SerializeField] Phase m_StartPhase;
+#endif
     }
 }
