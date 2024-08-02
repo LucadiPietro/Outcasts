@@ -18,11 +18,11 @@
 
         public void Execute()
         {
-            m_Character.Movable.MoveTo(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType);
+            m_Character.Movable.MoveTo(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType, m_StayCrouched);
         }
         public IEnumerator ExecuteAwaitable()
         {
-            yield return m_Character.Movable.MoveToAwaitable(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType);
+            yield return m_Character.Movable.MoveToAwaitable(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType, m_StayCrouched);
         }
         public void FastForward()
         {
@@ -80,6 +80,8 @@
 
         [SerializeField, Label("CharacterReference"), HideInInspector] CutsceneCharacter m_Character;
         [SerializeField] MoveType m_WalkType;
+        bool IsCrouched => m_WalkType == MoveType.Crouch;
+        [SerializeField, ShowIf(nameof(IsCrouched)), AllowNesting] bool m_StayCrouched;
         [SerializeField] Transform m_Target;
 
         [SerializeField] bool m_ShouldWaitEnd = true;

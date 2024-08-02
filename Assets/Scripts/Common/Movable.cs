@@ -20,12 +20,12 @@
         [SerializeField] CharacterView m_View;
 
         bool m_IsMoving = false;
-        public void MoveTo(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk)
+        public void MoveTo(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk, bool croucheAtTheEnd = false)
         {
-            StartCoroutine(MoveToAwaitable(destination, lookAt, walkType));
+            StartCoroutine(MoveToAwaitable(destination, lookAt, walkType, croucheAtTheEnd));
         }
 
-        public IEnumerator MoveToAwaitable(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk)
+        public IEnumerator MoveToAwaitable(Vector2 destination, Vector2? lookAt = null, MoveType walkType = MoveType.Walk, bool croucheAtTheEnd = false)
         {
             if (m_IsMoving) throw new InvalidOperationException($"Character {gameObject.name} cannot start moving because it already is");
 
@@ -43,6 +43,11 @@
                 }
                 else throw new InvalidOperationException($"Character {gameObject.name} cannot crouch. You should add the crouch animation to its Animator and then check the {nameof(CanCrouch)} checkbox on the {nameof(Movable)} component");
             }
+            else
+            {
+                m_View.IsCrouching = false;
+                yield return FixAnimatorBugAwaitable();
+            }
 
             m_View.IsRunning = walkType == MoveType.Run;
             m_View.IsMoving = true;
@@ -57,7 +62,7 @@
             if (CanCrouch)
             {
                 yield return FixAnimatorBugAwaitable();
-                m_View.IsCrouching = false;
+                m_View.IsCrouching = croucheAtTheEnd;
             }
             m_View.IsRunning = false;
 
