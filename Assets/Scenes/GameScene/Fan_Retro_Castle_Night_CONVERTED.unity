@@ -6635,7 +6635,7 @@ MonoBehaviour:
   - rid: 529044388163354637
   - rid: 529044388163354638
   - rid: 529044388163354639
-  - rid: 529044368481583107
+  - rid: 529044938897227776
   - rid: 529044433914298369
   - rid: 529044388163354628
   - rid: 529044368481583108
@@ -6644,10 +6644,12 @@ MonoBehaviour:
   - rid: 529044388163354632
   - rid: 529044388163354634
   - rid: 529044388163354633
-  - rid: 529044388163354631
-  - rid: 529044509205200896
-  - rid: 529044463219113985
+  - rid: 529044940229181440
   - rid: 529044509205200897
+  - rid: 529044388163354631
+  - rid: 529044940229181441
+  - rid: 529044509205200896
+  - rid: 529044940229181442
   - rid: 529044509205200901
   - rid: 529044509205200916
   - rid: 529044509205200906
@@ -6659,14 +6661,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 529044368481583107
-      type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
-      data:
-        m_Dialogue: {fileID: 11400000, guid: 5ec7cd05fb19129479acd4ab3caa6787, type: 2}
-        m_Range: 0
-        m_From: 0
-        m_To: 1
-        m_ShouldWaitEnd: 1
     - rid: 529044368481583108
       type: {class: ActivateCamera, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
@@ -6770,7 +6764,7 @@ MonoBehaviour:
     - rid: 529044388163354633
       type: {class: Pause, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_Duration: 2.5
+        m_Duration: 6
     - rid: 529044388163354634
       type: {class: UnityEvent, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
@@ -6827,10 +6821,10 @@ MonoBehaviour:
     - rid: 529044388163354641
       type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_Dialogue: {fileID: 11400000, guid: 5ec7cd05fb19129479acd4ab3caa6787, type: 2}
-        m_Range: 0
-        m_From: 0
-        m_To: 1
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 49
+        m_To: 52
         m_ShouldWaitEnd: 1
     - rid: 529044433914298368
       type: {class: Pause, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
@@ -6840,11 +6834,6 @@ MonoBehaviour:
       type: {class: Pause, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
         m_Duration: 2
-    - rid: 529044463219113985
-      type: {class: ActivateCamera, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
-      data:
-        m_Camera: {fileID: 228540802}
-        m_ShouldWaitEnd: 1
     - rid: 529044509205200896
       type: {class: PlayAwaitableAnimation, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
@@ -6904,7 +6893,7 @@ MonoBehaviour:
     - rid: 529044509205200907
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 26476
+        m_CharacterId: 26488
         m_Character: {fileID: 521907070}
         m_WalkType: 0
         m_StayCrouched: 0
@@ -6913,7 +6902,7 @@ MonoBehaviour:
     - rid: 529044509205200908
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 26484
+        m_CharacterId: 26496
         m_Character: {fileID: 562705771}
         m_WalkType: 0
         m_StayCrouched: 0
@@ -6922,7 +6911,7 @@ MonoBehaviour:
     - rid: 529044509205200909
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 26678
+        m_CharacterId: 26706
         m_Character: {fileID: 1289531693}
         m_WalkType: 0
         m_StayCrouched: 0
@@ -6973,10 +6962,42 @@ MonoBehaviour:
     - rid: 529044509205200917
       type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_Dialogue: {fileID: 11400000, guid: 5ec7cd05fb19129479acd4ab3caa6787, type: 2}
-        m_Range: 0
-        m_From: 0
-        m_To: 1
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 60
+        m_To: 63
+        m_ShouldWaitEnd: 1
+    - rid: 529044938897227776
+      type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
+      data:
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 37
+        m_To: 48
+        m_ShouldWaitEnd: 1
+    - rid: 529044940229181440
+      type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
+      data:
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 53
+        m_To: 53
+        m_ShouldWaitEnd: 1
+    - rid: 529044940229181441
+      type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
+      data:
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 54
+        m_To: 54
+        m_ShouldWaitEnd: 1
+    - rid: 529044940229181442
+      type: {class: PlayDialogue, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
+      data:
+        m_Dialogue: {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+        m_Range: 1
+        m_From: 55
+        m_To: 57
         m_ShouldWaitEnd: 1
 --- !u!4 &1599982681
 Transform:
@@ -7490,7 +7511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1806775420
 Transform:
   m_ObjectHideFlags: 0
@@ -8374,8 +8395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueController: {fileID: 752858034}
   m_Dialogues:
-  - {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
-  - {fileID: 11400000, guid: 6bd45778f7230bd42814b1eea1e950cd, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2136654545
 GameObject:
   m_ObjectHideFlags: 0
