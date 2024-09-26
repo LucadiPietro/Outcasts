@@ -8,7 +8,6 @@ public class RetroCastleLevelManager : MonoBehaviour
     #region --------------------------------------------Configuration---------------------------------------------------
 
     public RetroCastleNightCameraManager virtualCameraManager;
-    public List<PlayableMovement> players;
     public List<EnemyMovement> patrolsGuard;
     public List<Enemy> santiagoAndGuards;
     public RetroCastleDialogueManager dialogueManager;
@@ -29,7 +28,7 @@ public class RetroCastleLevelManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartCamera());
-        StartCoroutine(StartingCharMovement());
+        //StartCoroutine(StartingCharMovement());
     }
 
     private IEnumerator StartCamera()
@@ -76,91 +75,5 @@ public class RetroCastleLevelManager : MonoBehaviour
         canMove = true;
 
         yield return new WaitUntil((() => cameraCanMove));
-    }
-
-    private IEnumerator StartingCharMovement()
-    {
-        Coroutine coroutine = null;
-        foreach (var pla in players)
-        {
-            coroutine = StartCoroutine(pla.FirstMovemnt());
-        }
-
-        yield return coroutine;
-        yield return new WaitForSeconds(1);
-
-        dialogueManager.StartDialague(0);
-
-        foreach (var ene in santiagoAndGuards)
-        {
-            ene.gameObject.SetActive(true);
-        }
-
-        yield return new WaitForSeconds(0.3f);
-        yield return new WaitUntil((() => DialogueController.instance.notDialogue));
-        yield return new WaitForSeconds(0.3f);
-        cameraCanMove = true;
-        canMove = false;
-        foreach (var ene in santiagoAndGuards)
-        {
-            ene.gameObject.SetActive(true);
-            var enemyMovement = ene.GetComponent<EnemyMovement>();
-            enemyMovement.animator.SetFloat("idle_x_input", -1);
-            enemyMovement.animator.SetFloat("idle_y_input", -1);
-        }
-
-        yield return new WaitUntil((() => canMove));
-
-        canMove = false;
-
-        foreach (var ene in santiagoAndGuards)
-        {
-            ene.gameObject.SetActive(true);
-            coroutine = StartCoroutine(ene.GetComponent<EnemyMovement>().FixedMovemnt());
-        }
-        
-        yield return coroutine;
-        yield return new WaitForSeconds(1);
-        
-        dialogueManager.StartDialague(1);
-        
-        yield return new WaitForSeconds(0.3f);
-        yield return new WaitUntil((() => DialogueController.instance.notDialogue));
-        
-        coroutine = StartCoroutine(santiagoAndGuards[0].GetComponent<EnemyMovement>().SpecialAnimaiton("pee"));
-
-        yield return coroutine;
-
-        cameraCanMove = true;
-        
-        yield return new WaitForSeconds(2.5f);
-        
-        coroutine = StartCoroutine(players[0].SpecialAnimaiton("pee"));
-
-        yield return coroutine;
-        
-        foreach (var pla in players)
-        {
-            var plaMovement = pla.GetComponent<PlayableMovement>();
-            plaMovement.animator.SetBool("isCrouch", true);
-        }
-        
-        foreach (var ene in santiagoAndGuards)
-        {
-            var enemyMovement = ene.GetComponent<EnemyMovement>();
-            enemyMovement.agent.Target = enemyMovement.checkPoint[0];
-            StartCoroutine(ene.GetComponent<EnemyMovement>().FixedMovemnt());
-        }
-        
-        yield return new WaitForSeconds(2);
-        
-        players[0].GetComponent<Player>().playerState = Player.PlayerState.Playable;
-        
-        yield return new WaitForSeconds(2);
-        
-        foreach (var ene in santiagoAndGuards)
-        {
-            ene.gameObject.SetActive(false);
-        }
     }
 }

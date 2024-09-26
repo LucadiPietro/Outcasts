@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night.unity
+    path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night_OLD.unity
     guid: d21916879763b35488733288309e536e
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night_CONVERTED.unity
+    guid: 48455e8864fba68498f4bd0f15a3a78e
+  - enabled: 1
+    path: Assets/Scenes/Warp Scene.unity
+    guid: 91276736927f2274d8fa2976fef01f9c
   m_configObjects: {}

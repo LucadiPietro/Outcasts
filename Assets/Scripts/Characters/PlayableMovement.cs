@@ -1,21 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SAP2D;
 using UnityEngine;
+using Common;
 
 public class PlayableMovement : MonoBehaviour
 {
     #region --------------------------------------------Configuration---------------------------------------------------
 
-    [Header("Configuration")] public DefaultInput defaultInput;
+    [Header("Configuration")]
+    DefaultInput defaultInput;
     public Vector2 input_Movement;
     public Vector2 idle_input_Movement;
-    private Player player;
     public Animator animator;
     private bool isColliding = false;
     private Vector2 collisionNormal;
-    public SAP2DAgent agent;
+
+    Rigidbody2D rb;
+    bool m_IsMoving;
+    public bool IsMoving => m_IsMoving;
 
     [Space(10)]
 
@@ -29,23 +32,8 @@ public class PlayableMovement : MonoBehaviour
     public float moveSpeedVertical = 2f;
     public float runMultiplayer = 1f;
     private float runMulti = 1;
-    private float moveTimer = 0f;
 
-    [Space(10)]
-
-    #endregion
-    
-    #region --------------------------------------------CutScene Configuration------------------------------------------
-
-    [Header("CutScene Movement")]
-
-    public float timeBeforeStartMovement = 1;
-    public float restTime = 1;
-    private Vector2 startingPoint;
-    private bool movementBool;
-    public float moveSpeed = 1;
-
-    //[Space(10)]
+    public MoveType moveType = MoveType.Walk;
 
     #endregion
 
@@ -62,54 +50,14 @@ public class PlayableMovement : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if(player.playerState == Player.PlayerState.Playable) MovePlayer();
+        MovePlayer();
     }
 
-    #region --------------------------------------------Movement Functions----------------------------------------------
-
-    public void Movement(Vector2 endPoint, bool run)
-    {
-        startingPoint = transform.position;
-        movementBool = true;
-        var direction = (endPoint - startingPoint).normalized;
-
-        animator.SetBool("isRun", run);
-        animator.SetFloat("x_Input", direction.x);
-        animator.SetFloat("y_Input", direction.y);
-
-
-        animator.SetFloat("idle_x_input", direction.x);
-        animator.SetFloat("idle_y_input", direction.y);
-
-
-        StartCoroutine(MoveRoutine(endPoint, run));
-    }
-
-    IEnumerator MoveRoutine(Vector2 endPoint, bool run)
-    {
-        runMulti = run ? runMultiplayer : 1;
-
-        animator.SetBool("Movement", true);
-
-        while (Vector2.Distance(transform.position, endPoint) > 0.1f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, endPoint, 0.016f * moveSpeed * runMulti);
-            yield return null;
-        }
-
-        movementBool = false;
-        animator.SetBool("Movement", false);
-
-        animator.SetBool("isRun", false);
-    }
-
-    #endregion
-    
     #region --------------------------------------------Input Functions-------------------------------------------------
 
     private void MovePlayer()
@@ -132,6 +80,9 @@ public class PlayableMovement : MonoBehaviour
 
         Vector3 move = new Vector3(moveDirection.x * horizontalSpeed, moveDirection.y * verticalSpeed, 0);
         transform.Translate(move * runMulti);
+        //rb.MovePosition(rb.position + (Vector2)move * runMulti);
+
+        m_IsMoving = move.sqrMagnitude > float.Epsilon;
 
         if (moveInput.magnitude > 0)
         {
@@ -145,7 +96,7 @@ public class PlayableMovement : MonoBehaviour
         {
             animator.SetBool("Movement", false);
             animator.SetFloat("idle_x_input", idle_input_Movement.x);
-            idle_input_Movement.y = input_Movement.y;
+            animator.SetFloat("idle_y_input", idle_input_Movement.y);
         }
     }
 
@@ -153,47 +104,17 @@ public class PlayableMovement : MonoBehaviour
     {
         animator.SetBool("isRun", true);
         runMulti = runMultiplayer;
+
+        moveType = MoveType.Run;
     }
 
     private void OnRunCanceled()
     {
         animator.SetBool("isRun", false);
         runMulti = 1f;
-    }
-    
-    #endregion
-    
-    #region --------------------------------------------CutScene Functions----------------------------------------------
 
-    public IEnumerator FirstMovemnt()
-    {
-        animator.SetFloat("idle_x_input", -1);
-        animator.SetFloat("idle_y_input", -1);
-        animator.SetBool("isCrouch", true);
-        
-        yield return new WaitForSeconds(timeBeforeStartMovement);
-        agent.CanMove = true;
-        while (Vector2.Distance(agent.Target.position, transform.position)>0.1f)
-        {
-            var direction = (agent.Target.position - transform.position).normalized;
-            
-            animator.SetBool("Movement", true);
-            animator.SetFloat("x_Input", direction.x);
-            animator.SetFloat("y_Input", direction.y);
+        moveType = MoveType.Walk;
+    }
 
-            yield return null;
-        }
-        agent.CanMove = false;
-        animator.SetBool("Movement", false);
-        yield return new WaitForSeconds(restTime);
-    }
-    
-    public IEnumerator SpecialAnimaiton(string trigger)
-    {
-        yield return new WaitForSeconds(restTime);
-        
-        animator.SetTrigger(trigger);
-    }
-    
     #endregion
 }

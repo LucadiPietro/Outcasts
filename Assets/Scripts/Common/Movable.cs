@@ -14,6 +14,8 @@
         [SerializeField] float m_RunSpeed = 7f;
         [SerializeField, ShowIf(nameof(m_CanCrouch))] float m_CrouchSpeed = 1.5f;
 
+        [SerializeField] AIDestinationSetter m_DestinationSetter;
+
         public bool CanCrouch => m_CanCrouch;
 
         [SerializeField] AIPath m_Agent;
@@ -70,6 +72,16 @@
             m_IsMoving = false;
 
             if (lookAt.HasValue) m_View.LookAtPosition(lookAt.Value);
+        }
+
+        public void StartFollowing(Transform target)
+        {
+            m_DestinationSetter.target = target;
+        }
+        
+        public void StopFollowing()
+        {
+            m_DestinationSetter.target = null;
         }
 
         /// <summary>
