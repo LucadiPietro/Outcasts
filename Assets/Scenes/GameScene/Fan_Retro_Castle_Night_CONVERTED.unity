@@ -2715,6 +2715,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c93fb4a1a86090a4ca56e121f99fe690, type: 2}
+    - target: {fileID: 7008209723956585239, guid: 5b5cdad1458f4314cba03c5245798e81, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095957754997336635, guid: 5b5cdad1458f4314cba03c5245798e81, type: 3}
       propertyPath: drawGizmos
       value: 0
@@ -2784,8 +2788,9 @@ MonoBehaviour:
   input_Movement: {x: 0, y: 0}
   idle_input_Movement: {x: 0, y: 0}
   animator: {fileID: 521907074}
-  moveSpeedHorizontal: 3
-  moveSpeedVertical: 2
+  aiPath: {fileID: 521907092}
+  moveSpeedHorizontal: 30
+  moveSpeedVertical: 20
   runMultiplayer: 1.5
   moveType: 0
 --- !u!4 &521907084 stripped
@@ -2820,6 +2825,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &521907092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7008209723956585239, guid: 5b5cdad1458f4314cba03c5245798e81, type: 3}
+  m_PrefabInstance: {fileID: 521907069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521907072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &562705769
 PrefabInstance:
   m_ObjectHideFlags: 0

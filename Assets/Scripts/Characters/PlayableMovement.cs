@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using Pathfinding;
 
 public class PlayableMovement : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayableMovement : MonoBehaviour
     public Animator animator;
     private bool isColliding = false;
     private Vector2 collisionNormal;
+    public AIPath aiPath;
 
     Rigidbody2D rb;
     bool m_IsMoving;
@@ -75,12 +77,15 @@ public class PlayableMovement : MonoBehaviour
             }
         }
 
+        aiPath.enabled = false;
+
         float horizontalSpeed = moveSpeedHorizontal * Time.deltaTime;
         float verticalSpeed = moveSpeedVertical * Time.deltaTime;
 
         Vector3 move = new Vector3(moveDirection.x * horizontalSpeed, moveDirection.y * verticalSpeed, 0);
-        transform.Translate(move * runMulti);
-        //rb.MovePosition(rb.position + (Vector2)move * runMulti);
+        //transform.Translate(move * runMulti);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeedHorizontal, moveDirection.y * moveSpeedVertical) * runMulti;
+
 
         m_IsMoving = move.sqrMagnitude > float.Epsilon;
 
