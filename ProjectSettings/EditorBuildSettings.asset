@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night_OLD.unity
     guid: d21916879763b35488733288309e536e
   - enabled: 1

@@ -43,7 +43,7 @@
             All,
             Custom,
         }
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         #region Lines
         DropdownList<int> GetLines()
         {
@@ -84,6 +84,6 @@
             return $"{lineIndex:D2}) {line.Speaker.Name}: \"{previewText}{suffix}\"";
         }
         #endregion
-#endif
+//#endif
     }
 }
