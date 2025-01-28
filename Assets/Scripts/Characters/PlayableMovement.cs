@@ -38,7 +38,7 @@ public class PlayableMovement : MonoBehaviour
     public MoveType moveType = MoveType.Walk;
 
     #endregion
-
+    
     private void Awake()
     {
         defaultInput = new DefaultInput();
