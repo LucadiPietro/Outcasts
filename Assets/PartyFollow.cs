@@ -17,7 +17,7 @@ namespace Common
         [SerializeField] Animator m_Animator;
 
         [Header("Capabilities")]
-        [SerializeField] float m_MaxTargetDistance = .1f;
+        [SerializeField] float m_MinTargetDistance = .1f;
         [SerializeField] bool m_CanCrouch;
         [SerializeField] float m_WalkSpeed = 4f;
         [SerializeField] float m_RunSpeed = 7f;
@@ -37,7 +37,7 @@ namespace Common
 
         private void Update()
         {
-            bool closeToTarget = Vector2.Distance(transform.position, m_Target.position) <= m_MaxTargetDistance;
+            bool closeToTarget = Vector2.Distance(transform.position, m_Target.position) <= m_MinTargetDistance;
 
             Vector2 direction = Vector2.zero;
 
@@ -45,14 +45,21 @@ namespace Common
             {
                 m_IsMoving = true;
                 m_IsRunning = m_MainCharacter.moveType == MoveType.Run;
-
+                m_IsCrouching = m_MainCharacter.moveType == MoveType.Crouch;
 
                 direction = (m_Target.position - transform.position).normalized;
 
-                m_View.IsCrouching = false;
                 m_View.LookAtDirection(direction);
+                
+                float speed;
 
-                float speed = m_IsRunning ? m_RunSpeed : m_WalkSpeed;
+                if(m_IsRunning)
+                    speed = m_RunSpeed;
+                else if(m_IsCrouching) 
+                    speed = m_CrouchSpeed;
+                else
+                    speed = m_WalkSpeed;
+
                 transform.Translate(direction * speed * Time.deltaTime);
             }
             else
@@ -64,6 +71,7 @@ namespace Common
 
             m_View.IsMoving = m_IsMoving;
             m_View.IsRunning = m_IsRunning;
+            m_View.IsCrouching = m_IsCrouching;
         }
 
         public void StartFollowing()

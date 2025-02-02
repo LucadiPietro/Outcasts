@@ -19,8 +19,13 @@ public class PlayableMovement : MonoBehaviour
     public AIPath aiPath;
 
     Rigidbody2D rb;
+    [SerializeField] CharacterView m_View;
     bool m_IsMoving;
+    bool m_IsCrouching = false;
+    bool m_IsRunning = false;
     public bool IsMoving => m_IsMoving;
+    public bool IsCrouching => m_IsCrouching;
+    public bool IsRunning => m_IsRunning;
 
     [Space(10)]
 
@@ -32,8 +37,9 @@ public class PlayableMovement : MonoBehaviour
     public float moveSpeedHorizontal = 3f;
 
     public float moveSpeedVertical = 2f;
-    public float runMultiplayer = 1f;
-    private float runMulti = 1;
+    public float runMultiplier = 1f;
+    public float crouchMultiplier = .6f;
+    private float speedMulti = 1;
 
     public MoveType moveType = MoveType.Walk;
 
@@ -46,6 +52,7 @@ public class PlayableMovement : MonoBehaviour
         defaultInput.Player.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
         defaultInput.Player.Run.started += e => OnRunStarted();
         defaultInput.Player.Run.canceled += e => OnRunCanceled();
+        defaultInput.Player.Crouch.started += e => ToggleCrouch();
 
         defaultInput.Enable();
     }
@@ -84,7 +91,7 @@ public class PlayableMovement : MonoBehaviour
 
         Vector3 move = new Vector3(moveDirection.x * horizontalSpeed, moveDirection.y * verticalSpeed, 0);
         //transform.Translate(move * runMulti);
-        rb.velocity = new Vector2(moveDirection.x * moveSpeedHorizontal, moveDirection.y * moveSpeedVertical) * runMulti;
+        rb.velocity = new Vector2(moveDirection.x * moveSpeedHorizontal, moveDirection.y * moveSpeedVertical) * speedMulti;
 
 
         m_IsMoving = move.sqrMagnitude > float.Epsilon;
@@ -107,18 +114,52 @@ public class PlayableMovement : MonoBehaviour
 
     private void OnRunStarted()
     {
+        if(m_IsCrouching) 
+            return;
+
         animator.SetBool("isRun", true);
-        runMulti = runMultiplayer;
+        speedMulti = runMultiplier;
 
         moveType = MoveType.Run;
+        m_IsRunning = true;
     }
 
     private void OnRunCanceled()
     {
+        if(m_IsCrouching)
+            return;
+
         animator.SetBool("isRun", false);
-        runMulti = 1f;
+        speedMulti = 1f;
 
         moveType = MoveType.Walk;
+        m_IsRunning = false;
+    }
+
+    void ToggleCrouch()
+    {
+        ///TODO: Controlla conflitti con isMoving e isRunning
+
+        if(m_IsRunning)
+            return;
+
+        m_IsCrouching = !m_IsCrouching;
+
+        m_View.IsCrouching = m_IsCrouching;
+
+        if (m_IsCrouching) 
+        {
+            speedMulti = crouchMultiplier;
+            moveType = MoveType.Crouch;
+        }
+        else
+        {
+            speedMulti = 1;
+            moveType = MoveType.Walk;
+        }
+
+        
+
     }
 
     #endregion
