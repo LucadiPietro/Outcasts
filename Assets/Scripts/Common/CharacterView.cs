@@ -9,7 +9,9 @@
     /// </summary>
     public class CharacterView : MonoBehaviour
     {
+        [Tooltip("This animator is a reference to the one in the \"Sprite\" object, child of this one")]
         [SerializeField] Animator m_Animator;
+
         public Animator Animator => m_Animator;
 
         readonly int kDirectionX = Animator.StringToHash("idle_x_input");

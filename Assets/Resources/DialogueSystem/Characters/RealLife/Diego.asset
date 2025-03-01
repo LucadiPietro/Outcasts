@@ -19,7 +19,8 @@ MonoBehaviour:
     m_EmotionName: Normal
     m_Image: {fileID: 21300000, guid: e647802570b247249bc4b3929dee473d, type: 3}
     m_Color: {r: 0.19607843, g: 0.7254902, b: 0.3254902, a: 1}
-    m_SpeechSfx: []
+    m_SpeechSfx:
+    - {fileID: 0}
   m_Emotions:
   - m_Id: 1
     m_EmotionName: Diego Dubbio
@@ -30,7 +31,8 @@ MonoBehaviour:
     m_EmotionName: Diego Irritato
     m_Image: {fileID: 21300000, guid: 84c55ead57b630e40a30df88f68dd245, type: 3}
     m_Color: {r: 0.9529412, g: 0.35686275, b: 0.38039216, a: 1}
-    m_SpeechSfx: []
+    m_SpeechSfx:
+    - {fileID: 0}
   - m_Id: 5
     m_EmotionName: Diego Sorpreso
     m_Image: {fileID: 21300000, guid: 84c55ead57b630e40a30df88f68dd245, type: 3}

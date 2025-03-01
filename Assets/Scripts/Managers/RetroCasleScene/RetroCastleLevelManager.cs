@@ -1,79 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RetroCastleLevelManager : MonoBehaviour
 {
-    #region --------------------------------------------Configuration---------------------------------------------------
+    [Header("General")]
+    [SerializeField] Transform brogan;
+    [SerializeField] Transform malphayt;
+    [SerializeField] Transform lysander;
 
-    public RetroCastleNightCameraManager virtualCameraManager;
-    public List<EnemyMovement> patrolsGuard;
-    public List<Enemy> santiagoAndGuards;
-    public RetroCastleDialogueManager dialogueManager;
-
-    #endregion
-
-    #region --------------------------------------------First Cut Scene-------------------------------------------------
-
-    [Header("First Cut Scene Camera Configuration")]
-    public List<CameraConfigCollections> cameraConfigCollectionsList;
-
-    public bool cameraCanMove;
-    public bool canMove;
-
-    #endregion
-
-    // Start is called before the first frame update
-    void Start()
+    [Header("From Battle")]
+    [SerializeField] Transform broganPos;
+    [SerializeField] Transform malphaytPos;
+    [SerializeField] Transform lysanderPos;
+    public UnityEvent FromBattle;
+    
+    private void Start()
     {
-        StartCoroutine(StartCamera());
-        //StartCoroutine(StartingCharMovement());
-    }
-
-    private IEnumerator StartCamera()
-    {
-        var cameraConfig = cameraConfigCollectionsList[0].cameraConfigs;
-        virtualCameraManager.SetCameraPosition(cameraConfig[0].position, cameraConfig[0].FOV);
-
-        for (int i = 1; i < cameraConfig.Count; i++)
+        switch (SessionManager.Instance.LastScene)
         {
-            var ele = cameraConfig[i];
-            yield return StartCoroutine(
-                virtualCameraManager.MoveCameraRoutine(ele.position, ele.FOV, ele.restTime, ele.duration));
+            case null: //First load (PER ADESSO)
+                break;
+
+            case "Warp Scene": //Back from the battle
+                FromBattle.Invoke();
+                brogan.position = broganPos.position;
+                malphayt.position = malphaytPos.position;
+                lysander.position = lysanderPos.position;
+                break;
+
+            case "Scene Two": //Back from the next scene
+                break;
         }
-
-        yield return new WaitUntil((() => cameraCanMove));
-
-        cameraCanMove = false;
-
-
-        cameraConfig = cameraConfigCollectionsList[1].cameraConfigs;
-        virtualCameraManager.SetCameraPosition(cameraConfig[0].position, cameraConfig[0].FOV);
-
-        for (int i = 1; i < cameraConfig.Count; i++)
-        {
-            var ele = cameraConfig[i];
-            yield return StartCoroutine(
-                virtualCameraManager.MoveCameraRoutine(ele.position, ele.FOV, ele.restTime, ele.duration));
-        }
-
-        canMove = true;
-
-        yield return new WaitUntil((() => cameraCanMove));
-        
-        cameraConfig = cameraConfigCollectionsList[2].cameraConfigs;
-        virtualCameraManager.SetCameraPosition(cameraConfig[0].position, cameraConfig[0].FOV);
-
-        for (int i = 1; i < cameraConfig.Count; i++)
-        {
-            var ele = cameraConfig[i];
-            yield return StartCoroutine(
-                virtualCameraManager.MoveCameraRoutine(ele.position, ele.FOV, ele.restTime, ele.duration));
-        }
-
-        canMove = true;
-
-        yield return new WaitUntil((() => cameraCanMove));
     }
 }

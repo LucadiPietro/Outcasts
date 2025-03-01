@@ -19,5 +19,6 @@ MonoBehaviour:
     m_EmotionName: Normal
     m_Image: {fileID: 21300000, guid: 837d0c18fbe82c4458701d00b4136e4c, type: 3}
     m_Color: {r: 0.8862745, g: 0.21568629, b: 0.29275167, a: 1}
-    m_SpeechSfx: []
+    m_SpeechSfx:
+    - {fileID: 8300000, guid: a9d5a3a3ffd375945951d383ef688d97, type: 3}
   m_Emotions: []

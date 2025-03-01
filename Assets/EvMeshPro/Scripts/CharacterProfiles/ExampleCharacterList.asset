@@ -40,4 +40,4 @@ MonoBehaviour:
     characterColor: {r: 0.9960785, g: 0.49803925, b: 0.08627451, a: 1}
     characterSprite: {fileID: 21300000, guid: 7c49d3f2ac31e1242a1ed576ea6fe705, type: 3}
     speechSFXBlips:
-    - {fileID: 8300000, guid: 37c14e74db407d84d95fb186b7f92ac1, type: 3}
+    - {fileID: 8300000, guid: a9d5a3a3ffd375945951d383ef688d97, type: 3}
