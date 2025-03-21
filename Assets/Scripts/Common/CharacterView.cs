@@ -49,6 +49,9 @@
             direction.Normalize();
 
             m_Forward = direction;
+            
+            Debug.DrawRay(transform.position, direction * 2f, Color.red, 0.1f);
+
 
             // Atan2 is positive in the top two quadrants (0 -> pi) and negative in the bottom two (-pi -> 0)
             var angleToTarget = Mathf.Atan2(direction.y, direction.x);
@@ -81,6 +84,19 @@
             m_Animator.SetFloat(kDirectionY, direction.y);
             m_Animator.SetFloat(kMoveDirectionX, direction.x);
             m_Animator.SetFloat(kMoveDirectionY, direction.y);
+            
+            Vector2 finalDirection = new Vector2(
+                m_Animator.GetFloat(kDirectionX), 
+                m_Animator.GetFloat(kDirectionY)
+            );
+            Debug.DrawRay(transform.position, finalDirection * 2f, Color.blue, 0.1f);
+    
+            // Verifica se la direzione è opposta
+            float dot = Vector2.Dot(direction.normalized, finalDirection.normalized);
+            if (dot < 0) {
+                Debug.LogWarning("Direzione invertita rilevata! Angolo: " + 
+                                 Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+            }
         }
 
         bool m_IsMoving = false;

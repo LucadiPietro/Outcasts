@@ -66,7 +66,7 @@ namespace Common
             {
                 m_IsMoving = false;
 
-                m_View.LookAtPosition(m_Target.position);
+                m_View.LookAtPosition(m_MainCharacter.transform.position);
             }
 
             m_View.IsMoving = m_IsMoving;
