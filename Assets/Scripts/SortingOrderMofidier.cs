@@ -6,12 +6,14 @@ using UnityEngine;
 public class SortingOrderMofidier : MonoBehaviour
 {
     public SpriteRenderer _renderer;
+    [SerializeField] int _sortOrderFront = 0, _sortOrderBack = 3;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         PlayableMovement playerMovement = other.gameObject.GetComponent<PlayableMovement>();
         if (playerMovement)
         {
-            _renderer.sortingOrder = 3;
+            _renderer.sortingOrder = _sortOrderBack;
         }
     }
 
@@ -20,7 +22,7 @@ public class SortingOrderMofidier : MonoBehaviour
         PlayableMovement playerMovement = other.gameObject.GetComponent<PlayableMovement>();
         if (playerMovement)
         {
-            _renderer.sortingOrder = 1;
+            _renderer.sortingOrder = _sortOrderFront;
         }
     }
 }

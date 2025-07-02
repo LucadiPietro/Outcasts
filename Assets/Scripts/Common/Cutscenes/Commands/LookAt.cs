@@ -8,12 +8,12 @@
     using UnityEngine;
 
     [Serializable]
-    [AddTypeMenu("Character/Look at")]
-    public sealed class LookAt : ICinematicCommand
+    [AddTypeMenu("Character/Look at cardinal")]
+    public sealed class LookAtCardinal : ICinematicCommand
     {
         public bool ShouldWaitEnd => true;
 
-        public void Execute() => m_Character.View.LookAtPosition(m_Target.position);
+        public void Execute() => m_Character.View.LookAtOrientation(m_orientation);
         public IEnumerator ExecuteAwaitable()
         {
             Execute();
@@ -72,6 +72,6 @@
         #endregion
 #endif
         [SerializeField, Label("CharacterReference"), HideInInspector] CutsceneCharacter m_Character;
-        [SerializeField] Transform m_Target;
+        [SerializeField] Orientation m_orientation;
     }
 }

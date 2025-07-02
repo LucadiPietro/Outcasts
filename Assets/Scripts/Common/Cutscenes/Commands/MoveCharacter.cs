@@ -18,11 +18,11 @@
 
         public void Execute()
         {
-            m_Character.Movable.MoveTo(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType, m_StayCrouched);
+            m_Character.Movable.MoveTo(m_Target.position, lookAt: m_Target.position + GetLookAtOrientation(m_endOrientation), m_WalkType, m_StayCrouched);
         }
         public IEnumerator ExecuteAwaitable()
         {
-            yield return m_Character.Movable.MoveToAwaitable(m_Target.position, lookAt: m_Target.position + m_Target.up, m_WalkType, m_StayCrouched);
+            yield return m_Character.Movable.MoveToAwaitable(m_Target.position, lookAt: m_Target.position + GetLookAtOrientation(m_endOrientation), m_WalkType, m_StayCrouched);
         }
         public void FastForward()
         {
@@ -83,13 +83,46 @@
         bool IsCrouched => m_WalkType == MoveType.Crouch;
         [SerializeField, ShowIf(nameof(IsCrouched)), AllowNesting] bool m_StayCrouched;
         [SerializeField] Transform m_Target;
+        [SerializeField] Orientation m_endOrientation;
 
         [SerializeField] bool m_ShouldWaitEnd = true;
+    
+        Vector3 GetLookAtOrientation(Orientation orientation)
+        {
+            switch (orientation)
+            {
+                case Orientation.N: return Vector2.up;
+                case Orientation.NE: return Vector2.up + Vector2.right;
+                case Orientation.E: return Vector2.right;
+                case Orientation.SE: return Vector2.down + Vector2.right;
+                case Orientation.S: return Vector2.down;
+                case Orientation.SW: return Vector2.down + Vector2.left;
+                case Orientation.W: return Vector2.left;
+                case Orientation.NW: return Vector2.up + Vector2.left;
+                case Orientation.None: return Vector2.zero;
+            }
+
+            return Vector2.zero;
+        }
     }
+
 
     public enum DestinationType
     {
         Transform,
         Vector,
+    }
+
+    public enum Orientation
+    {
+        None,
+        N,
+        NE,
+        E,
+        SE,
+        S,
+        SW,
+        W,
+        NW
     }
 }

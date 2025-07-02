@@ -109,6 +109,14 @@
             m_IsBlending = false;
         }
 
+        /// <summary>
+        /// Same as SwitchToCamera but callable from events
+        /// </summary>
+        public void SwitchToCameraExposed(CinemachineVirtualCamera targetCamera)
+        {
+            SwitchToCameraAwaitable(targetCamera);
+        }
+
         float GetBlendDuration(ICinemachineCamera from, ICinemachineCamera to)
         {
             if (Brain.m_CustomBlends == null) return Brain.m_DefaultBlend.BlendTime;

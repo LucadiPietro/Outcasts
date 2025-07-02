@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36baaa8bdcb9d8b49b9199833965d2c3, type: 3}
+  m_Name: IRL_Via_Del_Corso
+  m_EditorClassIdentifier: 
+  m_CustomBlends:
+  - m_From: Camera 1
+    m_To: Camera 2
+    m_Blend:
+      m_Style: 1
+      m_Time: 3.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0.97878516
+          inSlope: -0.021759551
+          outSlope: -0.021759551
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.32516703
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: -3.1467764
+          outSlope: -3.1467764
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.07795107
+          outWeight: 0.33333334
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 2
+    m_To: Camera 3
+    m_Blend:
+      m_Style: 1
+      m_Time: 3
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 3
+    m_To: Camera 4
+    m_Blend:
+      m_Style: 1
+      m_Time: 5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 4
+    m_To: Camera 5
+    m_Blend:
+      m_Style: 1
+      m_Time: 4
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 5
+    m_To: Camera 6
+    m_Blend:
+      m_Style: 1
+      m_Time: 8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 6
+    m_To: Camera 7
+    m_Blend:
+      m_Style: 1
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 7
+    m_To: Camera 9
+    m_Blend:
+      m_Style: 1
+      m_Time: 3
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 7
+    m_To: Camera 1st zoom
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 1st zoom
+    m_To: Camera 1st zoom end
+    m_Blend:
+      m_Style: 1
+      m_Time: 8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Camera 7
+    m_To: Camera 3rd cycle
+    m_Blend:
+      m_Style: 1
+      m_Time: 1.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0

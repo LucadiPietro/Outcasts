@@ -15,7 +15,13 @@ public class RetroCastleLevelManager : MonoBehaviour
     [SerializeField] Transform malphaytPos;
     [SerializeField] Transform lysanderPos;
     public UnityEvent FromBattle;
-    
+
+    [Header("From Next Scene")]
+    [SerializeField] Transform broganPos2;
+    [SerializeField] Transform malphaytPos2;
+    [SerializeField] Transform lysanderPos2;
+    public UnityEvent FromNext;
+
     private void Start()
     {
         switch (SessionManager.Instance.LastScene)
@@ -30,7 +36,11 @@ public class RetroCastleLevelManager : MonoBehaviour
                 lysander.position = lysanderPos.position;
                 break;
 
-            case "Scene Two": //Back from the next scene
+            case "Warp Scene 2": //Back from the next scene
+                FromNext.Invoke();
+                brogan.position = broganPos2.position;
+                malphayt.position = malphaytPos2.position;
+                lysander.position = lysanderPos2.position;
                 break;
         }
     }

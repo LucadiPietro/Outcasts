@@ -53,8 +53,6 @@ public class PlayableMovement : MonoBehaviour
         defaultInput.Player.Run.started += e => OnRunStarted();
         defaultInput.Player.Run.canceled += e => OnRunCanceled();
         defaultInput.Player.Crouch.started += e => ToggleCrouch();
-
-        defaultInput.Enable();
     }
 
     private void Start()
@@ -65,6 +63,8 @@ public class PlayableMovement : MonoBehaviour
     private void Update()
     {
         MovePlayer();
+
+        
     }
 
     #region --------------------------------------------Input Functions-------------------------------------------------
@@ -110,7 +110,15 @@ public class PlayableMovement : MonoBehaviour
             animator.SetFloat("idle_x_input", idle_input_Movement.x);
             animator.SetFloat("idle_y_input", idle_input_Movement.y);
         }
+
+        Debug.DrawRay(transform.position, idle_input_Movement, Color.yellow, .1f);
+
+        ///TODO: Impostare che quando si esce da una cutscene si mantiene la direzione
+        ///      che il character aveva nella cutscene, attualmente viene sovrascritta
+        ///      da idle_input_movement perché mantiene l'ultima direzione data in input
     }
+    
+
 
     private void OnRunStarted()
     {
@@ -163,4 +171,14 @@ public class PlayableMovement : MonoBehaviour
     }
 
     #endregion
+
+    private void OnEnable()
+    {
+        defaultInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        defaultInput.Disable();
+    }
 }

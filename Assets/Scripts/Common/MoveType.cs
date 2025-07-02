@@ -5,5 +5,6 @@
         Walk,
         Run,
         Crouch,
+        Dash
     }
 }

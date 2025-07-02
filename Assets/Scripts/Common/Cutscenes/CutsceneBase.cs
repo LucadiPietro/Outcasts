@@ -22,7 +22,7 @@ namespace Common.Cutscenes
             get => false;
             private set
             {
-                Debug.LogWarning($"{nameof(WasPlayed)} is not implemented yet");
+                //Debug.LogWarning($"{nameof(WasPlayed)} is not implemented yet");
             }
         }
 

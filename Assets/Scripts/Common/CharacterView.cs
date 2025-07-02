@@ -1,5 +1,6 @@
 ﻿namespace Common
 {
+    using Common.Cutscenes.Commands;
     using LemonGames;
     using System.Collections;
     using UnityEngine;
@@ -40,11 +41,38 @@
         /// Rotates the character towards the given direction angle where 0° => Right; 90° => Up; 180° => Left; 270° => Down; etc...
         /// </summary>
         public void LookAtAngle(Angle angle) => LookAtDirection(angle.ToPosition());
+
+        ///<summary>
+        ///Rotates the character based on the orientation given
+        /// </summary>
+        public void LookAtOrientation(Orientation orientation)
+        {
+            Vector2 direction = Vector2.zero;
+
+            switch (orientation)
+            {
+                case Orientation.N: direction = Vector2.up; break;
+                case Orientation.NE: direction = Vector2.up + Vector2.right; break;
+                case Orientation.E: direction = Vector2.right; break;
+                case Orientation.SE: direction = Vector2.down + Vector2.right; break;
+                case Orientation.S: direction = Vector2.down; break;
+                case Orientation.SW: direction = Vector2.down + Vector2.left; break;
+                case Orientation.W: direction = Vector2.left; break;
+                case Orientation.NW: direction = Vector2.up + Vector2.left; break;
+                case Orientation.None: direction = Vector2.zero; break;
+            }
+
+            LookAtDirection(direction);
+        }
+
         /// <summary>
         /// Rotates the character towards the given world-space direction
         /// </summary>
         public void LookAtDirection(Vector2 direction)
         {
+            //Debug.Log(direction);
+
+
             if (Mathf.Approximately(direction.sqrMagnitude, 0f)) return;
             direction.Normalize();
 
@@ -79,6 +107,7 @@
             // Make it so that x and y can only be -1, 0 or +1
             direction.x = Mathf.RoundToInt(direction.x);
             direction.y = Mathf.RoundToInt(direction.y);
+
 
             m_Animator.SetFloat(kDirectionX, direction.x);
             m_Animator.SetFloat(kDirectionY, direction.y);
@@ -129,6 +158,17 @@
             {
                 m_IsCrouching = value;
                 m_Animator.SetBool(kIsCrouching, value);
+            }
+        }
+
+        bool m_IsDashing = false;
+        public bool IsDashing
+        {
+            get => m_IsDashing;
+            set
+            {
+                m_IsDashing = value;
+                m_Animator.SetBool(kIsRunning, value);
             }
         }
     }

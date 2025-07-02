@@ -5,8 +5,6 @@ namespace Common
     using UnityEngine;
     using Common;
     using NaughtyAttributes;
-    using UnityEditor.SceneManagement;
-    using UnityEditor.Experimental.GraphView;
 
     public class PartyFollow : MonoBehaviour
     {

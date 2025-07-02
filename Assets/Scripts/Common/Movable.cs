@@ -12,6 +12,7 @@
         [SerializeField] bool m_CanCrouch;
         [SerializeField] float m_WalkSpeed = 4f;
         [SerializeField] float m_RunSpeed = 7f;
+        [SerializeField] float m_DashSpeed = 20f;
         [SerializeField, ShowIf(nameof(m_CanCrouch))] float m_CrouchSpeed = 1.5f;
 
         [SerializeField] AIDestinationSetter m_DestinationSetter;
@@ -34,7 +35,9 @@
             m_IsMoving = true;
             float previousMaxSpeed = m_Agent.maxSpeed;
             m_Agent.maxSpeed = GetMaxSpeed(walkType);
-            m_Agent.destination = destination;
+            m_Agent.destination = destination; 
+
+            
 
             if (walkType == MoveType.Crouch)
             {
@@ -51,12 +54,17 @@
                 yield return FixAnimatorBugAwaitable();
             }
 
-            m_View.IsRunning = walkType == MoveType.Run;
             m_View.IsMoving = true;
+            m_View.IsRunning = walkType == MoveType.Run;
+            m_View.IsDashing = walkType == MoveType.Dash || walkType == MoveType.Run;
 
             while (!m_Agent.reachedDestination)
             {
                 m_View.LookAtDirection(m_Agent.velocity);
+                
+                //OVERRIDE LOOKAT PER FAR GIRARE PERSONAGGIO NELLA DIREZIONE GIUSTA
+                //lookAt = m_Agent.position + m_Agent.velocity; 
+                
                 yield return null;
             }
 
@@ -71,17 +79,25 @@
             m_Agent.maxSpeed = previousMaxSpeed;
             m_IsMoving = false;
 
+            //if lookat = 0 allora impostalo come la linea commentata su
+
             if (lookAt.HasValue) m_View.LookAtPosition(lookAt.Value);
         }
 
         public void StartFollowing(Transform target)
         {
-            m_DestinationSetter.target = target;
+            if(TryGetComponent<PartyFollow>(out PartyFollow p))
+            {
+                p.enabled = true;
+            }
         }
         
         public void StopFollowing()
         {
-            m_DestinationSetter.target = null;
+            if (TryGetComponent<PartyFollow>(out PartyFollow p))
+            {
+                p.enabled = false;
+            }
         }
 
         /// <summary>
@@ -99,7 +115,7 @@
             {
                 case MoveType.Run: return m_RunSpeed;
                 case MoveType.Crouch: return m_CrouchSpeed;
-
+                case MoveType.Dash: return m_DashSpeed;
                 case MoveType.Walk:
                 default: return m_WalkSpeed;
             }
