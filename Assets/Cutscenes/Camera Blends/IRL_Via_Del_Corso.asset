@@ -87,54 +87,21 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: Camera 6
-    m_To: Camera 7
+    m_To: Camera S
     m_Blend:
       m_Style: 1
-      m_Time: 1
+      m_Time: 2.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Camera 7
+  - m_From: Camera S
     m_To: Camera 9
     m_Blend:
       m_Style: 1
       m_Time: 3
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Camera 7
-    m_To: Camera 1st zoom
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Camera 1st zoom
-    m_To: Camera 1st zoom end
-    m_Blend:
-      m_Style: 1
-      m_Time: 8
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Camera 7
-    m_To: Camera 3rd cycle
-    m_Blend:
-      m_Style: 1
-      m_Time: 1.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
