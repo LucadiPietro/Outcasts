@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Emotion: 0
     m_Text: "Make it quick Santiago, it\u2019s three against one, this time it\u2019s
       over for you!"
-  - m_Speaker: {fileID: 0}
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
     m_Emotion: 0
     m_Text: Time Ouuuuuuuuuuuuuuut!
   - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}

@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
 
             if(movingRight)
             {
-                theRB.velocity = new Vector2(moveSpeed, theRB.velocity.y);
+                theRB.linearVelocity = new Vector2(moveSpeed, theRB.linearVelocity.y);
 
                 theSR.flipX = true;
 
@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
                 }
             } else
             {
-                theRB.velocity = new Vector2(-moveSpeed, theRB.velocity.y);
+                theRB.linearVelocity = new Vector2(-moveSpeed, theRB.linearVelocity.y);
 
                 theSR.flipX = false;
 
@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour
         } else if(waitCount > 0)
         {
             waitCount -= Time.deltaTime;
-            theRB.velocity = new Vector2(0f, theRB.velocity.y);
+            theRB.linearVelocity = new Vector2(0f, theRB.linearVelocity.y);
 
             if(waitCount <= 0)
             {

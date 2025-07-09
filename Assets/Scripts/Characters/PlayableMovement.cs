@@ -91,7 +91,7 @@ public class PlayableMovement : MonoBehaviour
 
         Vector3 move = new Vector3(moveDirection.x * horizontalSpeed, moveDirection.y * verticalSpeed, 0);
         //transform.Translate(move * runMulti);
-        rb.velocity = new Vector2(moveDirection.x * moveSpeedHorizontal, moveDirection.y * moveSpeedVertical) * speedMulti;
+        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeedHorizontal, moveDirection.y * moveSpeedVertical) * speedMulti;
 
 
         m_IsMoving = move.sqrMagnitude > float.Epsilon;
@@ -115,7 +115,7 @@ public class PlayableMovement : MonoBehaviour
 
         ///TODO: Impostare che quando si esce da una cutscene si mantiene la direzione
         ///      che il character aveva nella cutscene, attualmente viene sovrascritta
-        ///      da idle_input_movement perché mantiene l'ultima direzione data in input
+        ///      da idle_input_movement perchï¿½ mantiene l'ultima direzione data in input
     }
     
 

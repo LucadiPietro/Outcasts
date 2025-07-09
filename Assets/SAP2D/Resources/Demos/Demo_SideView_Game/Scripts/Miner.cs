@@ -79,6 +79,6 @@ public class Miner : MonoBehaviour {
 	}
 
 	void MinerMove(Vector3 dir){
-		rb.velocity = new Vector2 (dir.x * WalkingSpeed * Time.deltaTime, dir.y * ClimbingSpeed * Time.deltaTime);
+		rb.linearVelocity = new Vector2 (dir.x * WalkingSpeed * Time.deltaTime, dir.y * ClimbingSpeed * Time.deltaTime);
 	}
 }
