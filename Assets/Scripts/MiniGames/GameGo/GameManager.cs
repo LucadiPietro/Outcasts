@@ -1,4 +1,4 @@
-namespace Minigames.GameGo
+namespace Outcasts.Minigames.GameGo
 {
     using System;
     using UnityEngine;

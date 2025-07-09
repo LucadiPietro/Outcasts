@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night_OLD.unity
     guid: d21916879763b35488733288309e536e
   - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: b4023e9389f8f304d88cd5a2407bb611
+  - enabled: 0
     path: Assets/Scenes/GameScene/Fan_Retro_Castle_Night_CONVERTED.unity
     guid: 48455e8864fba68498f4bd0f15a3a78e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Warp Scene.unity
     guid: 91276736927f2274d8fa2976fef01f9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Warp Scene 2.unity
     guid: 280c3d6ddac7cae488fa97621dd1558d
   m_configObjects: {}

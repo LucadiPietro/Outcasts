@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffee85cbae8ed04e82b96c7f6bc028c, type: 3}
+  m_Name: KeyboardControllerSettings
+  m_EditorClassIdentifier: 
+  m_DpadRight:
+    m_Symbol: {fileID: 21300000, guid: a995fdcd232ee1d4ba66392453a37ee4, type: 3}
+    m_MainColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
+  m_DpadUp:
+    m_Symbol: {fileID: 21300000, guid: e07aa55a84ab53445b75b8063c810afd, type: 3}
+    m_MainColor: {r: 0.99607843, g: 0.7647059, b: 0, a: 1}
+  m_DpadLeft:
+    m_Symbol: {fileID: 21300000, guid: 23070e2d7f4e27d4cb1eeb01feb9879f, type: 3}
+    m_MainColor: {r: 0.08627451, g: 0.8392157, b: 0.3647059, a: 1}
+  m_DpadDown:
+    m_Symbol: {fileID: 21300000, guid: 21897c5b71e0860448103a872af47f48, type: 3}
+    m_MainColor: {r: 0.023529412, g: 0.54509807, b: 1, a: 1}
+  m_East:
+    m_Symbol: {fileID: 21300000, guid: 2b6097d3885b61948b53591381fb6399, type: 3}
+    m_MainColor: {r: 1, g: 0.23137257, b: 0.23137257, a: 1}
+  m_North:
+    m_Symbol: {fileID: 21300000, guid: 0ddccf4d88fae9f4bbaf01f8a3dcebf8, type: 3}
+    m_MainColor: {r: 0.9960785, g: 0.76470596, b: 0, a: 1}
+  m_West:
+    m_Symbol: {fileID: 21300000, guid: 6b902dfd5c696f34c9d16d01cb494412, type: 3}
+    m_MainColor: {r: 0.08627451, g: 0.83921576, b: 0.3647059, a: 1}
+  m_South:
+    m_Symbol: {fileID: 21300000, guid: 010dfe0a4a3959549a857a674d7eba5f, type: 3}
+    m_MainColor: {r: 0.023529414, g: 0.54509807, b: 1, a: 1}

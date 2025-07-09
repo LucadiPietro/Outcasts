@@ -1,4 +1,4 @@
-﻿namespace Minigames.GameGo
+﻿namespace Outcasts.Minigames.GameGo
 {
     using Common.Cutscenes;
     using DG.Tweening;
@@ -232,7 +232,7 @@
             m_AlertCanvas.DOFade(1f, 0.5f).SetLoops(-1, LoopType.Yoyo);
         }
 
-        #region IGameGoAction implementation
+        #region IGameGoActions implementation
         void IGameGoActions.OnButtonUp(CallbackContext context)
         {
             if (context.performed) PerformAction(StealAction.Up);

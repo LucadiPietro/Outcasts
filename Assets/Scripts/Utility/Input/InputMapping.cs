@@ -15,12 +15,14 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @InputMapping : IInputActionCollection2, IDisposable
+namespace Outcasts
 {
-    public InputActionAsset asset { get; }
-    public @InputMapping()
+    public partial class @InputMapping : IInputActionCollection2, IDisposable
     {
-        asset = InputActionAsset.FromJson(@"{
+        public InputActionAsset asset { get; }
+        public @InputMapping()
+        {
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""InputMapping"",
     ""maps"": [
         {
@@ -530,303 +532,872 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Battle"",
+            ""id"": ""33df4de5-85a7-487c-b600-8b0f57ae7a90"",
+            ""actions"": [
+                {
+                    ""name"": ""AttackFirst"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cefaca5-b5cb-4cf6-bb00-10c8a8df43e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackMiddle"",
+                    ""type"": ""Button"",
+                    ""id"": ""20c24324-4171-4305-9970-eba4d542efca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackLast"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6be3da0-7186-4d39-847b-7868b12fd4e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceFirst"",
+                    ""type"": ""Button"",
+                    ""id"": ""f607dfcb-52a4-45b9-8490-ef27c64e027c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceMiddle"",
+                    ""type"": ""Button"",
+                    ""id"": ""b406aaff-e8d5-4f86-b77c-4edc22e4c615"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceLast"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2bb6695-5830-447b-9c94-8f0ebd15db5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""111e8af3-0320-441a-b113-93a28d1fe346"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4901e93-72c3-4244-ad04-7ac654390c08"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43b71d60-0ef1-42b0-a1cb-a071992f481e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5406cf55-a2ac-473c-875c-38bef8d567b1"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4682d713-9adc-419c-bd24-c37ca1741ad8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fc6166b-0d5f-4b54-8c8f-79039dda579f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05fc1e0d-f126-4e48-8a2e-2d038751b852"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16c9d95d-2e38-413e-858c-ff55b1597db1"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7e8119d-5541-4dfb-b8e4-d02e0c62c860"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d817d231-e589-491c-b96d-aae3b126bab2"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d30cfc3-15ad-4e9e-9d93-23a7afdf3928"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e0de431-9334-4b5b-b0a7-d19ae170f8e2"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""BattleHorizontal"",
+            ""id"": ""15e47146-150f-404c-9c2d-0ead4affd1b0"",
+            ""actions"": [
+                {
+                    ""name"": ""AttackFirst"",
+                    ""type"": ""Button"",
+                    ""id"": ""2db3c5d7-0f07-4787-9b77-7dfcddd93e25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackMiddle"",
+                    ""type"": ""Button"",
+                    ""id"": ""15021fab-189c-40e2-a09a-a84da12c4100"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackLast"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b17c871-67a3-4461-87ac-8ce393b1c5dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceFirst"",
+                    ""type"": ""Button"",
+                    ""id"": ""d276fb80-c58a-4399-8aa6-2e8bfcbd4bdb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceMiddle"",
+                    ""type"": ""Button"",
+                    ""id"": ""39ea4365-232e-4180-bf3c-c254f9b1f268"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DefenceLast"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a9a3083-7b0a-4b1e-896b-9195caa772e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""11b59e57-3867-4400-ae5b-3199c419874e"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""507271a1-73b1-4ec1-ac2d-82bef2c28082"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77b44fe1-509e-412d-8027-7b246b10b1a9"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1053dcc0-06d6-4814-b0cf-da67dfa45565"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1d6e7d2-0417-4d1e-9262-f0c32e5f1990"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44b91563-7169-4d59-9f9b-2c0b31c77b7b"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11d2cf00-2c95-429e-9e2e-86dbdd738221"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97d75d73-c82c-4a58-b34c-04f5439d9a80"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00e506a4-86d7-47fa-b078-7bdb4126eb54"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78365a4b-aad0-45f4-a0f2-e5072d863bba"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceFirst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5bfecc5-f92b-4d16-bc89-e97620b20a2f"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12aca799-888e-469a-b2c1-bf4b00a6fb0d"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DefenceMiddle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
+            // ActionMap
+            m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
+            m_ActionMap_Right = m_ActionMap.FindAction("Right", throwIfNotFound: true);
+            m_ActionMap_Down = m_ActionMap.FindAction("Down", throwIfNotFound: true);
+            m_ActionMap_Up = m_ActionMap.FindAction("Up", throwIfNotFound: true);
+            m_ActionMap_Left = m_ActionMap.FindAction("Left", throwIfNotFound: true);
+            m_ActionMap_South = m_ActionMap.FindAction("South", throwIfNotFound: true);
+            m_ActionMap_North = m_ActionMap.FindAction("North", throwIfNotFound: true);
+            m_ActionMap_West = m_ActionMap.FindAction("West", throwIfNotFound: true);
+            m_ActionMap_East = m_ActionMap.FindAction("East", throwIfNotFound: true);
+            m_ActionMap_LT = m_ActionMap.FindAction("LT", throwIfNotFound: true);
+            m_ActionMap_LB = m_ActionMap.FindAction("LB", throwIfNotFound: true);
+            m_ActionMap_RT = m_ActionMap.FindAction("RT", throwIfNotFound: true);
+            m_ActionMap_RB = m_ActionMap.FindAction("RB", throwIfNotFound: true);
+            m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
+            m_ActionMap_Select = m_ActionMap.FindAction("Select", throwIfNotFound: true);
+            // GameGo
+            m_GameGo = asset.FindActionMap("GameGo", throwIfNotFound: true);
+            m_GameGo_ButtonUp = m_GameGo.FindAction("ButtonUp", throwIfNotFound: true);
+            m_GameGo_ButtonLeft = m_GameGo.FindAction("ButtonLeft", throwIfNotFound: true);
+            m_GameGo_ButtonDown = m_GameGo.FindAction("ButtonDown", throwIfNotFound: true);
+            m_GameGo_ButtonRight = m_GameGo.FindAction("ButtonRight", throwIfNotFound: true);
+            // Battle
+            m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
+            m_Battle_AttackFirst = m_Battle.FindAction("AttackFirst", throwIfNotFound: true);
+            m_Battle_AttackMiddle = m_Battle.FindAction("AttackMiddle", throwIfNotFound: true);
+            m_Battle_AttackLast = m_Battle.FindAction("AttackLast", throwIfNotFound: true);
+            m_Battle_DefenceFirst = m_Battle.FindAction("DefenceFirst", throwIfNotFound: true);
+            m_Battle_DefenceMiddle = m_Battle.FindAction("DefenceMiddle", throwIfNotFound: true);
+            m_Battle_DefenceLast = m_Battle.FindAction("DefenceLast", throwIfNotFound: true);
+            // BattleHorizontal
+            m_BattleHorizontal = asset.FindActionMap("BattleHorizontal", throwIfNotFound: true);
+            m_BattleHorizontal_AttackFirst = m_BattleHorizontal.FindAction("AttackFirst", throwIfNotFound: true);
+            m_BattleHorizontal_AttackMiddle = m_BattleHorizontal.FindAction("AttackMiddle", throwIfNotFound: true);
+            m_BattleHorizontal_AttackLast = m_BattleHorizontal.FindAction("AttackLast", throwIfNotFound: true);
+            m_BattleHorizontal_DefenceFirst = m_BattleHorizontal.FindAction("DefenceFirst", throwIfNotFound: true);
+            m_BattleHorizontal_DefenceMiddle = m_BattleHorizontal.FindAction("DefenceMiddle", throwIfNotFound: true);
+            m_BattleHorizontal_DefenceLast = m_BattleHorizontal.FindAction("DefenceLast", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+        public IEnumerable<InputBinding> bindings => asset.bindings;
+
+        public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
+        {
+            return asset.FindAction(actionNameOrId, throwIfNotFound);
+        }
+        public int FindBinding(InputBinding bindingMask, out InputAction action)
+        {
+            return asset.FindBinding(bindingMask, out action);
+        }
+
         // ActionMap
-        m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
-        m_ActionMap_Right = m_ActionMap.FindAction("Right", throwIfNotFound: true);
-        m_ActionMap_Down = m_ActionMap.FindAction("Down", throwIfNotFound: true);
-        m_ActionMap_Up = m_ActionMap.FindAction("Up", throwIfNotFound: true);
-        m_ActionMap_Left = m_ActionMap.FindAction("Left", throwIfNotFound: true);
-        m_ActionMap_South = m_ActionMap.FindAction("South", throwIfNotFound: true);
-        m_ActionMap_North = m_ActionMap.FindAction("North", throwIfNotFound: true);
-        m_ActionMap_West = m_ActionMap.FindAction("West", throwIfNotFound: true);
-        m_ActionMap_East = m_ActionMap.FindAction("East", throwIfNotFound: true);
-        m_ActionMap_LT = m_ActionMap.FindAction("LT", throwIfNotFound: true);
-        m_ActionMap_LB = m_ActionMap.FindAction("LB", throwIfNotFound: true);
-        m_ActionMap_RT = m_ActionMap.FindAction("RT", throwIfNotFound: true);
-        m_ActionMap_RB = m_ActionMap.FindAction("RB", throwIfNotFound: true);
-        m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
-        m_ActionMap_Select = m_ActionMap.FindAction("Select", throwIfNotFound: true);
+        private readonly InputActionMap m_ActionMap;
+        private IActionMapActions m_ActionMapActionsCallbackInterface;
+        private readonly InputAction m_ActionMap_Right;
+        private readonly InputAction m_ActionMap_Down;
+        private readonly InputAction m_ActionMap_Up;
+        private readonly InputAction m_ActionMap_Left;
+        private readonly InputAction m_ActionMap_South;
+        private readonly InputAction m_ActionMap_North;
+        private readonly InputAction m_ActionMap_West;
+        private readonly InputAction m_ActionMap_East;
+        private readonly InputAction m_ActionMap_LT;
+        private readonly InputAction m_ActionMap_LB;
+        private readonly InputAction m_ActionMap_RT;
+        private readonly InputAction m_ActionMap_RB;
+        private readonly InputAction m_ActionMap_Start;
+        private readonly InputAction m_ActionMap_Select;
+        public struct ActionMapActions
+        {
+            private @InputMapping m_Wrapper;
+            public ActionMapActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Right => m_Wrapper.m_ActionMap_Right;
+            public InputAction @Down => m_Wrapper.m_ActionMap_Down;
+            public InputAction @Up => m_Wrapper.m_ActionMap_Up;
+            public InputAction @Left => m_Wrapper.m_ActionMap_Left;
+            public InputAction @South => m_Wrapper.m_ActionMap_South;
+            public InputAction @North => m_Wrapper.m_ActionMap_North;
+            public InputAction @West => m_Wrapper.m_ActionMap_West;
+            public InputAction @East => m_Wrapper.m_ActionMap_East;
+            public InputAction @LT => m_Wrapper.m_ActionMap_LT;
+            public InputAction @LB => m_Wrapper.m_ActionMap_LB;
+            public InputAction @RT => m_Wrapper.m_ActionMap_RT;
+            public InputAction @RB => m_Wrapper.m_ActionMap_RB;
+            public InputAction @Start => m_Wrapper.m_ActionMap_Start;
+            public InputAction @Select => m_Wrapper.m_ActionMap_Select;
+            public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ActionMapActions set) { return set.Get(); }
+            public void SetCallbacks(IActionMapActions instance)
+            {
+                if (m_Wrapper.m_ActionMapActionsCallbackInterface != null)
+                {
+                    @Right.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
+                    @Right.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
+                    @Right.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
+                    @Down.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
+                    @Down.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
+                    @Down.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
+                    @Up.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
+                    @Up.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
+                    @Up.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
+                    @Left.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
+                    @Left.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
+                    @Left.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
+                    @South.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
+                    @South.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
+                    @South.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
+                    @North.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
+                    @North.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
+                    @North.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
+                    @West.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
+                    @West.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
+                    @West.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
+                    @East.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
+                    @East.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
+                    @East.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
+                    @LT.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
+                    @LT.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
+                    @LT.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
+                    @LB.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
+                    @LB.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
+                    @LB.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
+                    @RT.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
+                    @RT.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
+                    @RT.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
+                    @RB.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
+                    @RB.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
+                    @RB.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
+                    @Start.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
+                    @Start.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
+                    @Start.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
+                    @Select.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
+                    @Select.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
+                    @Select.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
+                }
+                m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Right.started += instance.OnRight;
+                    @Right.performed += instance.OnRight;
+                    @Right.canceled += instance.OnRight;
+                    @Down.started += instance.OnDown;
+                    @Down.performed += instance.OnDown;
+                    @Down.canceled += instance.OnDown;
+                    @Up.started += instance.OnUp;
+                    @Up.performed += instance.OnUp;
+                    @Up.canceled += instance.OnUp;
+                    @Left.started += instance.OnLeft;
+                    @Left.performed += instance.OnLeft;
+                    @Left.canceled += instance.OnLeft;
+                    @South.started += instance.OnSouth;
+                    @South.performed += instance.OnSouth;
+                    @South.canceled += instance.OnSouth;
+                    @North.started += instance.OnNorth;
+                    @North.performed += instance.OnNorth;
+                    @North.canceled += instance.OnNorth;
+                    @West.started += instance.OnWest;
+                    @West.performed += instance.OnWest;
+                    @West.canceled += instance.OnWest;
+                    @East.started += instance.OnEast;
+                    @East.performed += instance.OnEast;
+                    @East.canceled += instance.OnEast;
+                    @LT.started += instance.OnLT;
+                    @LT.performed += instance.OnLT;
+                    @LT.canceled += instance.OnLT;
+                    @LB.started += instance.OnLB;
+                    @LB.performed += instance.OnLB;
+                    @LB.canceled += instance.OnLB;
+                    @RT.started += instance.OnRT;
+                    @RT.performed += instance.OnRT;
+                    @RT.canceled += instance.OnRT;
+                    @RB.started += instance.OnRB;
+                    @RB.performed += instance.OnRB;
+                    @RB.canceled += instance.OnRB;
+                    @Start.started += instance.OnStart;
+                    @Start.performed += instance.OnStart;
+                    @Start.canceled += instance.OnStart;
+                    @Select.started += instance.OnSelect;
+                    @Select.performed += instance.OnSelect;
+                    @Select.canceled += instance.OnSelect;
+                }
+            }
+        }
+        public ActionMapActions @ActionMap => new ActionMapActions(this);
+
         // GameGo
-        m_GameGo = asset.FindActionMap("GameGo", throwIfNotFound: true);
-        m_GameGo_ButtonUp = m_GameGo.FindAction("ButtonUp", throwIfNotFound: true);
-        m_GameGo_ButtonLeft = m_GameGo.FindAction("ButtonLeft", throwIfNotFound: true);
-        m_GameGo_ButtonDown = m_GameGo.FindAction("ButtonDown", throwIfNotFound: true);
-        m_GameGo_ButtonRight = m_GameGo.FindAction("ButtonRight", throwIfNotFound: true);
-    }
-
-    public void Dispose()
-    {
-        UnityEngine.Object.Destroy(asset);
-    }
-
-    public InputBinding? bindingMask
-    {
-        get => asset.bindingMask;
-        set => asset.bindingMask = value;
-    }
-
-    public ReadOnlyArray<InputDevice>? devices
-    {
-        get => asset.devices;
-        set => asset.devices = value;
-    }
-
-    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-    public bool Contains(InputAction action)
-    {
-        return asset.Contains(action);
-    }
-
-    public IEnumerator<InputAction> GetEnumerator()
-    {
-        return asset.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public void Enable()
-    {
-        asset.Enable();
-    }
-
-    public void Disable()
-    {
-        asset.Disable();
-    }
-    public IEnumerable<InputBinding> bindings => asset.bindings;
-
-    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
-    {
-        return asset.FindAction(actionNameOrId, throwIfNotFound);
-    }
-    public int FindBinding(InputBinding bindingMask, out InputAction action)
-    {
-        return asset.FindBinding(bindingMask, out action);
-    }
-
-    // ActionMap
-    private readonly InputActionMap m_ActionMap;
-    private IActionMapActions m_ActionMapActionsCallbackInterface;
-    private readonly InputAction m_ActionMap_Right;
-    private readonly InputAction m_ActionMap_Down;
-    private readonly InputAction m_ActionMap_Up;
-    private readonly InputAction m_ActionMap_Left;
-    private readonly InputAction m_ActionMap_South;
-    private readonly InputAction m_ActionMap_North;
-    private readonly InputAction m_ActionMap_West;
-    private readonly InputAction m_ActionMap_East;
-    private readonly InputAction m_ActionMap_LT;
-    private readonly InputAction m_ActionMap_LB;
-    private readonly InputAction m_ActionMap_RT;
-    private readonly InputAction m_ActionMap_RB;
-    private readonly InputAction m_ActionMap_Start;
-    private readonly InputAction m_ActionMap_Select;
-    public struct ActionMapActions
-    {
-        private @InputMapping m_Wrapper;
-        public ActionMapActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Right => m_Wrapper.m_ActionMap_Right;
-        public InputAction @Down => m_Wrapper.m_ActionMap_Down;
-        public InputAction @Up => m_Wrapper.m_ActionMap_Up;
-        public InputAction @Left => m_Wrapper.m_ActionMap_Left;
-        public InputAction @South => m_Wrapper.m_ActionMap_South;
-        public InputAction @North => m_Wrapper.m_ActionMap_North;
-        public InputAction @West => m_Wrapper.m_ActionMap_West;
-        public InputAction @East => m_Wrapper.m_ActionMap_East;
-        public InputAction @LT => m_Wrapper.m_ActionMap_LT;
-        public InputAction @LB => m_Wrapper.m_ActionMap_LB;
-        public InputAction @RT => m_Wrapper.m_ActionMap_RT;
-        public InputAction @RB => m_Wrapper.m_ActionMap_RB;
-        public InputAction @Start => m_Wrapper.m_ActionMap_Start;
-        public InputAction @Select => m_Wrapper.m_ActionMap_Select;
-        public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ActionMapActions set) { return set.Get(); }
-        public void SetCallbacks(IActionMapActions instance)
+        private readonly InputActionMap m_GameGo;
+        private IGameGoActions m_GameGoActionsCallbackInterface;
+        private readonly InputAction m_GameGo_ButtonUp;
+        private readonly InputAction m_GameGo_ButtonLeft;
+        private readonly InputAction m_GameGo_ButtonDown;
+        private readonly InputAction m_GameGo_ButtonRight;
+        public struct GameGoActions
         {
-            if (m_Wrapper.m_ActionMapActionsCallbackInterface != null)
+            private @InputMapping m_Wrapper;
+            public GameGoActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ButtonUp => m_Wrapper.m_GameGo_ButtonUp;
+            public InputAction @ButtonLeft => m_Wrapper.m_GameGo_ButtonLeft;
+            public InputAction @ButtonDown => m_Wrapper.m_GameGo_ButtonDown;
+            public InputAction @ButtonRight => m_Wrapper.m_GameGo_ButtonRight;
+            public InputActionMap Get() { return m_Wrapper.m_GameGo; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GameGoActions set) { return set.Get(); }
+            public void SetCallbacks(IGameGoActions instance)
             {
-                @Right.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
-                @Right.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
-                @Right.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRight;
-                @Down.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
-                @Down.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
-                @Down.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnDown;
-                @Up.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
-                @Up.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
-                @Up.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnUp;
-                @Left.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
-                @Left.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
-                @Left.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLeft;
-                @South.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
-                @South.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
-                @South.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSouth;
-                @North.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
-                @North.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
-                @North.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnNorth;
-                @West.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
-                @West.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
-                @West.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnWest;
-                @East.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
-                @East.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
-                @East.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnEast;
-                @LT.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
-                @LT.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
-                @LT.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLT;
-                @LB.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
-                @LB.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
-                @LB.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLB;
-                @RT.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
-                @RT.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
-                @RT.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRT;
-                @RB.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
-                @RB.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
-                @RB.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnRB;
-                @Start.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
-                @Start.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
-                @Start.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
-                @Select.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSelect;
-            }
-            m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Right.started += instance.OnRight;
-                @Right.performed += instance.OnRight;
-                @Right.canceled += instance.OnRight;
-                @Down.started += instance.OnDown;
-                @Down.performed += instance.OnDown;
-                @Down.canceled += instance.OnDown;
-                @Up.started += instance.OnUp;
-                @Up.performed += instance.OnUp;
-                @Up.canceled += instance.OnUp;
-                @Left.started += instance.OnLeft;
-                @Left.performed += instance.OnLeft;
-                @Left.canceled += instance.OnLeft;
-                @South.started += instance.OnSouth;
-                @South.performed += instance.OnSouth;
-                @South.canceled += instance.OnSouth;
-                @North.started += instance.OnNorth;
-                @North.performed += instance.OnNorth;
-                @North.canceled += instance.OnNorth;
-                @West.started += instance.OnWest;
-                @West.performed += instance.OnWest;
-                @West.canceled += instance.OnWest;
-                @East.started += instance.OnEast;
-                @East.performed += instance.OnEast;
-                @East.canceled += instance.OnEast;
-                @LT.started += instance.OnLT;
-                @LT.performed += instance.OnLT;
-                @LT.canceled += instance.OnLT;
-                @LB.started += instance.OnLB;
-                @LB.performed += instance.OnLB;
-                @LB.canceled += instance.OnLB;
-                @RT.started += instance.OnRT;
-                @RT.performed += instance.OnRT;
-                @RT.canceled += instance.OnRT;
-                @RB.started += instance.OnRB;
-                @RB.performed += instance.OnRB;
-                @RB.canceled += instance.OnRB;
-                @Start.started += instance.OnStart;
-                @Start.performed += instance.OnStart;
-                @Start.canceled += instance.OnStart;
-                @Select.started += instance.OnSelect;
-                @Select.performed += instance.OnSelect;
-                @Select.canceled += instance.OnSelect;
+                if (m_Wrapper.m_GameGoActionsCallbackInterface != null)
+                {
+                    @ButtonUp.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                    @ButtonUp.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                    @ButtonUp.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
+                    @ButtonLeft.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                    @ButtonLeft.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                    @ButtonLeft.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
+                    @ButtonDown.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                    @ButtonDown.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                    @ButtonDown.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
+                    @ButtonRight.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+                    @ButtonRight.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+                    @ButtonRight.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
+                }
+                m_Wrapper.m_GameGoActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ButtonUp.started += instance.OnButtonUp;
+                    @ButtonUp.performed += instance.OnButtonUp;
+                    @ButtonUp.canceled += instance.OnButtonUp;
+                    @ButtonLeft.started += instance.OnButtonLeft;
+                    @ButtonLeft.performed += instance.OnButtonLeft;
+                    @ButtonLeft.canceled += instance.OnButtonLeft;
+                    @ButtonDown.started += instance.OnButtonDown;
+                    @ButtonDown.performed += instance.OnButtonDown;
+                    @ButtonDown.canceled += instance.OnButtonDown;
+                    @ButtonRight.started += instance.OnButtonRight;
+                    @ButtonRight.performed += instance.OnButtonRight;
+                    @ButtonRight.canceled += instance.OnButtonRight;
+                }
             }
         }
-    }
-    public ActionMapActions @ActionMap => new ActionMapActions(this);
+        public GameGoActions @GameGo => new GameGoActions(this);
 
-    // GameGo
-    private readonly InputActionMap m_GameGo;
-    private IGameGoActions m_GameGoActionsCallbackInterface;
-    private readonly InputAction m_GameGo_ButtonUp;
-    private readonly InputAction m_GameGo_ButtonLeft;
-    private readonly InputAction m_GameGo_ButtonDown;
-    private readonly InputAction m_GameGo_ButtonRight;
-    public struct GameGoActions
-    {
-        private @InputMapping m_Wrapper;
-        public GameGoActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ButtonUp => m_Wrapper.m_GameGo_ButtonUp;
-        public InputAction @ButtonLeft => m_Wrapper.m_GameGo_ButtonLeft;
-        public InputAction @ButtonDown => m_Wrapper.m_GameGo_ButtonDown;
-        public InputAction @ButtonRight => m_Wrapper.m_GameGo_ButtonRight;
-        public InputActionMap Get() { return m_Wrapper.m_GameGo; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameGoActions set) { return set.Get(); }
-        public void SetCallbacks(IGameGoActions instance)
+        // Battle
+        private readonly InputActionMap m_Battle;
+        private IBattleActions m_BattleActionsCallbackInterface;
+        private readonly InputAction m_Battle_AttackFirst;
+        private readonly InputAction m_Battle_AttackMiddle;
+        private readonly InputAction m_Battle_AttackLast;
+        private readonly InputAction m_Battle_DefenceFirst;
+        private readonly InputAction m_Battle_DefenceMiddle;
+        private readonly InputAction m_Battle_DefenceLast;
+        public struct BattleActions
         {
-            if (m_Wrapper.m_GameGoActionsCallbackInterface != null)
+            private @InputMapping m_Wrapper;
+            public BattleActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
+            public InputAction @AttackFirst => m_Wrapper.m_Battle_AttackFirst;
+            public InputAction @AttackMiddle => m_Wrapper.m_Battle_AttackMiddle;
+            public InputAction @AttackLast => m_Wrapper.m_Battle_AttackLast;
+            public InputAction @DefenceFirst => m_Wrapper.m_Battle_DefenceFirst;
+            public InputAction @DefenceMiddle => m_Wrapper.m_Battle_DefenceMiddle;
+            public InputAction @DefenceLast => m_Wrapper.m_Battle_DefenceLast;
+            public InputActionMap Get() { return m_Wrapper.m_Battle; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(BattleActions set) { return set.Get(); }
+            public void SetCallbacks(IBattleActions instance)
             {
-                @ButtonUp.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
-                @ButtonUp.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
-                @ButtonUp.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonUp;
-                @ButtonLeft.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
-                @ButtonLeft.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
-                @ButtonLeft.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonLeft;
-                @ButtonDown.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
-                @ButtonDown.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
-                @ButtonDown.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonDown;
-                @ButtonRight.started -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
-                @ButtonRight.performed -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
-                @ButtonRight.canceled -= m_Wrapper.m_GameGoActionsCallbackInterface.OnButtonRight;
-            }
-            m_Wrapper.m_GameGoActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @ButtonUp.started += instance.OnButtonUp;
-                @ButtonUp.performed += instance.OnButtonUp;
-                @ButtonUp.canceled += instance.OnButtonUp;
-                @ButtonLeft.started += instance.OnButtonLeft;
-                @ButtonLeft.performed += instance.OnButtonLeft;
-                @ButtonLeft.canceled += instance.OnButtonLeft;
-                @ButtonDown.started += instance.OnButtonDown;
-                @ButtonDown.performed += instance.OnButtonDown;
-                @ButtonDown.canceled += instance.OnButtonDown;
-                @ButtonRight.started += instance.OnButtonRight;
-                @ButtonRight.performed += instance.OnButtonRight;
-                @ButtonRight.canceled += instance.OnButtonRight;
+                if (m_Wrapper.m_BattleActionsCallbackInterface != null)
+                {
+                    @AttackFirst.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackFirst;
+                    @AttackFirst.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackFirst;
+                    @AttackFirst.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackFirst;
+                    @AttackMiddle.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackMiddle;
+                    @AttackMiddle.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackMiddle;
+                    @AttackMiddle.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackMiddle;
+                    @AttackLast.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackLast;
+                    @AttackLast.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackLast;
+                    @AttackLast.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnAttackLast;
+                    @DefenceFirst.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceFirst.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceFirst.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceMiddle.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceMiddle.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceMiddle.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceLast.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceLast;
+                    @DefenceLast.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceLast;
+                    @DefenceLast.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnDefenceLast;
+                }
+                m_Wrapper.m_BattleActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @AttackFirst.started += instance.OnAttackFirst;
+                    @AttackFirst.performed += instance.OnAttackFirst;
+                    @AttackFirst.canceled += instance.OnAttackFirst;
+                    @AttackMiddle.started += instance.OnAttackMiddle;
+                    @AttackMiddle.performed += instance.OnAttackMiddle;
+                    @AttackMiddle.canceled += instance.OnAttackMiddle;
+                    @AttackLast.started += instance.OnAttackLast;
+                    @AttackLast.performed += instance.OnAttackLast;
+                    @AttackLast.canceled += instance.OnAttackLast;
+                    @DefenceFirst.started += instance.OnDefenceFirst;
+                    @DefenceFirst.performed += instance.OnDefenceFirst;
+                    @DefenceFirst.canceled += instance.OnDefenceFirst;
+                    @DefenceMiddle.started += instance.OnDefenceMiddle;
+                    @DefenceMiddle.performed += instance.OnDefenceMiddle;
+                    @DefenceMiddle.canceled += instance.OnDefenceMiddle;
+                    @DefenceLast.started += instance.OnDefenceLast;
+                    @DefenceLast.performed += instance.OnDefenceLast;
+                    @DefenceLast.canceled += instance.OnDefenceLast;
+                }
             }
         }
-    }
-    public GameGoActions @GameGo => new GameGoActions(this);
-    public interface IActionMapActions
-    {
-        void OnRight(InputAction.CallbackContext context);
-        void OnDown(InputAction.CallbackContext context);
-        void OnUp(InputAction.CallbackContext context);
-        void OnLeft(InputAction.CallbackContext context);
-        void OnSouth(InputAction.CallbackContext context);
-        void OnNorth(InputAction.CallbackContext context);
-        void OnWest(InputAction.CallbackContext context);
-        void OnEast(InputAction.CallbackContext context);
-        void OnLT(InputAction.CallbackContext context);
-        void OnLB(InputAction.CallbackContext context);
-        void OnRT(InputAction.CallbackContext context);
-        void OnRB(InputAction.CallbackContext context);
-        void OnStart(InputAction.CallbackContext context);
-        void OnSelect(InputAction.CallbackContext context);
-    }
-    public interface IGameGoActions
-    {
-        void OnButtonUp(InputAction.CallbackContext context);
-        void OnButtonLeft(InputAction.CallbackContext context);
-        void OnButtonDown(InputAction.CallbackContext context);
-        void OnButtonRight(InputAction.CallbackContext context);
+        public BattleActions @Battle => new BattleActions(this);
+
+        // BattleHorizontal
+        private readonly InputActionMap m_BattleHorizontal;
+        private IBattleHorizontalActions m_BattleHorizontalActionsCallbackInterface;
+        private readonly InputAction m_BattleHorizontal_AttackFirst;
+        private readonly InputAction m_BattleHorizontal_AttackMiddle;
+        private readonly InputAction m_BattleHorizontal_AttackLast;
+        private readonly InputAction m_BattleHorizontal_DefenceFirst;
+        private readonly InputAction m_BattleHorizontal_DefenceMiddle;
+        private readonly InputAction m_BattleHorizontal_DefenceLast;
+        public struct BattleHorizontalActions
+        {
+            private @InputMapping m_Wrapper;
+            public BattleHorizontalActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
+            public InputAction @AttackFirst => m_Wrapper.m_BattleHorizontal_AttackFirst;
+            public InputAction @AttackMiddle => m_Wrapper.m_BattleHorizontal_AttackMiddle;
+            public InputAction @AttackLast => m_Wrapper.m_BattleHorizontal_AttackLast;
+            public InputAction @DefenceFirst => m_Wrapper.m_BattleHorizontal_DefenceFirst;
+            public InputAction @DefenceMiddle => m_Wrapper.m_BattleHorizontal_DefenceMiddle;
+            public InputAction @DefenceLast => m_Wrapper.m_BattleHorizontal_DefenceLast;
+            public InputActionMap Get() { return m_Wrapper.m_BattleHorizontal; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(BattleHorizontalActions set) { return set.Get(); }
+            public void SetCallbacks(IBattleHorizontalActions instance)
+            {
+                if (m_Wrapper.m_BattleHorizontalActionsCallbackInterface != null)
+                {
+                    @AttackFirst.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackFirst;
+                    @AttackFirst.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackFirst;
+                    @AttackFirst.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackFirst;
+                    @AttackMiddle.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackMiddle;
+                    @AttackMiddle.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackMiddle;
+                    @AttackMiddle.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackMiddle;
+                    @AttackLast.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackLast;
+                    @AttackLast.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackLast;
+                    @AttackLast.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnAttackLast;
+                    @DefenceFirst.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceFirst.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceFirst.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceFirst;
+                    @DefenceMiddle.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceMiddle.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceMiddle.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceMiddle;
+                    @DefenceLast.started -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceLast;
+                    @DefenceLast.performed -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceLast;
+                    @DefenceLast.canceled -= m_Wrapper.m_BattleHorizontalActionsCallbackInterface.OnDefenceLast;
+                }
+                m_Wrapper.m_BattleHorizontalActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @AttackFirst.started += instance.OnAttackFirst;
+                    @AttackFirst.performed += instance.OnAttackFirst;
+                    @AttackFirst.canceled += instance.OnAttackFirst;
+                    @AttackMiddle.started += instance.OnAttackMiddle;
+                    @AttackMiddle.performed += instance.OnAttackMiddle;
+                    @AttackMiddle.canceled += instance.OnAttackMiddle;
+                    @AttackLast.started += instance.OnAttackLast;
+                    @AttackLast.performed += instance.OnAttackLast;
+                    @AttackLast.canceled += instance.OnAttackLast;
+                    @DefenceFirst.started += instance.OnDefenceFirst;
+                    @DefenceFirst.performed += instance.OnDefenceFirst;
+                    @DefenceFirst.canceled += instance.OnDefenceFirst;
+                    @DefenceMiddle.started += instance.OnDefenceMiddle;
+                    @DefenceMiddle.performed += instance.OnDefenceMiddle;
+                    @DefenceMiddle.canceled += instance.OnDefenceMiddle;
+                    @DefenceLast.started += instance.OnDefenceLast;
+                    @DefenceLast.performed += instance.OnDefenceLast;
+                    @DefenceLast.canceled += instance.OnDefenceLast;
+                }
+            }
+        }
+        public BattleHorizontalActions @BattleHorizontal => new BattleHorizontalActions(this);
+        public interface IActionMapActions
+        {
+            void OnRight(InputAction.CallbackContext context);
+            void OnDown(InputAction.CallbackContext context);
+            void OnUp(InputAction.CallbackContext context);
+            void OnLeft(InputAction.CallbackContext context);
+            void OnSouth(InputAction.CallbackContext context);
+            void OnNorth(InputAction.CallbackContext context);
+            void OnWest(InputAction.CallbackContext context);
+            void OnEast(InputAction.CallbackContext context);
+            void OnLT(InputAction.CallbackContext context);
+            void OnLB(InputAction.CallbackContext context);
+            void OnRT(InputAction.CallbackContext context);
+            void OnRB(InputAction.CallbackContext context);
+            void OnStart(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
+        }
+        public interface IGameGoActions
+        {
+            void OnButtonUp(InputAction.CallbackContext context);
+            void OnButtonLeft(InputAction.CallbackContext context);
+            void OnButtonDown(InputAction.CallbackContext context);
+            void OnButtonRight(InputAction.CallbackContext context);
+        }
+        public interface IBattleActions
+        {
+            void OnAttackFirst(InputAction.CallbackContext context);
+            void OnAttackMiddle(InputAction.CallbackContext context);
+            void OnAttackLast(InputAction.CallbackContext context);
+            void OnDefenceFirst(InputAction.CallbackContext context);
+            void OnDefenceMiddle(InputAction.CallbackContext context);
+            void OnDefenceLast(InputAction.CallbackContext context);
+        }
+        public interface IBattleHorizontalActions
+        {
+            void OnAttackFirst(InputAction.CallbackContext context);
+            void OnAttackMiddle(InputAction.CallbackContext context);
+            void OnAttackLast(InputAction.CallbackContext context);
+            void OnDefenceFirst(InputAction.CallbackContext context);
+            void OnDefenceMiddle(InputAction.CallbackContext context);
+            void OnDefenceLast(InputAction.CallbackContext context);
+        }
     }
 }
