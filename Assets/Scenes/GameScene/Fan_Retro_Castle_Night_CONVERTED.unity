@@ -21026,7 +21026,7 @@ MonoBehaviour:
     - rid: 529044388163354637
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 48880
+        m_CharacterId: 54306
         m_Character: {fileID: 521907070}
         m_WalkType: 2
         m_StayCrouched: 1
@@ -21040,7 +21040,7 @@ MonoBehaviour:
     - rid: 529044388163354639
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 48910
+        m_CharacterId: 54336
         m_Character: {fileID: 562705771}
         m_WalkType: 2
         m_StayCrouched: 1
@@ -21132,7 +21132,7 @@ MonoBehaviour:
     - rid: 4394944020443299851
       type: {class: MoveCharacter, ns: Common.Cutscenes.Commands, asm: Assembly-CSharp}
       data:
-        m_CharacterId: 49388
+        m_CharacterId: 54814
         m_Character: {fileID: 1289531693}
         m_WalkType: 2
         m_StayCrouched: 1

@@ -34,4 +34,9 @@ public class NavigationHelper : MonoBehaviour
     {
         agent.destination = newDestination.position;
     }
+
+    public void ChangeSlowDownDistance(AIPath agent, float newDistance)
+    {
+        agent.slowdownDistance = newDistance;
+    }
 }
