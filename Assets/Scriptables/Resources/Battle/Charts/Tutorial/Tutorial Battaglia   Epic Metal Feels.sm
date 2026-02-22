@@ -25,17 +25,21 @@
      Beginner:
      3:
      0,0,0,0,0:
-000000
-000000
-000000
-000000
+
+measure 0
+element 0 000000
+element 1 000000
+element 2 000000
+element 3 000000
 ,
-000000
-000000
-000000
-000000
+measure 1
+element 4 000000
+element 5 000000
+element 6 000000
+element 7 000000
 ,
-000100
+measure 2
+element 8 000100
 000000
 000000
 000000

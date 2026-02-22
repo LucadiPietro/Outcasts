@@ -82,12 +82,18 @@ public class SMChartImporterWindow : EditorWindow
 
     private void GenerateAndSaveAsset(ChartData chart)
     {
-        // Build pipeline
+        // 1) Build pipeline base
         MeasureUtils.SplitMeasuresAndValidate(chart);
+
+        // 2) Crea rows (grid 0/1/2/3 raggruppata a 6)
+        var rows = RowGenerator.GenerateRows(chart);
+
+        // 3) (Opzionale) Crea anche frames evento-based
         FrameGenerator.GenerateFrames(chart);
 
-        // Create ScriptableObject
+        // 4) Create ScriptableObject
         var asset = ScriptableObject.CreateInstance<ChartDataAsset>();
+
         asset.title = parsedTitle;
         asset.sourceFileName = smFile.name;
 
@@ -98,14 +104,16 @@ public class SMChartImporterWindow : EditorWindow
 
         asset.offsetSeconds = (float)chart.OffsetSeconds;
         asset.bpms = new List<BPMChange>(chart.BPMs);
-        asset.frames = new List<Frame>(chart.Frames);
 
-        // Ensure folder exists
+        asset.rows = rows;
+        asset.frames = new List<Frame>(chart.Frames); // (opzionale)
+
+        // 5) Ensure folder exists
         string folder = "Assets/Charts";
         if (!Directory.Exists(folder))
             Directory.CreateDirectory(folder);
 
-        // Safe file name
+        // 6) Safe file name
         string safeDiff = MakeSafeFileName(asset.difficulty);
         string safeGT = MakeSafeFileName(asset.gameType);
         string path = $"{folder}/{smFile.name}_{safeGT}_{safeDiff}.asset";
@@ -117,7 +125,7 @@ public class SMChartImporterWindow : EditorWindow
         EditorGUIUtility.PingObject(asset);
         Selection.activeObject = asset;
 
-        Debug.Log($"Saved ChartDataAsset → {path} | frames={asset.frames.Count}");
+        Debug.Log($"Saved ChartDataAsset → {path} | rows={asset.rows.Count} frames={asset.frames.Count}");
     }
 
     private static string MakeSafeFileName(string s)

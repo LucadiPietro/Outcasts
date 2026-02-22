@@ -4641,3 +4641,5514 @@ MonoBehaviour:
     RowIndexInMeasure: 3
     Time: 223.98025806451614
     Events: []
+  rows:
+  - measureIndex: 0
+    rowIndexInMeasure: 0
+    time: -0.052
+    lanes: 000000000000
+    events: []
+  - measureIndex: 0
+    rowIndexInMeasure: 1
+    time: 0.4318709677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 0
+    rowIndexInMeasure: 2
+    time: 0.915741935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 0
+    rowIndexInMeasure: 3
+    time: 1.3996129032258064
+    lanes: 000000000000
+    events: []
+  - measureIndex: 1
+    rowIndexInMeasure: 0
+    time: 1.883483870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 1
+    rowIndexInMeasure: 1
+    time: 2.3673548387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 1
+    rowIndexInMeasure: 2
+    time: 2.851225806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 1
+    rowIndexInMeasure: 3
+    time: 3.3350967741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 2
+    rowIndexInMeasure: 0
+    time: 3.818967741935484
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 2
+    rowIndexInMeasure: 1
+    time: 4.30283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 2
+    rowIndexInMeasure: 2
+    time: 4.786709677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 2
+    rowIndexInMeasure: 3
+    time: 5.27058064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 3
+    rowIndexInMeasure: 0
+    time: 5.754451612903226
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 3
+    rowIndexInMeasure: 1
+    time: 6.238322580645162
+    lanes: 000000000000
+    events: []
+  - measureIndex: 3
+    rowIndexInMeasure: 2
+    time: 6.722193548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 3
+    rowIndexInMeasure: 3
+    time: 7.206064516129032
+    lanes: 000000000000
+    events: []
+  - measureIndex: 4
+    rowIndexInMeasure: 0
+    time: 7.689935483870968
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 4
+    rowIndexInMeasure: 1
+    time: 8.173806451612904
+    lanes: 000000000000
+    events: []
+  - measureIndex: 4
+    rowIndexInMeasure: 2
+    time: 8.65767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 4
+    rowIndexInMeasure: 3
+    time: 9.141548387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 5
+    rowIndexInMeasure: 0
+    time: 9.62541935483871
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 5
+    rowIndexInMeasure: 1
+    time: 10.109290322580646
+    lanes: 000000000000
+    events: []
+  - measureIndex: 5
+    rowIndexInMeasure: 2
+    time: 10.59316129032258
+    lanes: 020000000300
+    events:
+    - LaneIndex: 0
+      Type: 1
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 5
+    rowIndexInMeasure: 3
+    time: 11.077032258064516
+    lanes: 030000000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+  - measureIndex: 6
+    rowIndexInMeasure: 0
+    time: 11.560903225806452
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 6
+    rowIndexInMeasure: 1
+    time: 11.681870967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 2
+    time: 11.80283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 3
+    time: 11.923806451612904
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 4
+    time: 12.044774193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 5
+    time: 12.165741935483872
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 6
+    time: 12.286709677419356
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 7
+    time: 12.40767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 8
+    time: 12.528645161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 9
+    time: 12.649612903225806
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 10
+    time: 12.77058064516129
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 6
+    rowIndexInMeasure: 11
+    time: 12.891548387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 12
+    time: 13.012516129032258
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 13
+    time: 13.133483870967742
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 6
+    rowIndexInMeasure: 14
+    time: 13.254451612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 6
+    rowIndexInMeasure: 15
+    time: 13.37541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 7
+    rowIndexInMeasure: 0
+    time: 13.496387096774194
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 7
+    rowIndexInMeasure: 1
+    time: 13.98025806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 7
+    rowIndexInMeasure: 2
+    time: 14.464129032258064
+    lanes: 000000000000
+    events: []
+  - measureIndex: 7
+    rowIndexInMeasure: 3
+    time: 14.948
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 0
+    time: 15.431870967741936
+    lanes: 010003000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 8
+    rowIndexInMeasure: 1
+    time: 15.55283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 2
+    time: 15.673806451612904
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 3
+    time: 15.794774193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 4
+    time: 15.915741935483872
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 5
+    time: 16.036709677419356
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 6
+    time: 16.15767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 7
+    time: 16.278645161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 8
+    time: 16.39961290322581
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 9
+    time: 16.520580645161292
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 10
+    time: 16.641548387096776
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 8
+    rowIndexInMeasure: 11
+    time: 16.76251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 12
+    time: 16.883483870967744
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 13
+    time: 17.004451612903228
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 8
+    rowIndexInMeasure: 14
+    time: 17.125419354838712
+    lanes: 000000000000
+    events: []
+  - measureIndex: 8
+    rowIndexInMeasure: 15
+    time: 17.246387096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 9
+    rowIndexInMeasure: 0
+    time: 17.36735483870968
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 9
+    rowIndexInMeasure: 1
+    time: 17.851225806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 9
+    rowIndexInMeasure: 2
+    time: 18.33509677419355
+    lanes: 000003000000
+    events:
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 9
+    rowIndexInMeasure: 3
+    time: 18.818967741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 10
+    rowIndexInMeasure: 0
+    time: 19.30283870967742
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 10
+    rowIndexInMeasure: 1
+    time: 19.786709677419356
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 10
+    rowIndexInMeasure: 2
+    time: 20.270580645161292
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 10
+    rowIndexInMeasure: 3
+    time: 20.754451612903228
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 11
+    rowIndexInMeasure: 0
+    time: 21.23832258064516
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 11
+    rowIndexInMeasure: 1
+    time: 21.722193548387096
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 11
+    rowIndexInMeasure: 2
+    time: 22.206064516129032
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 11
+    rowIndexInMeasure: 3
+    time: 22.68993548387097
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 12
+    rowIndexInMeasure: 0
+    time: 23.173806451612904
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 12
+    rowIndexInMeasure: 1
+    time: 23.65767741935484
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 12
+    rowIndexInMeasure: 2
+    time: 24.141548387096776
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 12
+    rowIndexInMeasure: 3
+    time: 24.625419354838712
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 13
+    rowIndexInMeasure: 0
+    time: 25.109290322580648
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 13
+    rowIndexInMeasure: 1
+    time: 25.59316129032258
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 13
+    rowIndexInMeasure: 2
+    time: 26.077032258064516
+    lanes: 020000000003
+    events:
+    - LaneIndex: 0
+      Type: 1
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 13
+    rowIndexInMeasure: 3
+    time: 26.560903225806452
+    lanes: 030001000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 14
+    rowIndexInMeasure: 0
+    time: 27.04477419354839
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 14
+    rowIndexInMeasure: 1
+    time: 27.528645161290324
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 14
+    rowIndexInMeasure: 2
+    time: 28.01251612903226
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 14
+    rowIndexInMeasure: 3
+    time: 28.496387096774196
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 15
+    rowIndexInMeasure: 0
+    time: 28.98025806451613
+    lanes: 000000030001
+    events:
+    - LaneIndex: 3
+      Type: 2
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 15
+    rowIndexInMeasure: 1
+    time: 29.464129032258064
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 15
+    rowIndexInMeasure: 2
+    time: 29.948
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 15
+    rowIndexInMeasure: 3
+    time: 30.431870967741936
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 16
+    rowIndexInMeasure: 0
+    time: 30.915741935483872
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 16
+    rowIndexInMeasure: 1
+    time: 31.39961290322581
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 16
+    rowIndexInMeasure: 2
+    time: 31.883483870967744
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 16
+    rowIndexInMeasure: 3
+    time: 32.36735483870968
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 17
+    rowIndexInMeasure: 0
+    time: 32.851225806451616
+    lanes: 010000000300
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 17
+    rowIndexInMeasure: 1
+    time: 33.093161290322584
+    lanes: 000000000000
+    events: []
+  - measureIndex: 17
+    rowIndexInMeasure: 2
+    time: 33.33509677419355
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 17
+    rowIndexInMeasure: 3
+    time: 33.57703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 17
+    rowIndexInMeasure: 4
+    time: 33.81896774193549
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 17
+    rowIndexInMeasure: 5
+    time: 34.060903225806456
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 17
+    rowIndexInMeasure: 6
+    time: 34.302838709677424
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 17
+    rowIndexInMeasure: 7
+    time: 34.54477419354839
+    lanes: 000000000000
+    events: []
+  - measureIndex: 18
+    rowIndexInMeasure: 0
+    time: 34.78670967741936
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 18
+    rowIndexInMeasure: 1
+    time: 35.27058064516129
+    lanes: 000100030000
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 18
+    rowIndexInMeasure: 2
+    time: 35.754451612903225
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 18
+    rowIndexInMeasure: 3
+    time: 36.23832258064516
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 19
+    rowIndexInMeasure: 0
+    time: 36.7221935483871
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 19
+    rowIndexInMeasure: 1
+    time: 37.20606451612903
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 19
+    rowIndexInMeasure: 2
+    time: 37.68993548387097
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 19
+    rowIndexInMeasure: 3
+    time: 38.173806451612904
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 20
+    rowIndexInMeasure: 0
+    time: 38.65767741935484
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 20
+    rowIndexInMeasure: 1
+    time: 39.141548387096776
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 20
+    rowIndexInMeasure: 2
+    time: 39.62541935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 20
+    rowIndexInMeasure: 3
+    time: 40.10929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 21
+    rowIndexInMeasure: 0
+    time: 40.593161290322584
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 21
+    rowIndexInMeasure: 1
+    time: 40.83509677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 21
+    rowIndexInMeasure: 2
+    time: 41.07703225806452
+    lanes: 000000010300
+    events:
+    - LaneIndex: 3
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 21
+    rowIndexInMeasure: 3
+    time: 41.31896774193549
+    lanes: 000000000000
+    events: []
+  - measureIndex: 21
+    rowIndexInMeasure: 4
+    time: 41.560903225806456
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 21
+    rowIndexInMeasure: 5
+    time: 41.802838709677424
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 21
+    rowIndexInMeasure: 6
+    time: 42.04477419354839
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 21
+    rowIndexInMeasure: 7
+    time: 42.28670967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 22
+    rowIndexInMeasure: 0
+    time: 42.52864516129032
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 22
+    rowIndexInMeasure: 1
+    time: 43.01251612903226
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 22
+    rowIndexInMeasure: 2
+    time: 43.49638709677419
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 22
+    rowIndexInMeasure: 3
+    time: 43.98025806451613
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 23
+    rowIndexInMeasure: 0
+    time: 44.464129032258064
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 23
+    rowIndexInMeasure: 1
+    time: 44.948
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 23
+    rowIndexInMeasure: 2
+    time: 45.431870967741936
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 23
+    rowIndexInMeasure: 3
+    time: 45.91574193548387
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 24
+    rowIndexInMeasure: 0
+    time: 46.39961290322581
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 24
+    rowIndexInMeasure: 1
+    time: 46.883483870967744
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 24
+    rowIndexInMeasure: 2
+    time: 47.36735483870968
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 24
+    rowIndexInMeasure: 3
+    time: 47.851225806451616
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 0
+    time: 48.33509677419355
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 1
+    time: 48.57703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 25
+    rowIndexInMeasure: 2
+    time: 48.81896774193549
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 3
+    time: 49.060903225806456
+    lanes: 000000000000
+    events: []
+  - measureIndex: 25
+    rowIndexInMeasure: 4
+    time: 49.302838709677424
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 5
+    time: 49.54477419354839
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 6
+    time: 49.78670967741936
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 25
+    rowIndexInMeasure: 7
+    time: 50.02864516129033
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 0
+    time: 50.270580645161296
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 26
+    rowIndexInMeasure: 1
+    time: 50.391548387096776
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 2
+    time: 50.51251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 3
+    time: 50.633483870967744
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 4
+    time: 50.754451612903225
+    lanes: 000000000003
+    events:
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 26
+    rowIndexInMeasure: 5
+    time: 50.87541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 6
+    time: 50.99638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 7
+    time: 51.11735483870968
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 8
+    time: 51.23832258064516
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 26
+    rowIndexInMeasure: 9
+    time: 51.35929032258065
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 10
+    time: 51.48025806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 11
+    time: 51.601225806451616
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 26
+    rowIndexInMeasure: 12
+    time: 51.7221935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 13
+    time: 51.843161290322584
+    lanes: 000000000000
+    events: []
+  - measureIndex: 26
+    rowIndexInMeasure: 14
+    time: 51.964129032258064
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 26
+    rowIndexInMeasure: 15
+    time: 52.08509677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 0
+    time: 52.20606451612903
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 1
+    time: 52.32703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 2
+    time: 52.448
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 3
+    time: 52.56896774193549
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 4
+    time: 52.68993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 5
+    time: 52.810903225806456
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 6
+    time: 52.931870967741936
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 7
+    time: 53.052838709677424
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 8
+    time: 53.173806451612904
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 9
+    time: 53.29477419354839
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 10
+    time: 53.41574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 11
+    time: 53.53670967741936
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 12
+    time: 53.65767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 13
+    time: 53.77864516129033
+    lanes: 000000000000
+    events: []
+  - measureIndex: 27
+    rowIndexInMeasure: 14
+    time: 53.89961290322581
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 27
+    rowIndexInMeasure: 15
+    time: 54.020580645161296
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 0
+    time: 54.141548387096776
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 1
+    time: 54.26251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 2
+    time: 54.383483870967744
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 3
+    time: 54.504451612903225
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 4
+    time: 54.62541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 5
+    time: 54.74638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 6
+    time: 54.86735483870968
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 7
+    time: 54.98832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 8
+    time: 55.10929032258065
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 9
+    time: 55.23025806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 10
+    time: 55.351225806451616
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 11
+    time: 55.4721935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 12
+    time: 55.593161290322584
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 13
+    time: 55.714129032258064
+    lanes: 000000000000
+    events: []
+  - measureIndex: 28
+    rowIndexInMeasure: 14
+    time: 55.83509677419355
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 28
+    rowIndexInMeasure: 15
+    time: 55.95606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 0
+    time: 56.07703225806452
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 29
+    rowIndexInMeasure: 1
+    time: 56.198
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 2
+    time: 56.31896774193549
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 3
+    time: 56.43993548387097
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 29
+    rowIndexInMeasure: 4
+    time: 56.560903225806456
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 5
+    time: 56.681870967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 6
+    time: 56.802838709677424
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 29
+    rowIndexInMeasure: 7
+    time: 56.923806451612904
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 8
+    time: 57.04477419354839
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 29
+    rowIndexInMeasure: 9
+    time: 57.16574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 10
+    time: 57.28670967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 11
+    time: 57.40767741935484
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 29
+    rowIndexInMeasure: 12
+    time: 57.52864516129033
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 13
+    time: 57.64961290322581
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 14
+    time: 57.770580645161296
+    lanes: 000000000000
+    events: []
+  - measureIndex: 29
+    rowIndexInMeasure: 15
+    time: 57.891548387096776
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 0
+    time: 58.01251612903226
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 1
+    time: 58.133483870967744
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 2
+    time: 58.254451612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 3
+    time: 58.37541935483871
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 4
+    time: 58.49638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 5
+    time: 58.61735483870968
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 6
+    time: 58.73832258064516
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 7
+    time: 58.85929032258065
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 8
+    time: 58.98025806451613
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 9
+    time: 59.101225806451616
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 10
+    time: 59.2221935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 11
+    time: 59.343161290322584
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 12
+    time: 59.464129032258064
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 13
+    time: 59.58509677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 30
+    rowIndexInMeasure: 14
+    time: 59.70606451612903
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 30
+    rowIndexInMeasure: 15
+    time: 59.82703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 0
+    time: 59.948
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 1
+    time: 60.06896774193549
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 2
+    time: 60.18993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 3
+    time: 60.310903225806456
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 4
+    time: 60.431870967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 5
+    time: 60.552838709677424
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 6
+    time: 60.673806451612904
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 7
+    time: 60.79477419354839
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 8
+    time: 60.91574193548387
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 9
+    time: 61.03670967741936
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 10
+    time: 61.15767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 11
+    time: 61.27864516129033
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 12
+    time: 61.39961290322581
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 13
+    time: 61.520580645161296
+    lanes: 000000000000
+    events: []
+  - measureIndex: 31
+    rowIndexInMeasure: 14
+    time: 61.641548387096776
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 31
+    rowIndexInMeasure: 15
+    time: 61.762516129032264
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 0
+    time: 61.883483870967744
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 1
+    time: 62.004451612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 2
+    time: 62.12541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 3
+    time: 62.24638709677419
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 4
+    time: 62.36735483870968
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 5
+    time: 62.48832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 6
+    time: 62.60929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 7
+    time: 62.73025806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 8
+    time: 62.851225806451616
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 9
+    time: 62.9721935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 10
+    time: 63.093161290322584
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 11
+    time: 63.214129032258064
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 12
+    time: 63.33509677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 13
+    time: 63.45606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 32
+    rowIndexInMeasure: 14
+    time: 63.57703225806452
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 32
+    rowIndexInMeasure: 15
+    time: 63.698
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 0
+    time: 63.81896774193549
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 33
+    rowIndexInMeasure: 1
+    time: 63.93993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 2
+    time: 64.06090322580644
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 3
+    time: 64.18187096774193
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 33
+    rowIndexInMeasure: 4
+    time: 64.30283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 5
+    time: 64.4238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 6
+    time: 64.54477419354838
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 33
+    rowIndexInMeasure: 7
+    time: 64.66574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 8
+    time: 64.78670967741935
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 33
+    rowIndexInMeasure: 9
+    time: 64.90767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 10
+    time: 65.02864516129031
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 11
+    time: 65.1496129032258
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 12
+    time: 65.27058064516129
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 33
+    rowIndexInMeasure: 13
+    time: 65.39154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 14
+    time: 65.51251612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 33
+    rowIndexInMeasure: 15
+    time: 65.63348387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 34
+    rowIndexInMeasure: 0
+    time: 65.75445161290322
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 34
+    rowIndexInMeasure: 1
+    time: 66.23832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 34
+    rowIndexInMeasure: 2
+    time: 66.7221935483871
+    lanes: 030000000100
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 34
+    rowIndexInMeasure: 3
+    time: 67.20606451612903
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 35
+    rowIndexInMeasure: 0
+    time: 67.68993548387097
+    lanes: 000300000200
+    events:
+    - LaneIndex: 1
+      Type: 2
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 35
+    rowIndexInMeasure: 1
+    time: 67.93187096774193
+    lanes: 000000000000
+    events: []
+  - measureIndex: 35
+    rowIndexInMeasure: 2
+    time: 68.1738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 35
+    rowIndexInMeasure: 3
+    time: 68.41574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 35
+    rowIndexInMeasure: 4
+    time: 68.65767741935484
+    lanes: 000100000300
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 35
+    rowIndexInMeasure: 5
+    time: 68.8996129032258
+    lanes: 000000000000
+    events: []
+  - measureIndex: 35
+    rowIndexInMeasure: 6
+    time: 69.14154838709678
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 35
+    rowIndexInMeasure: 7
+    time: 69.38348387096774
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 0
+    time: 69.62541935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 1
+    time: 69.74638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 2
+    time: 69.86735483870967
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 3
+    time: 69.98832258064516
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 4
+    time: 70.10929032258063
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 5
+    time: 70.23025806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 6
+    time: 70.35122580645161
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 7
+    time: 70.4721935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 8
+    time: 70.59316129032257
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 9
+    time: 70.71412903225806
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 10
+    time: 70.83509677419354
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 11
+    time: 70.95606451612903
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 12
+    time: 71.0770322580645
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 13
+    time: 71.198
+    lanes: 000000000000
+    events: []
+  - measureIndex: 36
+    rowIndexInMeasure: 14
+    time: 71.31896774193548
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 36
+    rowIndexInMeasure: 15
+    time: 71.43993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 0
+    time: 71.56090322580644
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 37
+    rowIndexInMeasure: 1
+    time: 71.68187096774193
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 2
+    time: 71.80283870967742
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 37
+    rowIndexInMeasure: 3
+    time: 71.9238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 4
+    time: 72.04477419354838
+    lanes: 030000000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+  - measureIndex: 37
+    rowIndexInMeasure: 5
+    time: 72.16574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 6
+    time: 72.28670967741935
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 37
+    rowIndexInMeasure: 7
+    time: 72.40767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 8
+    time: 72.52864516129031
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 37
+    rowIndexInMeasure: 9
+    time: 72.6496129032258
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 10
+    time: 72.77058064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 11
+    time: 72.89154838709678
+    lanes: 000003000000
+    events:
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 37
+    rowIndexInMeasure: 12
+    time: 73.01251612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 13
+    time: 73.13348387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 37
+    rowIndexInMeasure: 14
+    time: 73.25445161290322
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 37
+    rowIndexInMeasure: 15
+    time: 73.37541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 0
+    time: 73.49638709677419
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 1
+    time: 73.61735483870967
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 2
+    time: 73.73832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 3
+    time: 73.85929032258063
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 4
+    time: 73.98025806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 5
+    time: 74.10122580645161
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 6
+    time: 74.2221935483871
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 7
+    time: 74.34316129032257
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 8
+    time: 74.46412903225806
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 9
+    time: 74.58509677419354
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 10
+    time: 74.70606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 11
+    time: 74.8270322580645
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 12
+    time: 74.948
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 13
+    time: 75.06896774193548
+    lanes: 000000000000
+    events: []
+  - measureIndex: 38
+    rowIndexInMeasure: 14
+    time: 75.18993548387097
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 38
+    rowIndexInMeasure: 15
+    time: 75.31090322580644
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 0
+    time: 75.43187096774193
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 1
+    time: 75.55283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 2
+    time: 75.6738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 3
+    time: 75.79477419354838
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 4
+    time: 75.91574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 5
+    time: 76.03670967741935
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 6
+    time: 76.15767741935484
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 7
+    time: 76.27864516129031
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 8
+    time: 76.3996129032258
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 9
+    time: 76.52058064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 10
+    time: 76.64154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 11
+    time: 76.76251612903225
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 12
+    time: 76.88348387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 13
+    time: 77.00445161290322
+    lanes: 000000000000
+    events: []
+  - measureIndex: 39
+    rowIndexInMeasure: 14
+    time: 77.12541935483871
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 39
+    rowIndexInMeasure: 15
+    time: 77.24638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 0
+    time: 77.36735483870967
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 40
+    rowIndexInMeasure: 1
+    time: 77.48832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 2
+    time: 77.60929032258063
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 3
+    time: 77.73025806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 4
+    time: 77.85122580645161
+    lanes: 000100000300
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 40
+    rowIndexInMeasure: 5
+    time: 77.9721935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 6
+    time: 78.09316129032257
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 40
+    rowIndexInMeasure: 7
+    time: 78.21412903225806
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 8
+    time: 78.33509677419354
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 40
+    rowIndexInMeasure: 9
+    time: 78.45606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 10
+    time: 78.5770322580645
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 11
+    time: 78.698
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 40
+    rowIndexInMeasure: 12
+    time: 78.81896774193548
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 13
+    time: 78.93993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 40
+    rowIndexInMeasure: 14
+    time: 79.06090322580644
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 40
+    rowIndexInMeasure: 15
+    time: 79.18187096774193
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 0
+    time: 79.30283870967742
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 41
+    rowIndexInMeasure: 1
+    time: 79.4238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 2
+    time: 79.54477419354838
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 3
+    time: 79.66574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 4
+    time: 79.78670967741935
+    lanes: 000000000103
+    events:
+    - LaneIndex: 4
+      Type: 0
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 41
+    rowIndexInMeasure: 5
+    time: 79.90767741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 6
+    time: 80.02864516129031
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 41
+    rowIndexInMeasure: 7
+    time: 80.1496129032258
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 8
+    time: 80.27058064516129
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 41
+    rowIndexInMeasure: 9
+    time: 80.39154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 10
+    time: 80.51251612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 11
+    time: 80.63348387096774
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 12
+    time: 80.75445161290322
+    lanes: 000000030000
+    events:
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 41
+    rowIndexInMeasure: 13
+    time: 80.87541935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 41
+    rowIndexInMeasure: 14
+    time: 80.99638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 41
+    rowIndexInMeasure: 15
+    time: 81.11735483870967
+    lanes: 000000000000
+    events: []
+  - measureIndex: 42
+    rowIndexInMeasure: 0
+    time: 81.23832258064516
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 42
+    rowIndexInMeasure: 1
+    time: 81.7221935483871
+    lanes: 000000030000
+    events:
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 42
+    rowIndexInMeasure: 2
+    time: 82.20606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 42
+    rowIndexInMeasure: 3
+    time: 82.68993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 43
+    rowIndexInMeasure: 0
+    time: 83.1738064516129
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 43
+    rowIndexInMeasure: 1
+    time: 83.65767741935484
+    lanes: 030000000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+  - measureIndex: 43
+    rowIndexInMeasure: 2
+    time: 84.14154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 43
+    rowIndexInMeasure: 3
+    time: 84.62541935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 44
+    rowIndexInMeasure: 0
+    time: 85.10929032258063
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 44
+    rowIndexInMeasure: 1
+    time: 85.59316129032257
+    lanes: 000000030000
+    events:
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 44
+    rowIndexInMeasure: 2
+    time: 86.0770322580645
+    lanes: 000000000000
+    events: []
+  - measureIndex: 44
+    rowIndexInMeasure: 3
+    time: 86.56090322580644
+    lanes: 000000000000
+    events: []
+  - measureIndex: 45
+    rowIndexInMeasure: 0
+    time: 87.04477419354838
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 45
+    rowIndexInMeasure: 1
+    time: 87.52864516129031
+    lanes: 000000000000
+    events: []
+  - measureIndex: 45
+    rowIndexInMeasure: 2
+    time: 88.01251612903225
+    lanes: 000301000000
+    events:
+    - LaneIndex: 1
+      Type: 2
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 45
+    rowIndexInMeasure: 3
+    time: 88.49638709677419
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 46
+    rowIndexInMeasure: 0
+    time: 88.98025806451612
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 46
+    rowIndexInMeasure: 1
+    time: 89.2221935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 46
+    rowIndexInMeasure: 2
+    time: 89.46412903225806
+    lanes: 000100030000
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 46
+    rowIndexInMeasure: 3
+    time: 89.70606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 46
+    rowIndexInMeasure: 4
+    time: 89.948
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 46
+    rowIndexInMeasure: 5
+    time: 90.18993548387097
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 46
+    rowIndexInMeasure: 6
+    time: 90.43187096774193
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 46
+    rowIndexInMeasure: 7
+    time: 90.6738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 47
+    rowIndexInMeasure: 0
+    time: 90.91574193548387
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 47
+    rowIndexInMeasure: 1
+    time: 91.3996129032258
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 47
+    rowIndexInMeasure: 2
+    time: 91.88348387096774
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 47
+    rowIndexInMeasure: 3
+    time: 92.36735483870967
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 48
+    rowIndexInMeasure: 0
+    time: 92.85122580645161
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 48
+    rowIndexInMeasure: 1
+    time: 92.9721935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 2
+    time: 93.09316129032257
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 3
+    time: 93.21412903225806
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 4
+    time: 93.33509677419354
+    lanes: 010000000003
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 48
+    rowIndexInMeasure: 5
+    time: 93.45606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 6
+    time: 93.5770322580645
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 7
+    time: 93.698
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 8
+    time: 93.81896774193548
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 48
+    rowIndexInMeasure: 9
+    time: 93.93993548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 10
+    time: 94.06090322580644
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 48
+    rowIndexInMeasure: 11
+    time: 94.18187096774193
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 12
+    time: 94.30283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 13
+    time: 94.4238064516129
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 48
+    rowIndexInMeasure: 14
+    time: 94.54477419354838
+    lanes: 000000000000
+    events: []
+  - measureIndex: 48
+    rowIndexInMeasure: 15
+    time: 94.66574193548387
+    lanes: 000000000000
+    events: []
+  - measureIndex: 49
+    rowIndexInMeasure: 0
+    time: 94.78670967741935
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 49
+    rowIndexInMeasure: 1
+    time: 95.27058064516129
+    lanes: 000003000000
+    events:
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 49
+    rowIndexInMeasure: 2
+    time: 95.75445161290322
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 49
+    rowIndexInMeasure: 3
+    time: 96.23832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 50
+    rowIndexInMeasure: 0
+    time: 96.7221935483871
+    lanes: 030000000100
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 50
+    rowIndexInMeasure: 1
+    time: 97.20606451612903
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 50
+    rowIndexInMeasure: 2
+    time: 97.68993548387097
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 50
+    rowIndexInMeasure: 3
+    time: 98.1738064516129
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 51
+    rowIndexInMeasure: 0
+    time: 98.65767741935484
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 51
+    rowIndexInMeasure: 1
+    time: 99.14154838709678
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 51
+    rowIndexInMeasure: 2
+    time: 99.62541935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 51
+    rowIndexInMeasure: 3
+    time: 100.10929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 52
+    rowIndexInMeasure: 0
+    time: 100.59316129032258
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 52
+    rowIndexInMeasure: 1
+    time: 101.0770322580645
+    lanes: 010000000003
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 52
+    rowIndexInMeasure: 2
+    time: 101.56090322580644
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 52
+    rowIndexInMeasure: 3
+    time: 102.04477419354838
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 53
+    rowIndexInMeasure: 0
+    time: 102.52864516129031
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 53
+    rowIndexInMeasure: 1
+    time: 103.01251612903225
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 53
+    rowIndexInMeasure: 2
+    time: 103.49638709677419
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 53
+    rowIndexInMeasure: 3
+    time: 103.98025806451612
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 54
+    rowIndexInMeasure: 0
+    time: 104.46412903225806
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 54
+    rowIndexInMeasure: 1
+    time: 104.948
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 54
+    rowIndexInMeasure: 2
+    time: 105.43187096774193
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 54
+    rowIndexInMeasure: 3
+    time: 105.91574193548387
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 55
+    rowIndexInMeasure: 0
+    time: 106.3996129032258
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 55
+    rowIndexInMeasure: 1
+    time: 106.88348387096774
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 55
+    rowIndexInMeasure: 2
+    time: 107.36735483870967
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 55
+    rowIndexInMeasure: 3
+    time: 107.85122580645161
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 56
+    rowIndexInMeasure: 0
+    time: 108.33509677419354
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 56
+    rowIndexInMeasure: 1
+    time: 108.81896774193548
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 56
+    rowIndexInMeasure: 2
+    time: 109.30283870967742
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 56
+    rowIndexInMeasure: 3
+    time: 109.78670967741935
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 57
+    rowIndexInMeasure: 0
+    time: 110.27058064516129
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 57
+    rowIndexInMeasure: 1
+    time: 110.51251612903225
+    lanes: 000000000000
+    events: []
+  - measureIndex: 57
+    rowIndexInMeasure: 2
+    time: 110.75445161290322
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 57
+    rowIndexInMeasure: 3
+    time: 110.99638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 57
+    rowIndexInMeasure: 4
+    time: 111.23832258064516
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 57
+    rowIndexInMeasure: 5
+    time: 111.48025806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 57
+    rowIndexInMeasure: 6
+    time: 111.7221935483871
+    lanes: 030000010000
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 57
+    rowIndexInMeasure: 7
+    time: 111.96412903225806
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 58
+    rowIndexInMeasure: 0
+    time: 112.20606451612903
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 58
+    rowIndexInMeasure: 1
+    time: 112.68993548387097
+    lanes: 000000030001
+    events:
+    - LaneIndex: 3
+      Type: 2
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 58
+    rowIndexInMeasure: 2
+    time: 113.1738064516129
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 58
+    rowIndexInMeasure: 3
+    time: 113.65767741935484
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 59
+    rowIndexInMeasure: 0
+    time: 114.14154838709678
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 59
+    rowIndexInMeasure: 1
+    time: 114.62541935483871
+    lanes: 030000000100
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 59
+    rowIndexInMeasure: 2
+    time: 115.10929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 59
+    rowIndexInMeasure: 3
+    time: 115.59316129032258
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 60
+    rowIndexInMeasure: 0
+    time: 116.0770322580645
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 60
+    rowIndexInMeasure: 1
+    time: 116.56090322580644
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 60
+    rowIndexInMeasure: 2
+    time: 117.04477419354838
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 60
+    rowIndexInMeasure: 3
+    time: 117.52864516129031
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 61
+    rowIndexInMeasure: 0
+    time: 118.01251612903225
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 61
+    rowIndexInMeasure: 1
+    time: 118.25445161290322
+    lanes: 000000000000
+    events: []
+  - measureIndex: 61
+    rowIndexInMeasure: 2
+    time: 118.49638709677419
+    lanes: 000000010300
+    events:
+    - LaneIndex: 3
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 61
+    rowIndexInMeasure: 3
+    time: 118.73832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 61
+    rowIndexInMeasure: 4
+    time: 118.98025806451612
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 61
+    rowIndexInMeasure: 5
+    time: 119.2221935483871
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 61
+    rowIndexInMeasure: 6
+    time: 119.46412903225806
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 61
+    rowIndexInMeasure: 7
+    time: 119.70606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 62
+    rowIndexInMeasure: 0
+    time: 119.948
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 62
+    rowIndexInMeasure: 1
+    time: 120.43187096774193
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 62
+    rowIndexInMeasure: 2
+    time: 120.91574193548387
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 62
+    rowIndexInMeasure: 3
+    time: 121.3996129032258
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 63
+    rowIndexInMeasure: 0
+    time: 121.88348387096774
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 63
+    rowIndexInMeasure: 1
+    time: 122.36735483870967
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 63
+    rowIndexInMeasure: 2
+    time: 122.85122580645161
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 63
+    rowIndexInMeasure: 3
+    time: 123.33509677419354
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 64
+    rowIndexInMeasure: 0
+    time: 123.81896774193548
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 64
+    rowIndexInMeasure: 1
+    time: 124.30283870967742
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 64
+    rowIndexInMeasure: 2
+    time: 124.78670967741935
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 64
+    rowIndexInMeasure: 3
+    time: 125.27058064516129
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 65
+    rowIndexInMeasure: 0
+    time: 125.75445161290322
+    lanes: 000103000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 65
+    rowIndexInMeasure: 1
+    time: 125.99638709677419
+    lanes: 000000000000
+    events: []
+  - measureIndex: 65
+    rowIndexInMeasure: 2
+    time: 126.23832258064516
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 65
+    rowIndexInMeasure: 3
+    time: 126.48025806451612
+    lanes: 000000000000
+    events: []
+  - measureIndex: 65
+    rowIndexInMeasure: 4
+    time: 126.7221935483871
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 65
+    rowIndexInMeasure: 5
+    time: 126.96412903225806
+    lanes: 000000000000
+    events: []
+  - measureIndex: 65
+    rowIndexInMeasure: 6
+    time: 127.20606451612903
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 65
+    rowIndexInMeasure: 7
+    time: 127.448
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 66
+    rowIndexInMeasure: 0
+    time: 127.68993548387097
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 66
+    rowIndexInMeasure: 1
+    time: 127.81090322580644
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 2
+    time: 127.93187096774193
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 3
+    time: 128.05283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 4
+    time: 128.1738064516129
+    lanes: 010000000300
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 66
+    rowIndexInMeasure: 5
+    time: 128.2947741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 6
+    time: 128.41574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 7
+    time: 128.53670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 8
+    time: 128.65767741935485
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 66
+    rowIndexInMeasure: 9
+    time: 128.77864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 10
+    time: 128.89961290322583
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 66
+    rowIndexInMeasure: 11
+    time: 129.0205806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 12
+    time: 129.14154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 13
+    time: 129.26251612903226
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 66
+    rowIndexInMeasure: 14
+    time: 129.38348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 66
+    rowIndexInMeasure: 15
+    time: 129.50445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 67
+    rowIndexInMeasure: 0
+    time: 129.62541935483873
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 67
+    rowIndexInMeasure: 1
+    time: 130.10929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 67
+    rowIndexInMeasure: 2
+    time: 130.5931612903226
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 67
+    rowIndexInMeasure: 3
+    time: 131.07703225806452
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 68
+    rowIndexInMeasure: 0
+    time: 131.56090322580647
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 68
+    rowIndexInMeasure: 1
+    time: 131.68187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 2
+    time: 131.80283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 3
+    time: 131.9238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 4
+    time: 132.0447741935484
+    lanes: 030100000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 68
+    rowIndexInMeasure: 5
+    time: 132.16574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 6
+    time: 132.28670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 7
+    time: 132.40767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 8
+    time: 132.52864516129034
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 68
+    rowIndexInMeasure: 9
+    time: 132.64961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 10
+    time: 132.7705806451613
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 68
+    rowIndexInMeasure: 11
+    time: 132.89154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 12
+    time: 133.01251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 13
+    time: 133.13348387096775
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 68
+    rowIndexInMeasure: 14
+    time: 133.25445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 68
+    rowIndexInMeasure: 15
+    time: 133.37541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 69
+    rowIndexInMeasure: 0
+    time: 133.4963870967742
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 69
+    rowIndexInMeasure: 1
+    time: 133.73832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 69
+    rowIndexInMeasure: 2
+    time: 133.98025806451614
+    lanes: 000103000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 69
+    rowIndexInMeasure: 3
+    time: 134.2221935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 69
+    rowIndexInMeasure: 4
+    time: 134.46412903225809
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 69
+    rowIndexInMeasure: 5
+    time: 134.70606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 69
+    rowIndexInMeasure: 6
+    time: 134.948
+    lanes: 000000030001
+    events:
+    - LaneIndex: 3
+      Type: 2
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 69
+    rowIndexInMeasure: 7
+    time: 135.18993548387098
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 0
+    time: 135.43187096774196
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 1
+    time: 135.55283870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 2
+    time: 135.6738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 3
+    time: 135.7947741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 4
+    time: 135.91574193548388
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 5
+    time: 136.03670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 6
+    time: 136.15767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 7
+    time: 136.27864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 8
+    time: 136.39961290322583
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 9
+    time: 136.5205806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 10
+    time: 136.64154838709678
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 11
+    time: 136.76251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 12
+    time: 136.88348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 13
+    time: 137.00445161290324
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 70
+    rowIndexInMeasure: 14
+    time: 137.12541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 70
+    rowIndexInMeasure: 15
+    time: 137.2463870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 71
+    rowIndexInMeasure: 0
+    time: 137.3673548387097
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 71
+    rowIndexInMeasure: 1
+    time: 137.85122580645162
+    lanes: 030100000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 71
+    rowIndexInMeasure: 2
+    time: 138.33509677419357
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 71
+    rowIndexInMeasure: 3
+    time: 138.8189677419355
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 0
+    time: 139.30283870967745
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 1
+    time: 139.4238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 2
+    time: 139.5447741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 3
+    time: 139.66574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 4
+    time: 139.78670967741937
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 5
+    time: 139.90767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 6
+    time: 140.02864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 7
+    time: 140.14961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 8
+    time: 140.2705806451613
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 9
+    time: 140.39154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 10
+    time: 140.51251612903226
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 11
+    time: 140.63348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 12
+    time: 140.75445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 13
+    time: 140.87541935483873
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 72
+    rowIndexInMeasure: 14
+    time: 140.9963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 72
+    rowIndexInMeasure: 15
+    time: 141.1173548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 73
+    rowIndexInMeasure: 0
+    time: 141.23832258064516
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 73
+    rowIndexInMeasure: 1
+    time: 141.7221935483871
+    lanes: 010000000300
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 73
+    rowIndexInMeasure: 2
+    time: 142.20606451612903
+    lanes: 000002000000
+    events:
+    - LaneIndex: 2
+      Type: 1
+  - measureIndex: 73
+    rowIndexInMeasure: 3
+    time: 142.68993548387098
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 0
+    time: 143.1738064516129
+    lanes: 020003000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+    - LaneIndex: 2
+      Type: 2
+  - measureIndex: 74
+    rowIndexInMeasure: 1
+    time: 143.41574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 2
+    time: 143.65767741935485
+    lanes: 030000000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+  - measureIndex: 74
+    rowIndexInMeasure: 3
+    time: 143.89961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 4
+    time: 144.14154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 5
+    time: 144.38348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 6
+    time: 144.62541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 74
+    rowIndexInMeasure: 7
+    time: 144.8673548387097
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 75
+    rowIndexInMeasure: 0
+    time: 145.10929032258065
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 75
+    rowIndexInMeasure: 1
+    time: 145.35122580645162
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 2
+    time: 145.5931612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 3
+    time: 145.83509677419357
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 4
+    time: 146.07703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 5
+    time: 146.3189677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 6
+    time: 146.56090322580647
+    lanes: 000000000000
+    events: []
+  - measureIndex: 75
+    rowIndexInMeasure: 7
+    time: 146.80283870967745
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 76
+    rowIndexInMeasure: 0
+    time: 147.0447741935484
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 76
+    rowIndexInMeasure: 1
+    time: 147.28670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 2
+    time: 147.52864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 3
+    time: 147.7705806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 4
+    time: 148.01251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 5
+    time: 148.25445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 6
+    time: 148.4963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 76
+    rowIndexInMeasure: 7
+    time: 148.73832258064516
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 77
+    rowIndexInMeasure: 0
+    time: 148.98025806451614
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 77
+    rowIndexInMeasure: 1
+    time: 149.46412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 77
+    rowIndexInMeasure: 2
+    time: 149.948
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 77
+    rowIndexInMeasure: 3
+    time: 150.43187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 0
+    time: 150.91574193548388
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 78
+    rowIndexInMeasure: 1
+    time: 151.15767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 2
+    time: 151.39961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 3
+    time: 151.64154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 4
+    time: 151.88348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 5
+    time: 152.12541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 6
+    time: 152.3673548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 78
+    rowIndexInMeasure: 7
+    time: 152.60929032258065
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 79
+    rowIndexInMeasure: 0
+    time: 152.85122580645162
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 79
+    rowIndexInMeasure: 1
+    time: 153.0931612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 2
+    time: 153.33509677419357
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 3
+    time: 153.57703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 4
+    time: 153.8189677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 5
+    time: 154.06090322580647
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 6
+    time: 154.30283870967745
+    lanes: 000000000000
+    events: []
+  - measureIndex: 79
+    rowIndexInMeasure: 7
+    time: 154.5447741935484
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 80
+    rowIndexInMeasure: 0
+    time: 154.78670967741937
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 80
+    rowIndexInMeasure: 1
+    time: 155.02864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 2
+    time: 155.2705806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 3
+    time: 155.51251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 4
+    time: 155.75445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 5
+    time: 155.9963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 6
+    time: 156.23832258064516
+    lanes: 000000000000
+    events: []
+  - measureIndex: 80
+    rowIndexInMeasure: 7
+    time: 156.48025806451614
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 81
+    rowIndexInMeasure: 0
+    time: 156.7221935483871
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 81
+    rowIndexInMeasure: 1
+    time: 157.20606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 81
+    rowIndexInMeasure: 2
+    time: 157.68993548387098
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 81
+    rowIndexInMeasure: 3
+    time: 158.1738064516129
+    lanes: 030000000000
+    events:
+    - LaneIndex: 0
+      Type: 2
+  - measureIndex: 82
+    rowIndexInMeasure: 0
+    time: 158.65767741935485
+    lanes: 000000020000
+    events:
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 82
+    rowIndexInMeasure: 1
+    time: 158.89961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 82
+    rowIndexInMeasure: 2
+    time: 159.14154838709678
+    lanes: 000000030000
+    events:
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 82
+    rowIndexInMeasure: 3
+    time: 159.38348387096775
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 82
+    rowIndexInMeasure: 4
+    time: 159.62541935483873
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 82
+    rowIndexInMeasure: 5
+    time: 159.8673548387097
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 82
+    rowIndexInMeasure: 6
+    time: 160.10929032258065
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 82
+    rowIndexInMeasure: 7
+    time: 160.35122580645162
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 0
+    time: 160.5931612903226
+    lanes: 030000000200
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 83
+    rowIndexInMeasure: 1
+    time: 160.71412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 2
+    time: 160.83509677419357
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 3
+    time: 160.95606451612903
+    lanes: 010000000300
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 83
+    rowIndexInMeasure: 4
+    time: 161.07703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 5
+    time: 161.198
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 6
+    time: 161.3189677419355
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 83
+    rowIndexInMeasure: 7
+    time: 161.43993548387098
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 8
+    time: 161.56090322580647
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 83
+    rowIndexInMeasure: 9
+    time: 161.68187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 10
+    time: 161.80283870967745
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 83
+    rowIndexInMeasure: 11
+    time: 161.9238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 12
+    time: 162.0447741935484
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 83
+    rowIndexInMeasure: 13
+    time: 162.16574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 83
+    rowIndexInMeasure: 14
+    time: 162.28670967741937
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 83
+    rowIndexInMeasure: 15
+    time: 162.40767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 84
+    rowIndexInMeasure: 0
+    time: 162.52864516129034
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 84
+    rowIndexInMeasure: 1
+    time: 162.7705806451613
+    lanes: 000000000000
+    events: []
+  - measureIndex: 84
+    rowIndexInMeasure: 2
+    time: 163.01251612903226
+    lanes: 000300010000
+    events:
+    - LaneIndex: 1
+      Type: 2
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 84
+    rowIndexInMeasure: 3
+    time: 163.25445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 84
+    rowIndexInMeasure: 4
+    time: 163.4963870967742
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 84
+    rowIndexInMeasure: 5
+    time: 163.73832258064516
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 84
+    rowIndexInMeasure: 6
+    time: 163.98025806451614
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 84
+    rowIndexInMeasure: 7
+    time: 164.2221935483871
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 0
+    time: 164.46412903225809
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 1
+    time: 164.70606451612903
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 2
+    time: 164.948
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 3
+    time: 165.18993548387098
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 4
+    time: 165.43187096774196
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 5
+    time: 165.6738064516129
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 6
+    time: 165.91574193548388
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 85
+    rowIndexInMeasure: 7
+    time: 166.15767741935485
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 86
+    rowIndexInMeasure: 0
+    time: 166.39961290322583
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 86
+    rowIndexInMeasure: 1
+    time: 166.64154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 86
+    rowIndexInMeasure: 2
+    time: 166.88348387096775
+    lanes: 000000000003
+    events:
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 86
+    rowIndexInMeasure: 3
+    time: 167.12541935483873
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 86
+    rowIndexInMeasure: 4
+    time: 167.3673548387097
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 86
+    rowIndexInMeasure: 5
+    time: 167.60929032258065
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 86
+    rowIndexInMeasure: 6
+    time: 167.85122580645162
+    lanes: 000000000000
+    events: []
+  - measureIndex: 86
+    rowIndexInMeasure: 7
+    time: 168.0931612903226
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 0
+    time: 168.33509677419357
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 1
+    time: 168.57703225806452
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 2
+    time: 168.8189677419355
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 3
+    time: 169.06090322580647
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 4
+    time: 169.30283870967745
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 5
+    time: 169.5447741935484
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 87
+    rowIndexInMeasure: 6
+    time: 169.78670967741937
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 87
+    rowIndexInMeasure: 7
+    time: 170.02864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 88
+    rowIndexInMeasure: 0
+    time: 170.2705806451613
+    lanes: 000300010000
+    events:
+    - LaneIndex: 1
+      Type: 2
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 88
+    rowIndexInMeasure: 1
+    time: 170.51251612903226
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 88
+    rowIndexInMeasure: 2
+    time: 170.75445161290324
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 88
+    rowIndexInMeasure: 3
+    time: 170.9963870967742
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 88
+    rowIndexInMeasure: 4
+    time: 171.23832258064516
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 88
+    rowIndexInMeasure: 5
+    time: 171.48025806451614
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 88
+    rowIndexInMeasure: 6
+    time: 171.7221935483871
+    lanes: 000000000300
+    events:
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 88
+    rowIndexInMeasure: 7
+    time: 171.96412903225809
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 0
+    time: 172.20606451612903
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 1
+    time: 172.448
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 2
+    time: 172.68993548387098
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 3
+    time: 172.93187096774196
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 4
+    time: 173.1738064516129
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 5
+    time: 173.41574193548388
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 6
+    time: 173.65767741935485
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 89
+    rowIndexInMeasure: 7
+    time: 173.89961290322583
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 90
+    rowIndexInMeasure: 0
+    time: 174.14154838709678
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 90
+    rowIndexInMeasure: 1
+    time: 174.62541935483873
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 90
+    rowIndexInMeasure: 2
+    time: 175.10929032258065
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 90
+    rowIndexInMeasure: 3
+    time: 175.5931612903226
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 91
+    rowIndexInMeasure: 0
+    time: 176.07703225806452
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 91
+    rowIndexInMeasure: 1
+    time: 176.56090322580647
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 91
+    rowIndexInMeasure: 2
+    time: 177.0447741935484
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 91
+    rowIndexInMeasure: 3
+    time: 177.52864516129034
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 92
+    rowIndexInMeasure: 0
+    time: 178.01251612903226
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 92
+    rowIndexInMeasure: 1
+    time: 178.4963870967742
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 92
+    rowIndexInMeasure: 2
+    time: 178.98025806451614
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 92
+    rowIndexInMeasure: 3
+    time: 179.46412903225809
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 0
+    time: 179.948
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 1
+    time: 180.18993548387098
+    lanes: 000000000000
+    events: []
+  - measureIndex: 93
+    rowIndexInMeasure: 2
+    time: 180.43187096774196
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 3
+    time: 180.6738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 93
+    rowIndexInMeasure: 4
+    time: 180.91574193548388
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 5
+    time: 181.15767741935485
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 6
+    time: 181.39961290322583
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 93
+    rowIndexInMeasure: 7
+    time: 181.64154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 94
+    rowIndexInMeasure: 0
+    time: 181.88348387096775
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 94
+    rowIndexInMeasure: 1
+    time: 182.3673548387097
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 94
+    rowIndexInMeasure: 2
+    time: 182.85122580645162
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 94
+    rowIndexInMeasure: 3
+    time: 183.33509677419357
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 95
+    rowIndexInMeasure: 0
+    time: 183.8189677419355
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 95
+    rowIndexInMeasure: 1
+    time: 184.30283870967745
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 95
+    rowIndexInMeasure: 2
+    time: 184.78670967741937
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 95
+    rowIndexInMeasure: 3
+    time: 185.27058064516132
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 96
+    rowIndexInMeasure: 0
+    time: 185.75445161290324
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 96
+    rowIndexInMeasure: 1
+    time: 186.23832258064516
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 96
+    rowIndexInMeasure: 2
+    time: 186.7221935483871
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 96
+    rowIndexInMeasure: 3
+    time: 187.20606451612903
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 97
+    rowIndexInMeasure: 0
+    time: 187.68993548387098
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 97
+    rowIndexInMeasure: 1
+    time: 187.93187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 97
+    rowIndexInMeasure: 2
+    time: 188.1738064516129
+    lanes: 020000000003
+    events:
+    - LaneIndex: 0
+      Type: 1
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 97
+    rowIndexInMeasure: 3
+    time: 188.41574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 97
+    rowIndexInMeasure: 4
+    time: 188.65767741935485
+    lanes: 030000020000
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 3
+      Type: 1
+  - measureIndex: 97
+    rowIndexInMeasure: 5
+    time: 188.89961290322583
+    lanes: 000100030000
+    events:
+    - LaneIndex: 1
+      Type: 0
+    - LaneIndex: 3
+      Type: 2
+  - measureIndex: 97
+    rowIndexInMeasure: 6
+    time: 189.14154838709678
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 97
+    rowIndexInMeasure: 7
+    time: 189.38348387096775
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 98
+    rowIndexInMeasure: 0
+    time: 189.62541935483873
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 98
+    rowIndexInMeasure: 1
+    time: 190.10929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 98
+    rowIndexInMeasure: 2
+    time: 190.5931612903226
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 98
+    rowIndexInMeasure: 3
+    time: 191.07703225806452
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 0
+    time: 191.56090322580647
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 1
+    time: 191.80283870967745
+    lanes: 000000000000
+    events: []
+  - measureIndex: 99
+    rowIndexInMeasure: 2
+    time: 192.0447741935484
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 3
+    time: 192.28670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 99
+    rowIndexInMeasure: 4
+    time: 192.52864516129034
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 5
+    time: 192.77058064516132
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 6
+    time: 193.01251612903226
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 99
+    rowIndexInMeasure: 7
+    time: 193.25445161290324
+    lanes: 000000000000
+    events: []
+  - measureIndex: 100
+    rowIndexInMeasure: 0
+    time: 193.4963870967742
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 100
+    rowIndexInMeasure: 1
+    time: 193.98025806451614
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 100
+    rowIndexInMeasure: 2
+    time: 194.46412903225809
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 100
+    rowIndexInMeasure: 3
+    time: 194.948
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 0
+    time: 195.43187096774196
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 1
+    time: 195.6738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 101
+    rowIndexInMeasure: 2
+    time: 195.91574193548388
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 3
+    time: 196.15767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 101
+    rowIndexInMeasure: 4
+    time: 196.39961290322583
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 5
+    time: 196.64154838709678
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 6
+    time: 196.88348387096775
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 101
+    rowIndexInMeasure: 7
+    time: 197.12541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 102
+    rowIndexInMeasure: 0
+    time: 197.3673548387097
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 1
+    time: 197.60929032258065
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 2
+    time: 197.85122580645162
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 3
+    time: 198.0931612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 102
+    rowIndexInMeasure: 4
+    time: 198.33509677419357
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 5
+    time: 198.57703225806452
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 6
+    time: 198.8189677419355
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 102
+    rowIndexInMeasure: 7
+    time: 199.06090322580647
+    lanes: 000000000000
+    events: []
+  - measureIndex: 103
+    rowIndexInMeasure: 0
+    time: 199.30283870967745
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 1
+    time: 199.5447741935484
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 2
+    time: 199.78670967741937
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 3
+    time: 200.02864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 103
+    rowIndexInMeasure: 4
+    time: 200.27058064516132
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 5
+    time: 200.51251612903226
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 6
+    time: 200.75445161290324
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 103
+    rowIndexInMeasure: 7
+    time: 200.9963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 104
+    rowIndexInMeasure: 0
+    time: 201.2383225806452
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 1
+    time: 201.48025806451614
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 2
+    time: 201.7221935483871
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 3
+    time: 201.96412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 104
+    rowIndexInMeasure: 4
+    time: 202.20606451612903
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 5
+    time: 202.448
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 6
+    time: 202.68993548387098
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 104
+    rowIndexInMeasure: 7
+    time: 202.93187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 105
+    rowIndexInMeasure: 0
+    time: 203.1738064516129
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 105
+    rowIndexInMeasure: 1
+    time: 203.41574193548388
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 105
+    rowIndexInMeasure: 2
+    time: 203.65767741935485
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 105
+    rowIndexInMeasure: 3
+    time: 203.89961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 105
+    rowIndexInMeasure: 4
+    time: 204.14154838709678
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 105
+    rowIndexInMeasure: 5
+    time: 204.38348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 105
+    rowIndexInMeasure: 6
+    time: 204.62541935483873
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 105
+    rowIndexInMeasure: 7
+    time: 204.8673548387097
+    lanes: 000000000000
+    events: []
+  - measureIndex: 106
+    rowIndexInMeasure: 0
+    time: 205.10929032258065
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 106
+    rowIndexInMeasure: 1
+    time: 205.5931612903226
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 106
+    rowIndexInMeasure: 2
+    time: 206.07703225806452
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 106
+    rowIndexInMeasure: 3
+    time: 206.56090322580647
+    lanes: 000000000000
+    events: []
+  - measureIndex: 107
+    rowIndexInMeasure: 0
+    time: 207.0447741935484
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 107
+    rowIndexInMeasure: 1
+    time: 207.52864516129034
+    lanes: 000000000000
+    events: []
+  - measureIndex: 107
+    rowIndexInMeasure: 2
+    time: 208.01251612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 107
+    rowIndexInMeasure: 3
+    time: 208.4963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 108
+    rowIndexInMeasure: 0
+    time: 208.98025806451614
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 108
+    rowIndexInMeasure: 1
+    time: 209.46412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 108
+    rowIndexInMeasure: 2
+    time: 209.948
+    lanes: 000000000000
+    events: []
+  - measureIndex: 108
+    rowIndexInMeasure: 3
+    time: 210.43187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 109
+    rowIndexInMeasure: 0
+    time: 210.91574193548388
+    lanes: 000000000002
+    events:
+    - LaneIndex: 5
+      Type: 1
+  - measureIndex: 109
+    rowIndexInMeasure: 1
+    time: 211.15767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 109
+    rowIndexInMeasure: 2
+    time: 211.39961290322583
+    lanes: 000000000003
+    events:
+    - LaneIndex: 5
+      Type: 2
+  - measureIndex: 109
+    rowIndexInMeasure: 3
+    time: 211.64154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 109
+    rowIndexInMeasure: 4
+    time: 211.88348387096775
+    lanes: 020000000000
+    events:
+    - LaneIndex: 0
+      Type: 1
+  - measureIndex: 109
+    rowIndexInMeasure: 5
+    time: 212.12541935483873
+    lanes: 000000000000
+    events: []
+  - measureIndex: 109
+    rowIndexInMeasure: 6
+    time: 212.3673548387097
+    lanes: 030000000100
+    events:
+    - LaneIndex: 0
+      Type: 2
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 109
+    rowIndexInMeasure: 7
+    time: 212.60929032258065
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 0
+    time: 212.85122580645162
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 1
+    time: 212.9721935483871
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 2
+    time: 213.0931612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 3
+    time: 213.21412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 4
+    time: 213.33509677419357
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 5
+    time: 213.45606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 6
+    time: 213.57703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 7
+    time: 213.698
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 8
+    time: 213.8189677419355
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 9
+    time: 213.93993548387098
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 10
+    time: 214.06090322580647
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 11
+    time: 214.18187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 12
+    time: 214.30283870967745
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 13
+    time: 214.4238064516129
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 110
+    rowIndexInMeasure: 14
+    time: 214.5447741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 110
+    rowIndexInMeasure: 15
+    time: 214.66574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 111
+    rowIndexInMeasure: 0
+    time: 214.78670967741937
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 111
+    rowIndexInMeasure: 1
+    time: 215.27058064516132
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 111
+    rowIndexInMeasure: 2
+    time: 215.75445161290324
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 111
+    rowIndexInMeasure: 3
+    time: 216.2383225806452
+    lanes: 000000000001
+    events:
+    - LaneIndex: 5
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 0
+    time: 216.7221935483871
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 1
+    time: 216.8431612903226
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 2
+    time: 216.96412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 3
+    time: 217.08509677419357
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 4
+    time: 217.20606451612903
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 5
+    time: 217.32703225806452
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 6
+    time: 217.448
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 7
+    time: 217.5689677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 8
+    time: 217.68993548387098
+    lanes: 000000010000
+    events:
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 9
+    time: 217.81090322580647
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 10
+    time: 217.93187096774196
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 11
+    time: 218.05283870967745
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 12
+    time: 218.1738064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 13
+    time: 218.2947741935484
+    lanes: 000001000000
+    events:
+    - LaneIndex: 2
+      Type: 0
+  - measureIndex: 112
+    rowIndexInMeasure: 14
+    time: 218.41574193548388
+    lanes: 000000000000
+    events: []
+  - measureIndex: 112
+    rowIndexInMeasure: 15
+    time: 218.53670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 113
+    rowIndexInMeasure: 0
+    time: 218.65767741935485
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 113
+    rowIndexInMeasure: 1
+    time: 218.89961290322583
+    lanes: 000000000000
+    events: []
+  - measureIndex: 113
+    rowIndexInMeasure: 2
+    time: 219.14154838709678
+    lanes: 000000000000
+    events: []
+  - measureIndex: 113
+    rowIndexInMeasure: 3
+    time: 219.38348387096775
+    lanes: 000000000000
+    events: []
+  - measureIndex: 113
+    rowIndexInMeasure: 4
+    time: 219.62541935483873
+    lanes: 000300010000
+    events:
+    - LaneIndex: 1
+      Type: 2
+    - LaneIndex: 3
+      Type: 0
+  - measureIndex: 113
+    rowIndexInMeasure: 5
+    time: 219.8673548387097
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 113
+    rowIndexInMeasure: 6
+    time: 220.10929032258065
+    lanes: 000000000200
+    events:
+    - LaneIndex: 4
+      Type: 1
+  - measureIndex: 113
+    rowIndexInMeasure: 7
+    time: 220.35122580645162
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 0
+    time: 220.5931612903226
+    lanes: 010000000300
+    events:
+    - LaneIndex: 0
+      Type: 0
+    - LaneIndex: 4
+      Type: 2
+  - measureIndex: 114
+    rowIndexInMeasure: 1
+    time: 220.71412903225809
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 2
+    time: 220.83509677419357
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 3
+    time: 220.95606451612903
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 4
+    time: 221.07703225806452
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 114
+    rowIndexInMeasure: 5
+    time: 221.198
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 6
+    time: 221.3189677419355
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 7
+    time: 221.43993548387098
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 8
+    time: 221.56090322580647
+    lanes: 000100000000
+    events:
+    - LaneIndex: 1
+      Type: 0
+  - measureIndex: 114
+    rowIndexInMeasure: 9
+    time: 221.68187096774196
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 10
+    time: 221.80283870967745
+    lanes: 010000000000
+    events:
+    - LaneIndex: 0
+      Type: 0
+  - measureIndex: 114
+    rowIndexInMeasure: 11
+    time: 221.9238064516129
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 12
+    time: 222.0447741935484
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 13
+    time: 222.16574193548388
+    lanes: 000000000100
+    events:
+    - LaneIndex: 4
+      Type: 0
+  - measureIndex: 114
+    rowIndexInMeasure: 14
+    time: 222.28670967741937
+    lanes: 000000000000
+    events: []
+  - measureIndex: 114
+    rowIndexInMeasure: 15
+    time: 222.40767741935485
+    lanes: 000000000000
+    events: []
+  - measureIndex: 115
+    rowIndexInMeasure: 0
+    time: 222.52864516129034
+    lanes: 000200000000
+    events:
+    - LaneIndex: 1
+      Type: 1
+  - measureIndex: 115
+    rowIndexInMeasure: 1
+    time: 223.01251612903226
+    lanes: 000300000000
+    events:
+    - LaneIndex: 1
+      Type: 2
+  - measureIndex: 115
+    rowIndexInMeasure: 2
+    time: 223.4963870967742
+    lanes: 000000000000
+    events: []
+  - measureIndex: 115
+    rowIndexInMeasure: 3
+    time: 223.98025806451614
+    lanes: 000000000000
+    events: []

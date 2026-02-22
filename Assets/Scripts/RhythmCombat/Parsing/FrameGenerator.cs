@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public static class FrameGenerator
 {
     public static void GenerateFrames(ChartData chart)

@@ -20,4 +20,6 @@ public class ChartDataAsset : ScriptableObject
 
     [Header("Result")]
     public List<Frame> frames = new();
+
+    public List<ChartRow> rows = new();
 }
