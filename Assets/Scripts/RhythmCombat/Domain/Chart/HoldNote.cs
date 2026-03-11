@@ -5,17 +5,17 @@ namespace RhythmCombat.Domain.Chart
     public sealed class HoldNote : CombatNote
     {
         public HoldNote(
-            string id,
-            int laneIndex,
-            double startTimeSeconds,
-            double endTimeSeconds,
-            float power = 1f)
-            : base(id, laneIndex, startTimeSeconds, power, NoteType.Hold)
+            string Id,
+            int LaneIndex,
+            double StartTimeSeconds,
+            double EndTimeSeconds,
+            float Power = 1f)
+            : base(Id, LaneIndex, StartTimeSeconds, Power, NoteType.Hold)
         {
-            if (endTimeSeconds <= startTimeSeconds)
-                throw new ArgumentOutOfRangeException(nameof(endTimeSeconds), "Hold end time must be greater than hold start time.");
+            if (EndTimeSeconds <= StartTimeSeconds)
+                throw new ArgumentOutOfRangeException(nameof(EndTimeSeconds), "Hold end time must be greater than hold start time.");
 
-            EndTimeSeconds = endTimeSeconds;
+            this.EndTimeSeconds = EndTimeSeconds;
         }
 
         public double EndTimeSeconds { get; }

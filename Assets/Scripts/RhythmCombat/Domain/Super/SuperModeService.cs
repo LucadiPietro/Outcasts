@@ -1,5 +1,6 @@
 using RhythmCombat.Domain.Chart;
 using RhythmCombat.Domain.Combat;
+using RhythmCombat.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,19 @@ namespace RhythmCombat.Domain.Super
 
     public sealed record SuperActivationResult
     {
-        public bool Activated { get; init; }
-        public string Reason { get; init; } = string.Empty;
-        public SuperModeEffect? Effect { get; init; }
-        public int CharacterIndex { get; init; } = -1;
-        public int ClearedNotes { get; init; }
-        public DamageResolutionResult DamageResult { get; init; } = DamageResolutionResult.Empty;
+        public SuperActivationResult()
+        {
+            Reason = string.Empty;
+            CharacterIndex = -1;
+            DamageResult = DamageResolutionResult.Empty;
+        }
+
+        public bool Activated { get; set; }
+        public string Reason { get; set; } = string.Empty;
+        public SuperModeEffect? Effect { get; set; }
+        public int CharacterIndex { get; set; } = -1;
+        public int ClearedNotes { get; set; }
+        public DamageResolutionResult DamageResult { get; set; } = DamageResolutionResult.Empty;
     }
 
     public sealed class SuperModeService

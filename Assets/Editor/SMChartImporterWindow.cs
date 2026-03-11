@@ -109,7 +109,7 @@ public class SMChartImporterWindow : EditorWindow
         asset.frames = new List<Frame>(chart.Frames); // (opzionale)
 
         // 5) Ensure folder exists
-        string folder = "Assets/Charts";
+        string folder = "Assets/RhythmCombat/Generated/Charts";
         if (!Directory.Exists(folder))
             Directory.CreateDirectory(folder);
 

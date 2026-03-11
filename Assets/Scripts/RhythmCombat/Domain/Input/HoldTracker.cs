@@ -54,7 +54,7 @@ namespace RhythmCombat.Domain.Input
                 return false;
 
             var match = _activeByLane.FirstOrDefault(kvp => kvp.Value.Note.Id == noteId);
-            if (string.IsNullOrEmpty(match.Value?.Note.Id))
+            if (string.IsNullOrEmpty(match.Value.Note.Id))
                 return false;
 
             return _activeByLane.Remove(match.Key);

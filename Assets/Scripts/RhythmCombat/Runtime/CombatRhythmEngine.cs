@@ -115,17 +115,18 @@ namespace RhythmCombat.Runtime
                 return Ignored(laneIndex, inputTimeSeconds, null, "No active hold on this lane.", state.Multiplier.CurrentMultiplier);
             }
 
-            if (!_judgmentService.IsHoldReleaseValid(activeHold.Note, inputTimeSeconds))
+            if (!_judgmentService.IsHoldReleaseValid(activeHold.Value.Note, inputTimeSeconds))
             {
-                state.MarkResolved(activeHold.Note);
-                return ApplyMiss(state, activeHold.Note, inputTimeSeconds, "Hold released too early.", "HoldReleaseMiss");
+                state.MarkResolved(activeHold.Value.Note);
+                return ApplyMiss(state, activeHold.Value.Note, inputTimeSeconds, "Hold released too early.", "HoldReleaseMiss");
             }
 
-            state.MarkResolved(activeHold.Note);
+            state.MarkResolved(activeHold.Value.Note);
+
             return ApplySuccessfulResolvedNote(
                 state,
-                activeHold.Note,
-                activeHold.StartJudgment,
+                activeHold.Value.Note,
+                activeHold.Value.StartJudgment,
                 inputTimeSeconds,
                 "HoldComplete",
                 holdStarted: true,
