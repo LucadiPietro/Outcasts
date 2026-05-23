@@ -21,6 +21,7 @@ public class BattleManager : MonoBehaviour
     public float timeBeforeStart = 1.5f;
     public static BattleManager Instance { get; private set; }
     public GameObject audioController;
+    public bool playTimelineOnStart = true;
 
     public List<Buttons> buttons;
 
@@ -57,6 +58,11 @@ public class BattleManager : MonoBehaviour
         buttons = new List<Buttons>();
         SetupInput();
         yield return new WaitForSeconds(timeBeforeStart);
+        if (!playTimelineOnStart)
+        {
+            yield break;
+        }
+
         if (audioController != null && audioController.TryGetComponent(out PlayableDirector playableDirector))
         {
             playableDirector.Play();

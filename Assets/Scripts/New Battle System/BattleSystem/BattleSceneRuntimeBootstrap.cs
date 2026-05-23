@@ -29,6 +29,9 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
     [SerializeField] float exitOffset = 100f;
     [SerializeField] float timeBeforeStart = 1.5f;
     [SerializeField] float timeToReachBar = 2f;
+    [SerializeField] bool useChartDataAsset = true;
+    [SerializeField] bool playTimelineFallback;
+    [SerializeField] int maxChartNotesToSpawn = 128;
 
     Canvas canvas;
     RectTransform canvasRect;
@@ -87,12 +90,14 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
         BattleManager battleManager = GetOrAdd<BattleManager>(gameObject);
         BMBattleManager beatMapManager = GetOrAdd<BMBattleManager>(gameObject);
         CellDivisor cellDivisor = GetOrAdd<CellDivisor>(gameObject);
+        BattleRhythmChartRunner chartRunner = GetOrAdd<BattleRhythmChartRunner>(gameObject);
 
         uiManager.counter = counter;
         uiManager.feedback = feedback;
 
         battleManager.timeBeforeStart = timeBeforeStart;
         battleManager.audioController = director.gameObject;
+        battleManager.playTimelineOnStart = !useChartDataAsset || playTimelineFallback;
         battleManager.players = EnsurePlayers();
         battleManager.enemies = EnsureEnemies();
 
@@ -106,6 +111,14 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
         {
             cellDivisor.SetParent();
         }
+
+        chartRunner.Configure(
+            null,
+            beatMapManager,
+            timeBeforeStart,
+            timeToReachBar,
+            maxChartNotesToSpawn,
+            useChartDataAsset);
 
         if (logSetup)
         {

@@ -9,13 +9,26 @@ public class BMBattleManager : BMManager
 
     public override void CreateButton(BMButtonPrefab prefab)
     {
-        var newBut = Instantiate(buttonPrefab, cells[prefab.cell.ToString()].transform);
-        newBut.transform.localPosition = Vector3.zero;
-        newBut.image.sprite = prefab.GetComponent<Image>().sprite;
-        newBut.buttonAction = prefab.key;
-        newBut.cell = prefab.cell;
+        Image image = prefab.GetComponent<Image>();
+        Sprite sprite = image != null ? image.sprite : null;
+        Color color = image != null ? image.color : Color.white;
+        CreateButton(prefab.cell, prefab.key, sprite, color);
+    }
 
-        newBut.positionToReach = prefab.cell.ToString() switch
+    public BattleButton CreateButton(BMButtonPrefab.Cell cell, Keys key, Sprite sprite, Color color)
+    {
+        var newBut = Instantiate(buttonPrefab, cells[cell.ToString()].transform);
+        newBut.transform.localPosition = Vector3.zero;
+        if (sprite != null)
+        {
+            newBut.image.sprite = sprite;
+        }
+
+        newBut.image.color = color;
+        newBut.buttonAction = key;
+        newBut.cell = cell;
+
+        newBut.positionToReach = cell.ToString() switch
         {
             "Cell1" => bars[0].transform.position.y + 100,
             "Cell2" => bars[0].transform.position.y + 100,
@@ -26,7 +39,7 @@ public class BMBattleManager : BMManager
             _ => newBut.positionToReach
         };
         
-        newBut.barPosition = prefab.cell.ToString() switch
+        newBut.barPosition = cell.ToString() switch
         {
             "Cell1" => bars[0].transform.position.y,
             "Cell2" => bars[0].transform.position.y,
@@ -42,5 +55,7 @@ public class BMBattleManager : BMManager
         {
             newBut.gameObject.SetActive(true);
         }
+
+        return newBut;
     }
 }
