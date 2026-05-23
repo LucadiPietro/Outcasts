@@ -38,5 +38,9 @@ public class BMBattleManager : BMManager
         };
 
         newBut.timeToReachBar = timeToReachBar;
+        if (!newBut.gameObject.activeSelf)
+        {
+            newBut.gameObject.SetActive(true);
+        }
     }
 }

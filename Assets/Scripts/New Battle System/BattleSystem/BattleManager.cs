@@ -32,6 +32,8 @@ public class BattleManager : MonoBehaviour
     
     public float deadEnemyModificator = 1;
 
+    [SerializeField] bool enableKeyboardLaneFallback = true;
+
     private void Awake()
     {
         if (Instance == null)
@@ -47,11 +49,22 @@ public class BattleManager : MonoBehaviour
     private IEnumerator Start()
     {
         battleUIManager = GetComponent<BattleUIManager>();
-        battleUIManager.UpdateCounter(counter);
+        if (battleUIManager != null)
+        {
+            battleUIManager.UpdateCounter(counter);
+        }
+
         buttons = new List<Buttons>();
         SetupInput();
         yield return new WaitForSeconds(timeBeforeStart);
-        audioController.GetComponent<PlayableDirector>().Play();
+        if (audioController != null && audioController.TryGetComponent(out PlayableDirector playableDirector))
+        {
+            playableDirector.Play();
+        }
+        else
+        {
+            Debug.LogWarning("BattleManager: AudioController o PlayableDirector non configurato.");
+        }
     }
 
     void SetupInput()
@@ -94,6 +107,44 @@ public class BattleManager : MonoBehaviour
         });
     }
 
+    private void Update()
+    {
+        if (!enableKeyboardLaneFallback || Keyboard.current == null || buttons == null)
+        {
+            return;
+        }
+
+        if (Keyboard.current.aKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell1);
+        }
+
+        if (Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell2);
+        }
+
+        if (Keyboard.current.dKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell3);
+        }
+
+        if (Keyboard.current.jKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell4);
+        }
+
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell5);
+        }
+
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            OnLanePressed(BMButtonPrefab.Cell.Cell6);
+        }
+    }
+
     public void SubcribeButton(BattleButton battleButton)
     {
         Buttons newButton = new Buttons
@@ -105,6 +156,12 @@ public class BattleManager : MonoBehaviour
         if (buttons.Contains(newButton)) return;
 
         buttons.Add(newButton);
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowFeedback("READY " + battleButton.cell, Color.yellow);
+        }
+
+        Debug.Log($"BattleManager: pulsante in finestra {battleButton.buttonAction} su {battleButton.cell}.");
     }
 
     public void Unsubscribe(BattleButton battleButton)
@@ -118,27 +175,59 @@ public class BattleManager : MonoBehaviour
     void OnButtonPressed(InputAction context)
     {
         var list = buttons.Where(c => c.buttonKeys == context).ToList();
+        ResolvePressedButtons(list, context != null ? context.name : "unknown");
+    }
+
+    void OnLanePressed(BMButtonPrefab.Cell cell)
+    {
+        var list = buttons.Where(c => c.button != null && c.button.cell == cell).ToList();
+        ResolvePressedButtons(list, cell.ToString());
+    }
+
+    void ResolvePressedButtons(List<Buttons> list, string inputName)
+    {
         int count = list.Count();
 
         if (count > 0)
         {
             counter++;
-            battleUIManager.UpdateCounter(counter);
+            if (battleUIManager != null)
+            {
+                battleUIManager.UpdateCounter(counter);
+            }
         }
 
         else
         {
             counter = 0;
-            battleUIManager.UpdateCounter(counter);
+            if (battleUIManager != null)
+            {
+                battleUIManager.UpdateCounter(counter);
+            }
         }
 
         if (list.Any())
         {
             var ele = list.Last();
 
+            if (battleUIManager != null)
+            {
+                battleUIManager.ShowFeedback("HIT " + ele.button.cell, Color.green);
+            }
+
+            Debug.Log($"BattleManager: preso pulsante {ele.button.buttonAction} su {ele.button.cell} con input {inputName}. Counter: {counter}");
             DamageRoutine(ele.button.cell);
             ele.button.KillButton();
             Unsubscribe(ele.button);
+        }
+        else
+        {
+            if (battleUIManager != null)
+            {
+                battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
+            }
+
+            Debug.Log($"BattleManager: input {inputName} fuori finestra. Counter reset.");
         }
     }
 
@@ -246,6 +335,12 @@ public class BattleManager : MonoBehaviour
 
     private void Attack(Player player, Enemy enemy)
     {
+        if (player == null || enemy == null)
+        {
+            Debug.LogWarning("BattleManager: impossibile applicare danno, player o enemy non configurato.");
+            return;
+        }
+
         var enemiesToAttach = new List<Enemy>();
         if (enemy.actualHealth > 0)
         {
@@ -273,6 +368,12 @@ public class BattleManager : MonoBehaviour
 
     private void Defence(Player player, Enemy enemy)
     {
+        if (player == null || enemy == null)
+        {
+            Debug.LogWarning("BattleManager: impossibile applicare difesa, player o enemy non configurato.");
+            return;
+        }
+
         var playersToAttach = new List<Player>();
         if (player.actualHealth > 0)
         {
