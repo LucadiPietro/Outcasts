@@ -10,6 +10,7 @@ namespace RhythmCombat.Runtime
 {
     public sealed class CombatRhythmEngine
     {
+        private readonly INoteJudgmentService _noteJudgmentService;
         private readonly JudgmentService _judgmentService;
         private readonly SuperMeterService _superMeterService;
         private readonly DamageResolver _damageResolver;
@@ -17,12 +18,30 @@ namespace RhythmCombat.Runtime
         private readonly SuperModeService _superModeService;
 
         public CombatRhythmEngine(
-        JudgmentService judgmentService,
-        SuperMeterService superMeterService,
-        DamageResolver damageResolver,
-        DefenseResolver defenseResolver,
-        SuperModeService superModeService)
+            JudgmentService judgmentService,
+            SuperMeterService superMeterService,
+            DamageResolver damageResolver,
+            DefenseResolver defenseResolver,
+            SuperModeService superModeService)
+            : this(
+                new TemporalNoteJudgmentService(judgmentService),
+                judgmentService,
+                superMeterService,
+                damageResolver,
+                defenseResolver,
+                superModeService)
         {
+        }
+
+        public CombatRhythmEngine(
+            INoteJudgmentService noteJudgmentService,
+            JudgmentService judgmentService,
+            SuperMeterService superMeterService,
+            DamageResolver damageResolver,
+            DefenseResolver defenseResolver,
+            SuperModeService superModeService)
+        {
+            _noteJudgmentService = noteJudgmentService ?? throw new ArgumentNullException(nameof(noteJudgmentService));
             _judgmentService = judgmentService ?? throw new ArgumentNullException(nameof(judgmentService));
             _superMeterService = superMeterService ?? throw new ArgumentNullException(nameof(superMeterService));
             _damageResolver = damageResolver ?? throw new ArgumentNullException(nameof(damageResolver));
@@ -70,7 +89,7 @@ namespace RhythmCombat.Runtime
                 return Ignored(laneIndex, inputTimeSeconds, nextNote.Id, "Defense lane owner is dead, input is ignored.", state.Multiplier.CurrentMultiplier);
             }
 
-            var judgment = _judgmentService.EvaluateTap(nextNote.HitTimeSeconds, inputTimeSeconds);
+            var judgment = _noteJudgmentService.Evaluate(nextNote, inputTimeSeconds);
             if (!judgment.IsHit)
             {
                 return Ignored(laneIndex, inputTimeSeconds, nextNote.Id, "Input is outside the hit window.", state.Multiplier.CurrentMultiplier);
@@ -163,7 +182,7 @@ namespace RhythmCombat.Runtime
                     if (note is null)
                         break;
 
-                    if (!_judgmentService.IsTapWindowClosed(note.HitTimeSeconds, currentTimeSeconds))
+                    if (!_noteJudgmentService.IsMissed(note, currentTimeSeconds))
                         break;
 
                     state.MarkResolved(note);
