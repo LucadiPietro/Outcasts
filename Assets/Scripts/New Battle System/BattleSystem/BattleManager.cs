@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RhythmCombat.Domain.Geometry;
+using RhythmCombat.Domain.Movement;
+using RhythmCombat.Domain.Timing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -34,6 +37,17 @@ public class BattleManager : MonoBehaviour
     public float deadEnemyModificator = 1;
 
     [SerializeField] bool enableKeyboardLaneFallback = true;
+    [SerializeField] bool enableSpatialJudgment = true;
+    [SerializeField] float spatialLaneSpacing = 2f;
+    [SerializeField] float spatialRowOffset = 1f;
+    [SerializeField] float spatialToleranceRadius = 1f;
+    [SerializeField] float spatialPerfectPercent = 0.1f;
+    [SerializeField] float spatialGoodPercent = 0.25f;
+    [SerializeField] float spatialBadPercent = 0.5f;
+    [SerializeField] float spatialDespawnAfterHitSeconds = 1f;
+
+    INoteJudgmentService noteJudgmentService;
+    double currentChartTimeSeconds;
 
     private void Awake()
     {
@@ -71,6 +85,27 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogWarning("BattleManager: AudioController o PlayableDirector non configurato.");
         }
+    }
+
+    public void ConfigureSpatialJudgment(
+        float approachDurationSeconds,
+        float toleranceRadius,
+        float perfectPercent,
+        float goodPercent,
+        float badPercent,
+        float despawnAfterHitSeconds)
+    {
+        spatialToleranceRadius = toleranceRadius;
+        spatialPerfectPercent = perfectPercent;
+        spatialGoodPercent = goodPercent;
+        spatialBadPercent = badPercent;
+        spatialDespawnAfterHitSeconds = despawnAfterHitSeconds;
+        BuildSpatialJudgmentService(approachDurationSeconds);
+    }
+
+    public void SetChartTimeSeconds(double chartTimeSeconds)
+    {
+        currentChartTimeSeconds = chartTimeSeconds;
     }
 
     void SetupInput()
@@ -151,6 +186,15 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    void BuildSpatialJudgmentService(float approachDurationSeconds)
+    {
+        var layout = BattlefieldLayout.CreateStandard(spatialLaneSpacing, spatialRowOffset, spatialToleranceRadius);
+        var travelSettings = new NoteTravelSettings(approachDurationSeconds, spatialDespawnAfterHitSeconds);
+        var config = new SpatialJudgmentConfig(spatialPerfectPercent, spatialGoodPercent, spatialBadPercent);
+        var motionService = new NoteMotionService(layout, travelSettings);
+        noteJudgmentService = new SpatialJudgmentService(layout, motionService, config);
+    }
+
     public void SubcribeButton(BattleButton battleButton)
     {
         Buttons newButton = new Buttons
@@ -192,42 +236,48 @@ public class BattleManager : MonoBehaviour
 
     void ResolvePressedButtons(List<Buttons> list, string inputName)
     {
-        int count = list.Count();
-
-        if (count > 0)
+        if (list.Any())
         {
+            var ele = list.Last();
+            JudgmentResult judgmentResult;
+            bool hasSpatialResult = TryEvaluateSpatialJudgment(ele.button, out judgmentResult);
+
+            if (hasSpatialResult && !judgmentResult.IsHit)
+            {
+                ResetCounter();
+                if (battleUIManager != null)
+                {
+                    battleUIManager.ShowFeedback("MISS " + ele.button.cell, Color.red);
+                }
+
+                Debug.Log(
+                    "BattleManager: spatial miss su " + ele.button.cell +
+                    " delta=" + judgmentResult.DeltaSeconds.ToString("0.000") +
+                    " input=" + inputName + ".");
+                return;
+            }
+
             counter++;
             if (battleUIManager != null)
             {
                 battleUIManager.UpdateCounter(counter);
             }
-        }
-
-        else
-        {
-            counter = 0;
-            if (battleUIManager != null)
-            {
-                battleUIManager.UpdateCounter(counter);
-            }
-        }
-
-        if (list.Any())
-        {
-            var ele = list.Last();
 
             if (battleUIManager != null)
             {
-                battleUIManager.ShowFeedback("HIT " + ele.button.cell, Color.green);
+                battleUIManager.ShowFeedback(
+                    GetFeedbackText(ele.button, hasSpatialResult, judgmentResult),
+                    GetFeedbackColor(hasSpatialResult, judgmentResult));
             }
 
-            Debug.Log($"BattleManager: preso pulsante {ele.button.buttonAction} su {ele.button.cell} con input {inputName}. Counter: {counter}");
-            DamageRoutine(ele.button.cell);
+            Debug.Log(GetHitLog(ele.button, inputName, counter, hasSpatialResult, judgmentResult));
+            DamageRoutine(ele.button.cell, GetDamageMultiplier(hasSpatialResult, judgmentResult));
             ele.button.KillButton();
             Unsubscribe(ele.button);
         }
         else
         {
+            ResetCounter();
             if (battleUIManager != null)
             {
                 battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
@@ -237,7 +287,98 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void DamageRoutine(BMButtonPrefab.Cell cell)
+    bool TryEvaluateSpatialJudgment(BattleButton battleButton, out JudgmentResult result)
+    {
+        result = default;
+
+        if (!enableSpatialJudgment ||
+            noteJudgmentService == null ||
+            battleButton == null ||
+            !battleButton.hasSpatialJudgmentData ||
+            battleButton.spatialNote == null)
+        {
+            return false;
+        }
+
+        result = noteJudgmentService.Evaluate(battleButton.spatialNote, currentChartTimeSeconds);
+        return true;
+    }
+
+    void ResetCounter()
+    {
+        counter = 0;
+        if (battleUIManager != null)
+        {
+            battleUIManager.UpdateCounter(counter);
+        }
+    }
+
+    string GetFeedbackText(BattleButton button, bool hasSpatialResult, JudgmentResult result)
+    {
+        if (!hasSpatialResult)
+        {
+            return "HIT " + button.cell;
+        }
+
+        return result.Grade.ToString().ToUpperInvariant() + " " + button.cell;
+    }
+
+    Color GetFeedbackColor(bool hasSpatialResult, JudgmentResult result)
+    {
+        if (!hasSpatialResult)
+        {
+            return Color.green;
+        }
+
+        switch (result.Grade)
+        {
+            case JudgmentGrade.Perfect:
+                return new Color(0.2f, 1f, 0.85f);
+            case JudgmentGrade.Good:
+                return Color.green;
+            case JudgmentGrade.Bad:
+                return new Color(1f, 0.7f, 0.15f);
+            default:
+                return Color.red;
+        }
+    }
+
+    float GetDamageMultiplier(bool hasSpatialResult, JudgmentResult result)
+    {
+        if (!hasSpatialResult)
+        {
+            return 1f;
+        }
+
+        switch (result.Grade)
+        {
+            case JudgmentGrade.Perfect:
+                return 1f;
+            case JudgmentGrade.Good:
+                return 0.75f;
+            case JudgmentGrade.Bad:
+                return 0.4f;
+            default:
+                return 0f;
+        }
+    }
+
+    string GetHitLog(BattleButton button, string inputName, int currentCounter, bool hasSpatialResult, JudgmentResult result)
+    {
+        if (!hasSpatialResult)
+        {
+            return $"BattleManager: preso pulsante {button.buttonAction} su {button.cell} con input {inputName}. Counter: {currentCounter}";
+        }
+
+        return "BattleManager: " + result.Grade +
+               " su " + button.cell +
+               " lane=" + button.laneIndex +
+               " delta=" + result.DeltaSeconds.ToString("0.000") +
+               " input=" + inputName +
+               ". Counter: " + currentCounter;
+    }
+
+    public void DamageRoutine(BMButtonPrefab.Cell cell, float judgmentMultiplier = 1f)
     {
         Player playerToConsider = null;
         Enemy enemyToConsider = null;
@@ -284,7 +425,7 @@ public class BattleManager : MonoBehaviour
                     break;
             }
 
-            Attack(playerToConsider, enemyToConsider);
+            Attack(playerToConsider, enemyToConsider, judgmentMultiplier);
         }
     }
 
@@ -339,7 +480,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void Attack(Player player, Enemy enemy)
+    private void Attack(Player player, Enemy enemy, float judgmentMultiplier)
     {
         if (player == null || enemy == null)
         {
@@ -363,7 +504,7 @@ public class BattleManager : MonoBehaviour
         {
             float damageCalc =
                 (((player.attack * player.attackBuff) - (enemy.defence * enemy.defenceBuff)) + player.damageConstant) *
-                player.voteMultiplayer * counter * player.positionMultiplayer;
+                player.voteMultiplayer * counter * player.positionMultiplayer * judgmentMultiplier;
 
             float singleDamage = constToUse * damageCalc;
             float damage = singleDamage / enemiesToAttach.Count;

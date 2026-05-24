@@ -70,6 +70,11 @@ public class BattleRhythmChartRunner : MonoBehaviour
         }
 
         elapsedSeconds += Time.deltaTime;
+        if (BattleManager.Instance != null)
+        {
+            BattleManager.Instance.SetChartTimeSeconds(elapsedSeconds);
+        }
+
         SpawnDueButtons();
     }
 
@@ -84,6 +89,11 @@ public class BattleRhythmChartRunner : MonoBehaviour
         elapsedSeconds = 0d;
         nextButtonIndex = 0;
         isPlaying = true;
+        if (BattleManager.Instance != null)
+        {
+            BattleManager.Instance.SetChartTimeSeconds(elapsedSeconds);
+        }
+
         Debug.Log("BattleRhythmChartRunner: avvio chart '" + chart.name + "' con " + scheduledButtons.Count + " note schedulate.");
     }
 
@@ -143,6 +153,7 @@ public class BattleRhythmChartRunner : MonoBehaviour
             laneIndex,
             laneValue,
             spawnTime,
+            hitTimeSeconds,
             ToCell(laneIndex),
             ToKey(laneIndex),
             ToColor(laneIndex, laneValue));
@@ -158,7 +169,13 @@ public class BattleRhythmChartRunner : MonoBehaviour
                 return;
             }
 
-            battleManager.CreateButton(scheduled.Cell, scheduled.Key, null, scheduled.Color);
+            battleManager.CreateButton(
+                scheduled.Cell,
+                scheduled.Key,
+                null,
+                scheduled.Color,
+                scheduled.LaneIndex,
+                scheduled.HitTimeSeconds);
             Debug.Log(
                 "BattleRhythmChartRunner: spawn row " + scheduled.RowIndex +
                 " lane " + scheduled.LaneIndex +
@@ -239,6 +256,7 @@ public class BattleRhythmChartRunner : MonoBehaviour
             int laneIndex,
             byte laneValue,
             double spawnTimeSeconds,
+            double hitTimeSeconds,
             BMButtonPrefab.Cell cell,
             Keys key,
             Color color)
@@ -247,6 +265,7 @@ public class BattleRhythmChartRunner : MonoBehaviour
             LaneIndex = laneIndex;
             LaneValue = laneValue;
             SpawnTimeSeconds = spawnTimeSeconds;
+            HitTimeSeconds = hitTimeSeconds;
             Cell = cell;
             Key = key;
             Color = color;
@@ -256,6 +275,7 @@ public class BattleRhythmChartRunner : MonoBehaviour
         public int LaneIndex;
         public byte LaneValue;
         public double SpawnTimeSeconds;
+        public double HitTimeSeconds;
         public BMButtonPrefab.Cell Cell;
         public Keys Key;
         public Color Color;

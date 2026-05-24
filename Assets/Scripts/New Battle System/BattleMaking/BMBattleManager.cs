@@ -17,6 +17,17 @@ public class BMBattleManager : BMManager
 
     public BattleButton CreateButton(BMButtonPrefab.Cell cell, Keys key, Sprite sprite, Color color)
     {
+        return CreateButton(cell, key, sprite, color, -1, 0d);
+    }
+
+    public BattleButton CreateButton(
+        BMButtonPrefab.Cell cell,
+        Keys key,
+        Sprite sprite,
+        Color color,
+        int laneIndex,
+        double hitTimeSeconds)
+    {
         var newBut = Instantiate(buttonPrefab, cells[cell.ToString()].transform);
         newBut.transform.localPosition = Vector3.zero;
         if (sprite != null)
@@ -51,6 +62,11 @@ public class BMBattleManager : BMManager
         };
 
         newBut.timeToReachBar = timeToReachBar;
+        if (laneIndex >= 0)
+        {
+            newBut.ConfigureSpatialJudgment(laneIndex, hitTimeSeconds);
+        }
+
         if (!newBut.gameObject.activeSelf)
         {
             newBut.gameObject.SetActive(true);

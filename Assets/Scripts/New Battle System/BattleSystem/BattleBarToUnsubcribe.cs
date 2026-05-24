@@ -10,6 +10,13 @@ public class BattleBarToUnsubcribe : MonoBehaviour
             return;
         }
 
+        if (button.isResolved)
+        {
+            return;
+        }
+
+        button.MarkResolved();
+
         if (button.cell is BMButtonPrefab.Cell.Cell4 or BMButtonPrefab.Cell.Cell5 or BMButtonPrefab.Cell.Cell6)
         {
             BattleManager.Instance.DefenceRoutine(button.cell);

@@ -32,6 +32,11 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
     [SerializeField] bool useChartDataAsset = true;
     [SerializeField] bool playTimelineFallback;
     [SerializeField] int maxChartNotesToSpawn = 128;
+    [SerializeField] float spatialToleranceRadius = 1f;
+    [SerializeField] float spatialPerfectPercent = 0.1f;
+    [SerializeField] float spatialGoodPercent = 0.25f;
+    [SerializeField] float spatialBadPercent = 0.5f;
+    [SerializeField] float spatialDespawnAfterHitSeconds = 1f;
 
     Canvas canvas;
     RectTransform canvasRect;
@@ -100,6 +105,13 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
         battleManager.playTimelineOnStart = !useChartDataAsset || playTimelineFallback;
         battleManager.players = EnsurePlayers();
         battleManager.enemies = EnsureEnemies();
+        battleManager.ConfigureSpatialJudgment(
+            timeToReachBar,
+            spatialToleranceRadius,
+            spatialPerfectPercent,
+            spatialGoodPercent,
+            spatialBadPercent,
+            spatialDespawnAfterHitSeconds);
 
         beatMapManager.cells = BuildCellDictionary(cells);
         beatMapManager.bars = bars;
@@ -278,13 +290,13 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
         float bottomY = lineDown != null ? lineDown.anchoredPosition.y : -460f;
         float width = canvasRect.rect.width > 0f ? canvasRect.rect.width : 1920f;
 
-        EnsureTriggerBar(parent, "UpBar", topY, width, "Bar", false);
-        EnsureTriggerBar(parent, "DownBar", bottomY, width, "Bar", false);
+        GameObject upHit = EnsureTriggerBar(parent, "UpBar", topY, width, "Bar", false);
+        GameObject downHit = EnsureTriggerBar(parent, "DownBar", bottomY, width, "Bar", false);
 
-        GameObject upExit = EnsureTriggerBar(parent, "UpBarUnsub", topY + exitOffset, width, "Untagged", true);
-        GameObject downExit = EnsureTriggerBar(parent, "DownBarUnsub", bottomY - exitOffset, width, "Untagged", true);
+        EnsureTriggerBar(parent, "UpBarUnsub", topY + exitOffset, width, "Untagged", true);
+        EnsureTriggerBar(parent, "DownBarUnsub", bottomY - exitOffset, width, "Untagged", true);
 
-        return new List<GameObject> { upExit, downExit };
+        return new List<GameObject> { upHit, downHit };
     }
 
     GameObject EnsureTriggerBar(RectTransform parent, string objectName, float y, float width, string tagName, bool unsubscribe)

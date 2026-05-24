@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using RhythmCombat.Domain.Chart;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,30 @@ public class BattleButton : MonoBehaviour
     private Tween myTween;
     
     public BMButtonPrefab.Cell cell;
+    public bool hasSpatialJudgmentData;
+    public int laneIndex = -1;
+    public double hitTimeSeconds;
+    public CombatNote spatialNote;
+    public bool isResolved;
+
+    public void ConfigureSpatialJudgment(int laneIndexValue, double hitTimeSecondsValue)
+    {
+        laneIndex = laneIndexValue;
+        hitTimeSeconds = hitTimeSecondsValue;
+        spatialNote = new CombatNote("battle-button-" + GetInstanceID(), laneIndex, hitTimeSeconds);
+        hasSpatialJudgmentData = true;
+    }
+
+    public void MarkResolved()
+    {
+        isResolved = true;
+
+        Collider2D noteCollider = GetComponent<Collider2D>();
+        if (noteCollider != null)
+        {
+            noteCollider.enabled = false;
+        }
+    }
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -42,6 +67,7 @@ public class BattleButton : MonoBehaviour
 
     public void KillButton()
     {
+        MarkResolved();
         myTween.Kill();
         transform.DOScale(0, 0.3f).OnComplete((() =>
         {
