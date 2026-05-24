@@ -4,7 +4,7 @@ Data: 2026-05-23
 
 ## Obiettivo
 
-Verificare quale scena usare come base per integrare il layer rhythm-combat sviluppato finora dentro la battle reale gia' montata dal senior.
+Verificare quale scena usare come base per integrare il layer rhythm-combat sviluppato finora dentro la battle reale gia' montata.
 
 Questo step non modifica ancora il gameplay: serve a decidere la scena target corretta e a capire cosa e' gia' presente.
 
@@ -16,7 +16,7 @@ La scena target per l'integrazione deve essere:
 
 Motivi:
 
-- e' la scena chiamata `Battle` indicata dal senior;
+- e' la scena chiamata `Battle` indicata per l'integrazione;
 - e' l'unica scena Battle abilitata in `ProjectSettings/EditorBuildSettings.asset`;
 - contiene gia' la UI principale della battle;
 - deve diventare il punto di ingresso reale del combat system.
@@ -100,7 +100,7 @@ Il layer `RhythmCombat` gia' implementato e' valido come core separato:
 
 Pero' non e' ancora collegato alla scena reale `Battle.unity`.
 
-`SpatialChartVisualTest` resta utile come debug harness, ma non soddisfa da solo la richiesta attuale del senior, perche' gira fuori dalla scena Battle reale.
+`SpatialChartVisualTest` resta utile come debug harness, ma non soddisfa da solo il cambiamento richiesto, perche' gira fuori dalla scena Battle reale.
 
 ## Decisione tecnica
 
@@ -114,7 +114,7 @@ Usare `Assets/Scenes/Others/Battle.unity` come sorgente di riferimento per capir
 - viene calcolato input/hit;
 - vengono applicati danni a player/enemy.
 
-Non conviene spostare direttamente tutta la scena `Others/Battle.unity` sopra `Battle.unity` senza controllo, perche' rischieremmo di sovrascrivere la UI gia' montata dal senior.
+Non conviene spostare direttamente tutta la scena `Others/Battle.unity` sopra `Battle.unity` senza controllo, perche' rischieremmo di sovrascrivere la UI gia' montata.
 
 ## Prossimo step consigliato
 
@@ -128,6 +128,6 @@ In pratica:
 4. verificare che, premendo Play, i pulsanti vengano istanziati nella scena reale;
 5. solo dopo collegare il layer `RhythmCombat` al movimento/judgment definitivo.
 
-## Nota per il senior
+## Nota finale
 
 La UI della battle risulta gia' montata nella scena principale `Battle.unity`, ma la parte runtime dei pulsanti non e' ancora agganciata li'. La scena `Others/Battle.unity` contiene invece una pipeline gameplay funzionante/prototipale. Il prossimo lavoro e' integrare quella pipeline, e poi il nuovo layer rhythm-combat, dentro `Battle.unity` senza ricostruire o sovrascrivere la UI gia' preparata.

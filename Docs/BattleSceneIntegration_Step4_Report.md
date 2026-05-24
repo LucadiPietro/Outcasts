@@ -193,4 +193,4 @@ Questo step integra il judgment spaziale nella scena `Battle`, ma resta ancora p
 
 - valori di tolleranza da inspector
 - tuning dei moltiplicatori di danno
-- visualizzazione piu elegante del grade nella UI definitiva del senior
+- visualizzazione piu elegante del grade nella UI definitiva

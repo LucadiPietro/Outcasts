@@ -31,6 +31,7 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
     [SerializeField] float timeToReachBar = 2f;
     [SerializeField] bool useChartDataAsset = true;
     [SerializeField] bool playTimelineFallback;
+    [SerializeField] bool enableSpatialMotion = true;
     [SerializeField] int maxChartNotesToSpawn = 128;
     [SerializeField] float spatialToleranceRadius = 1f;
     [SerializeField] float spatialPerfectPercent = 0.1f;
@@ -117,6 +118,7 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
         beatMapManager.bars = bars;
         beatMapManager.buttonPrefab = buttonTemplate;
         beatMapManager.timeToReachBar = timeToReachBar;
+        beatMapManager.enableSpatialMotion = enableSpatialMotion;
 
         cellDivisor.playableDirector = director;
         if (director.playableAsset is TimelineAsset)

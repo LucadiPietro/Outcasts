@@ -2,7 +2,7 @@
 
 ## Obiettivo
 
-Collegare la scena reale `Assets/Scenes/Battle.unity` alla parte runtime del `New Battle System`, senza sovrascrivere la UI gia montata dal senior e senza usare la scena prototype `Assets/Scenes/Others/Battle.unity` come scena finale.
+Collegare la scena reale `Assets/Scenes/Battle.unity` alla parte runtime del `New Battle System`, senza sovrascrivere la UI gia montata e senza usare la scena prototype `Assets/Scenes/Others/Battle.unity` come scena finale.
 
 ## Cosa e stato implementato
 

@@ -6,6 +6,7 @@ public class BMBattleManager : BMManager
     public BattleButton buttonPrefab;
 
     public float timeToReachBar = 2;
+    public bool enableSpatialMotion = true;
 
     public override void CreateButton(BMButtonPrefab prefab)
     {
@@ -28,7 +29,17 @@ public class BMBattleManager : BMManager
         int laneIndex,
         double hitTimeSeconds)
     {
-        var newBut = Instantiate(buttonPrefab, cells[cell.ToString()].transform);
+        string cellName = cell.ToString();
+        GameObject cellObject = cells[cellName];
+        bool canUseSpatialMotion =
+            enableSpatialMotion &&
+            laneIndex >= 0 &&
+            BattleManager.Instance != null &&
+            BattleManager.Instance.SpatialMotionService != null &&
+            cellObject.transform.parent != null;
+
+        Transform buttonParent = canUseSpatialMotion ? cellObject.transform.parent : cellObject.transform;
+        var newBut = Instantiate(buttonPrefab, buttonParent);
         newBut.transform.localPosition = Vector3.zero;
         if (sprite != null)
         {
@@ -67,11 +78,39 @@ public class BMBattleManager : BMManager
             newBut.ConfigureSpatialJudgment(laneIndex, hitTimeSeconds);
         }
 
+        if (canUseSpatialMotion)
+        {
+            newBut.ConfigureSpatialMotion(
+                BattleManager.Instance.SpatialMotionService,
+                () => BattleManager.Instance.CurrentChartTimeSeconds,
+                Vector2.zero,
+                GetLaneCenterAnchoredPosition(cell));
+        }
+
         if (!newBut.gameObject.activeSelf)
         {
             newBut.gameObject.SetActive(true);
         }
 
         return newBut;
+    }
+
+    Vector2 GetLaneCenterAnchoredPosition(BMButtonPrefab.Cell cell)
+    {
+        string cellName = cell.ToString();
+        RectTransform cellRect = cells[cellName].GetComponent<RectTransform>();
+        GameObject bar = IsTopCell(cell) ? bars[0] : bars[1];
+        RectTransform barRect = bar.GetComponent<RectTransform>();
+
+        float x = cellRect != null ? cellRect.anchoredPosition.x : cells[cellName].transform.localPosition.x;
+        float y = barRect != null ? barRect.anchoredPosition.y : bar.transform.localPosition.y;
+        return new Vector2(x, y);
+    }
+
+    static bool IsTopCell(BMButtonPrefab.Cell cell)
+    {
+        return cell == BMButtonPrefab.Cell.Cell1 ||
+               cell == BMButtonPrefab.Cell.Cell2 ||
+               cell == BMButtonPrefab.Cell.Cell3;
     }
 }

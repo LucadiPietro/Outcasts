@@ -49,6 +49,9 @@ public class BattleManager : MonoBehaviour
     INoteJudgmentService noteJudgmentService;
     double currentChartTimeSeconds;
 
+    public NoteMotionService SpatialMotionService { get; private set; }
+    public double CurrentChartTimeSeconds => currentChartTimeSeconds;
+
     private void Awake()
     {
         if (Instance == null)
@@ -192,6 +195,7 @@ public class BattleManager : MonoBehaviour
         var travelSettings = new NoteTravelSettings(approachDurationSeconds, spatialDespawnAfterHitSeconds);
         var config = new SpatialJudgmentConfig(spatialPerfectPercent, spatialGoodPercent, spatialBadPercent);
         var motionService = new NoteMotionService(layout, travelSettings);
+        SpatialMotionService = motionService;
         noteJudgmentService = new SpatialJudgmentService(layout, motionService, config);
     }
 
@@ -220,6 +224,32 @@ public class BattleManager : MonoBehaviour
         {
             buttons.Remove(buttons.Last(b => b.button == battleButton));
         }
+    }
+
+    public void ResolveMissedButton(BattleButton battleButton)
+    {
+        if (battleButton == null || battleButton.isResolved)
+        {
+            return;
+        }
+
+        battleButton.MarkResolved();
+
+        if (battleButton.cell is BMButtonPrefab.Cell.Cell4 or BMButtonPrefab.Cell.Cell5 or BMButtonPrefab.Cell.Cell6)
+        {
+            DefenceRoutine(battleButton.cell);
+        }
+
+        Unsubscribe(battleButton);
+        ResetCounter();
+
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowFeedback("MISS " + battleButton.cell, Color.red);
+        }
+
+        battleButton.FadeOutButton();
+        Debug.Log("BattleManager: miss risolto su " + battleButton.cell + ".");
     }
 
     void OnButtonPressed(InputAction context)
