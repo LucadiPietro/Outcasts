@@ -19,6 +19,12 @@ public enum Keys
     NONE
 }
 
+public enum BattleInputDisplayMode
+{
+    Keyboard,
+    Xbox
+}
+
 public static class KeysUtil
 {
     public static Keys ByString(string s)

@@ -43,7 +43,6 @@ public class BattleSceneRuntimeBootstrap : MonoBehaviour
     RectTransform canvasRect;
     RectTransform runtimeRoot;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void InstallForInitialScene()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

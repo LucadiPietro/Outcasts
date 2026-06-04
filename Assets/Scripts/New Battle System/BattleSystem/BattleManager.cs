@@ -37,7 +37,10 @@ public class BattleManager : MonoBehaviour
     public float deadEnemyModificator = 1;
 
     [SerializeField] bool enableKeyboardLaneFallback = true;
+    [SerializeField] BattleInputDisplayMode inputDisplayMode = BattleInputDisplayMode.Keyboard;
+    [SerializeField] Key inputDisplayModeSwitchKey = Key.F1;
     [SerializeField] bool enableSpatialJudgment = true;
+    [SerializeField] float spatialApproachDurationSeconds = 2f;
     [SerializeField] float spatialLaneSpacing = 2f;
     [SerializeField] float spatialRowOffset = 1f;
     [SerializeField] float spatialToleranceRadius = 1f;
@@ -51,6 +54,7 @@ public class BattleManager : MonoBehaviour
 
     public NoteMotionService SpatialMotionService { get; private set; }
     public double CurrentChartTimeSeconds => currentChartTimeSeconds;
+    public BattleInputDisplayMode CurrentInputDisplayMode => inputDisplayMode;
 
     private void Awake()
     {
@@ -66,13 +70,23 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        battleUIManager = GetComponent<BattleUIManager>();
+        if (battleUIManager == null)
+        {
+            battleUIManager = GetComponent<BattleUIManager>();
+        }
+
+        if (battleUIManager == null)
+        {
+            battleUIManager = FindObjectOfType<BattleUIManager>();
+        }
+
         if (battleUIManager != null)
         {
             battleUIManager.UpdateCounter(counter);
         }
 
         buttons = new List<Buttons>();
+        BuildSpatialJudgmentService(spatialApproachDurationSeconds);
         SetupInput();
         yield return new WaitForSeconds(timeBeforeStart);
         if (!playTimelineOnStart)
@@ -103,6 +117,7 @@ public class BattleManager : MonoBehaviour
         spatialGoodPercent = goodPercent;
         spatialBadPercent = badPercent;
         spatialDespawnAfterHitSeconds = despawnAfterHitSeconds;
+        spatialApproachDurationSeconds = approachDurationSeconds;
         BuildSpatialJudgmentService(approachDurationSeconds);
     }
 
@@ -115,83 +130,142 @@ public class BattleManager : MonoBehaviour
     {
         InputManager.Instance().SetAction(ActionKey.NORTH, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.Y];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.Y);
         });
         InputManager.Instance().SetAction(ActionKey.SOUTH, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.A];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.A);
         });
         InputManager.Instance().SetAction(ActionKey.EAST, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.B];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.B);
         });
         InputManager.Instance().SetAction(ActionKey.WEST, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.X];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.X);
         });
         InputManager.Instance().SetAction(ActionKey.LT, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.LT];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.LT);
         });
         InputManager.Instance().SetAction(ActionKey.RT, delegate(InputAction.CallbackContext obj)
         {
-            InputAction buttonAction = new InputAction();
-            buttonAction = BattleInputManager.Instance.keyMap[Keys.RT];
-            OnButtonPressed(buttonAction);
+            OnMappedGamepadAction(Keys.RT);
         });
     }
 
     private void Update()
     {
-        if (!enableKeyboardLaneFallback || Keyboard.current == null || buttons == null)
+        HandleInputDisplayModeSwitch();
+
+        if (inputDisplayMode != BattleInputDisplayMode.Keyboard ||
+            !enableKeyboardLaneFallback ||
+            Keyboard.current == null ||
+            buttons == null)
         {
             return;
         }
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell1);
+            OnLanePressed(BMButtonPrefab.Cell.Cell1, "A");
         }
 
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell2);
+            OnLanePressed(BMButtonPrefab.Cell.Cell2, "S");
         }
 
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell3);
+            OnLanePressed(BMButtonPrefab.Cell.Cell3, "D");
         }
 
         if (Keyboard.current.jKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell4);
+            OnLanePressed(BMButtonPrefab.Cell.Cell4, "J");
         }
 
         if (Keyboard.current.kKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell5);
+            OnLanePressed(BMButtonPrefab.Cell.Cell5, "K");
         }
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
-            OnLanePressed(BMButtonPrefab.Cell.Cell6);
+            OnLanePressed(BMButtonPrefab.Cell.Cell6, "L");
         }
+    }
+
+    void OnMappedGamepadAction(Keys key)
+    {
+        if (inputDisplayMode != BattleInputDisplayMode.Xbox ||
+            BattleInputManager.Instance == null ||
+            BattleInputManager.Instance.keyMap == null ||
+            !BattleInputManager.Instance.keyMap.TryGetValue(key, out InputAction buttonAction))
+        {
+            return;
+        }
+
+        OnButtonPressed(buttonAction);
+    }
+
+    void HandleInputDisplayModeSwitch()
+    {
+        if (Keyboard.current == null || inputDisplayModeSwitchKey == Key.None)
+        {
+            return;
+        }
+
+        var switchKey = Keyboard.current[inputDisplayModeSwitchKey];
+        if (switchKey != null && switchKey.wasPressedThisFrame)
+        {
+            ToggleInputDisplayMode();
+        }
+    }
+
+    public void ToggleInputDisplayMode()
+    {
+        BattleInputDisplayMode nextMode = inputDisplayMode == BattleInputDisplayMode.Keyboard
+            ? BattleInputDisplayMode.Xbox
+            : BattleInputDisplayMode.Keyboard;
+
+        SetInputDisplayMode(nextMode);
+    }
+
+    public void SetInputDisplayMode(BattleInputDisplayMode mode)
+    {
+        if (inputDisplayMode == mode)
+        {
+            return;
+        }
+
+        inputDisplayMode = mode;
+        RefreshInputDisplayMode();
+    }
+
+    void RefreshInputDisplayMode()
+    {
+        BMBattleManager bmBattleManager = FindObjectOfType<BMBattleManager>();
+        if (bmBattleManager != null)
+        {
+            bmBattleManager.RefreshActiveButtonDisplays();
+        }
+
+        RefreshSubscribedInputActions();
+
+        string modeLabel = inputDisplayMode == BattleInputDisplayMode.Keyboard ? "KEYBOARD" : "XBOX";
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowFeedback("INPUT " + modeLabel, Color.cyan);
+        }
+
+        Debug.Log("BattleManager: input mode impostato su " + modeLabel + ".");
     }
 
     void BuildSpatialJudgmentService(float approachDurationSeconds)
     {
-        var layout = BattlefieldLayout.CreateStandard(spatialLaneSpacing, spatialRowOffset, spatialToleranceRadius);
+        var layout = BattlefieldLayout.CreateLaneCenteredStandard(spatialLaneSpacing, spatialRowOffset, spatialToleranceRadius);
         var travelSettings = new NoteTravelSettings(approachDurationSeconds, spatialDespawnAfterHitSeconds);
         var config = new SpatialJudgmentConfig(spatialPerfectPercent, spatialGoodPercent, spatialBadPercent);
         var motionService = new NoteMotionService(layout, travelSettings);
@@ -201,16 +275,47 @@ public class BattleManager : MonoBehaviour
 
     public void SubcribeButton(BattleButton battleButton)
     {
+        if (battleButton == null)
+        {
+            return;
+        }
+
+        if (buttons == null)
+        {
+            buttons = new List<Buttons>();
+        }
+
+        if (buttons.Any(b => b.button == battleButton))
+        {
+            return;
+        }
+
+        int laneIndex = GetLaneIndex(battleButton);
+        battleButton.buttonAction = GetLaneButtonAction(laneIndex);
+
+        InputAction inputAction = null;
+        if (inputDisplayMode == BattleInputDisplayMode.Xbox)
+        {
+            if (BattleInputManager.Instance != null &&
+                BattleInputManager.Instance.keyMap != null &&
+                BattleInputManager.Instance.keyMap.TryGetValue(battleButton.buttonAction, out InputAction mappedAction))
+            {
+                inputAction = mappedAction;
+            }
+            else
+            {
+                Debug.LogWarning("BattleManager: BattleInputManager non configurato, registro il pulsante solo per input lane/tastiera.");
+            }
+        }
+
         Buttons newButton = new Buttons
         {
             button = battleButton,
-            buttonKeys = BattleInputManager.Instance.keyMap[battleButton.buttonAction]
+            buttonKeys = inputAction
         };
 
-        if (buttons.Contains(newButton)) return;
-
         buttons.Add(newButton);
-        if (battleUIManager != null)
+        if (battleUIManager != null && !battleButton.hasSpatialJudgmentData)
         {
             battleUIManager.ShowFeedback("READY " + battleButton.cell, Color.yellow);
         }
@@ -218,8 +323,115 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"BattleManager: pulsante in finestra {battleButton.buttonAction} su {battleButton.cell}.");
     }
 
+    public Keys GetLaneButtonAction(int laneIndex)
+    {
+        if (inputDisplayMode == BattleInputDisplayMode.Keyboard)
+        {
+            return Keys.NONE;
+        }
+
+        return GetXboxLaneKey(laneIndex);
+    }
+
+    public string GetLaneDisplayLabel(int laneIndex)
+    {
+        if (inputDisplayMode == BattleInputDisplayMode.Keyboard)
+        {
+            return GetKeyboardLaneLabel(laneIndex);
+        }
+
+        Keys key = GetXboxLaneKey(laneIndex);
+        return key == Keys.NONE ? "?" : key.ToString();
+    }
+
+    void RefreshSubscribedInputActions()
+    {
+        if (buttons == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            Buttons entry = buttons[i];
+            if (entry == null || entry.button == null)
+            {
+                continue;
+            }
+
+            int laneIndex = GetLaneIndex(entry.button);
+            entry.button.buttonAction = GetLaneButtonAction(laneIndex);
+            entry.buttonKeys = null;
+
+            if (inputDisplayMode == BattleInputDisplayMode.Xbox &&
+                BattleInputManager.Instance != null &&
+                BattleInputManager.Instance.keyMap != null &&
+                BattleInputManager.Instance.keyMap.TryGetValue(entry.button.buttonAction, out InputAction mappedAction))
+            {
+                entry.buttonKeys = mappedAction;
+            }
+        }
+    }
+
+    static int GetLaneIndex(BattleButton button)
+    {
+        if (button == null)
+        {
+            return -1;
+        }
+
+        return button.laneIndex >= 0 ? button.laneIndex : (int)button.cell;
+    }
+
+    string GetKeyboardLaneLabel(int laneIndex)
+    {
+        switch (laneIndex)
+        {
+            case 0:
+                return "A";
+            case 1:
+                return "S";
+            case 2:
+                return "D";
+            case 3:
+                return "J";
+            case 4:
+                return "K";
+            case 5:
+                return "L";
+            default:
+                return "?";
+        }
+    }
+
+    Keys GetXboxLaneKey(int laneIndex)
+    {
+        switch (laneIndex)
+        {
+            case 0:
+                return Keys.Y;
+            case 1:
+                return Keys.X;
+            case 2:
+                return Keys.B;
+            case 3:
+                return Keys.A;
+            case 4:
+                return Keys.LT;
+            case 5:
+                return Keys.RT;
+            default:
+                return Keys.NONE;
+        }
+    }
+
     public void Unsubscribe(BattleButton battleButton)
     {
+        if (buttons == null)
+        {
+            return;
+        }
+
         if (buttons.Any(b => b.button == battleButton))
         {
             buttons.Remove(buttons.Last(b => b.button == battleButton));
@@ -227,6 +439,31 @@ public class BattleManager : MonoBehaviour
     }
 
     public void ResolveMissedButton(BattleButton battleButton)
+    {
+        ResolveMissedButton(battleButton, true);
+    }
+
+    public bool TryResolveSpatialMissedButton(BattleButton battleButton)
+    {
+        if (battleButton == null ||
+            battleButton.isResolved ||
+            !battleButton.hasSpatialJudgmentData ||
+            battleButton.spatialNote == null ||
+            noteJudgmentService == null)
+        {
+            return false;
+        }
+
+        if (!noteJudgmentService.IsMissed(battleButton.spatialNote, currentChartTimeSeconds))
+        {
+            return false;
+        }
+
+        ResolveMissedButton(battleButton, false);
+        return true;
+    }
+
+    void ResolveMissedButton(BattleButton battleButton, bool fadeVisual)
     {
         if (battleButton == null || battleButton.isResolved)
         {
@@ -248,20 +485,34 @@ public class BattleManager : MonoBehaviour
             battleUIManager.ShowFeedback("MISS " + battleButton.cell, Color.red);
         }
 
-        battleButton.FadeOutButton();
+        if (fadeVisual)
+        {
+            battleButton.FadeOutButton();
+        }
+
         Debug.Log("BattleManager: miss risolto su " + battleButton.cell + ".");
     }
 
     void OnButtonPressed(InputAction context)
     {
+        if (inputDisplayMode != BattleInputDisplayMode.Xbox)
+        {
+            return;
+        }
+
         var list = buttons.Where(c => c.buttonKeys == context).ToList();
         ResolvePressedButtons(list, context != null ? context.name : "unknown");
     }
 
     void OnLanePressed(BMButtonPrefab.Cell cell)
     {
+        OnLanePressed(cell, cell.ToString());
+    }
+
+    void OnLanePressed(BMButtonPrefab.Cell cell, string inputName)
+    {
         var list = buttons.Where(c => c.button != null && c.button.cell == cell).ToList();
-        ResolvePressedButtons(list, cell.ToString());
+        ResolvePressedButtons(list, inputName);
     }
 
     void ResolvePressedButtons(List<Buttons> list, string inputName)

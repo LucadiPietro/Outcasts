@@ -21,9 +21,10 @@ namespace RhythmCombat.Domain.Movement
                 throw new ArgumentNullException(nameof(note));
 
             var lane = Layout.GetLane(note.LaneIndex);
+            var spawnCenter = Layout.GetSpawnCenter(note.LaneIndex);
             var spawnTime = note.HitTimeSeconds - Settings.ApproachDurationSeconds;
             var progress = (currentTimeSeconds - spawnTime) / Settings.ApproachDurationSeconds;
-            var position = Double2.Lerp(Layout.SpawnCenter, lane.Center, progress);
+            var position = Double2.Lerp(spawnCenter, lane.Center, progress);
             var shouldDespawn = currentTimeSeconds > note.HitTimeSeconds + Settings.DespawnAfterHitSeconds;
 
             return new NotePositionResult(position, progress, shouldDespawn);
