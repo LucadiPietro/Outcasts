@@ -13,13 +13,13 @@ public class BattleButton : MonoBehaviour
     public float timeBeforDesappear = 0.3f;
     public float timeToReachBar = 0.5f;
     public Image image;
-    
-    public Keys  buttonAction;
+
+    public Keys buttonAction;
 
     public float barPosition;
     public float positionToReach;
     private Tween myTween;
-    
+
     public BMButtonPrefab.Cell cell;
     public bool hasSpatialJudgmentData;
     public int laneIndex = -1;
@@ -29,11 +29,18 @@ public class BattleButton : MonoBehaviour
     public bool hasSpatialMotionData;
 
     bool isVisualResolved;
+    bool isMissAnimationRunning;
+
     TextMeshProUGUI displayLabel;
     NoteMotionService spatialMotionService;
     Func<double> currentTimeProvider;
     Vector2 spatialSpawnAnchoredPosition;
     Vector2 spatialLaneCenterAnchoredPosition;
+
+    [Header("Miss Animation")]
+    [SerializeField] float missShakeDuration = 0.25f;
+    [SerializeField] float missShakeStrength = 12f;
+    [SerializeField] float missDisappearDuration = 0.18f;
 
     public void ConfigureSpatialJudgment(int laneIndexValue, double hitTimeSecondsValue)
     {
@@ -155,10 +162,10 @@ public class BattleButton : MonoBehaviour
         return displayLabel;
     }
 
-    // Start is called before the first frame update
     IEnumerator Start()
     {
         yield return new WaitForSeconds(timeBeforeStart);
+
         if (hasSpatialMotionData && spatialNote != null)
         {
             yield return RunSpatialMotion();
@@ -171,33 +178,61 @@ public class BattleButton : MonoBehaviour
     IEnumerator RunLegacyMotion()
     {
         bool complete = false;
-        myTween = transform.DOMoveY(barPosition, timeToReachBar).SetEase(Ease.Linear).OnComplete(() => complete = true);
+
+        myTween = transform.DOMoveY(barPosition, timeToReachBar)
+            .SetEase(Ease.Linear)
+            .OnComplete(() => complete = true);
+
         yield return new WaitUntil(() => complete || isResolved);
+
         KillTween();
+
         if (isResolved)
         {
             yield break;
         }
 
         complete = false;
-        myTween = transform.DOMoveY(positionToReach, 0.5f).SetEase(Ease.Linear).OnComplete(() => complete = true);
+
+        myTween = transform.DOMoveY(positionToReach, 0.5f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() => complete = true);
+
         yield return new WaitUntil(() => complete || isResolved);
+
+        KillTween();
+
         if (isResolved)
         {
             yield break;
         }
 
         yield return new WaitForSeconds(timeBeforDesappear);
-        FadeOutButton();
+
+        if (isResolved)
+        {
+            yield break;
+        }
+
+        if (BattleManager.Instance != null)
+        {
+            BattleManager.Instance.ResolveMissedButton(this);
+        }
+        else
+        {
+            ShakeMissAndDisappear();
+        }
     }
 
     IEnumerator RunSpatialMotion()
     {
         RectTransform rect = transform as RectTransform;
+
         while (!isVisualResolved)
         {
             NotePositionResult positionResult = spatialMotionService.GetPosition(spatialNote, currentTimeProvider());
             float progress = (float)positionResult.NormalizedProgress;
+
             Vector2 anchoredPosition = Vector2.LerpUnclamped(
                 spatialSpawnAnchoredPosition,
                 spatialLaneCenterAnchoredPosition,
@@ -223,9 +258,9 @@ public class BattleButton : MonoBehaviour
                 {
                     BattleManager.Instance.ResolveMissedButton(this);
                 }
-                else
+                else if (!isVisualResolved)
                 {
-                    FadeOutButton();
+                    ShakeMissAndDisappear();
                 }
 
                 yield break;
@@ -250,28 +285,121 @@ public class BattleButton : MonoBehaviour
 
     public void KillButton()
     {
+        if (isVisualResolved)
+        {
+            return;
+        }
+
         MarkResolved();
         isVisualResolved = true;
         KillTween();
-        transform.DOScale(0, 0.3f).OnComplete((() =>
+
+        transform.DOKill();
+
+        transform.DOScale(0f, 0.3f).OnComplete(() =>
         {
             Destroy(gameObject);
-        }));
+        });
     }
 
     public void FadeOutButton()
     {
+        if (isVisualResolved)
+        {
+            return;
+        }
+
         MarkResolved();
         isVisualResolved = true;
         KillTween();
+
+        transform.DOKill();
+
         if (image != null)
         {
-            image.DOFade(0, 0.3f).OnComplete(() => Destroy(gameObject));
+            image.DOFade(0f, 0.3f).OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public void ShakeMissAndDisappear()
+    {
+        if (isMissAnimationRunning)
+        {
+            return;
+        }
+
+        MarkResolved();
+        isVisualResolved = true;
+        isMissAnimationRunning = true;
+
+        KillTween();
+        transform.DOKill();
+
+        StartCoroutine(ShakeMissAndDisappearRoutine());
+    }
+
+    IEnumerator ShakeMissAndDisappearRoutine()
+    {
+        RectTransform rect = transform as RectTransform;
+
+        Vector3 originalLocalPosition = transform.localPosition;
+        Vector2 originalAnchoredPosition = rect != null ? rect.anchoredPosition : Vector2.zero;
+
+        float elapsed = 0f;
+
+        while (elapsed < missShakeDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float offsetX = UnityEngine.Random.Range(-missShakeStrength, missShakeStrength);
+            float offsetY = UnityEngine.Random.Range(-missShakeStrength * 0.35f, missShakeStrength * 0.35f);
+
+            if (rect != null)
+            {
+                rect.anchoredPosition = originalAnchoredPosition + new Vector2(offsetX, offsetY);
+            }
+            else
+            {
+                transform.localPosition = originalLocalPosition + new Vector3(offsetX, offsetY, 0f);
+            }
+
+            yield return null;
+        }
+
+        if (rect != null)
+        {
+            rect.anchoredPosition = originalAnchoredPosition;
+        }
+        else
+        {
+            transform.localPosition = originalLocalPosition;
+        }
+
+        Sequence sequence = DOTween.Sequence();
+
+        if (image != null)
+        {
+            sequence.Join(image.DOFade(0f, missDisappearDuration));
+        }
+
+        if (displayLabel != null)
+        {
+            sequence.Join(displayLabel.DOFade(0f, missDisappearDuration));
+        }
+
+        sequence.Join(transform.DOScale(0f, missDisappearDuration));
+
+        sequence.OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 
     void KillTween()

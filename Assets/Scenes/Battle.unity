@@ -1881,7 +1881,10 @@ MonoBehaviour:
   deadPlayerModificator: 1
   deadEnemyModificator: 1
   enableKeyboardLaneFallback: 1
+  inputDisplayMode: 1
+  inputDisplayModeSwitchKey: 94
   enableSpatialJudgment: 1
+  spatialApproachDurationSeconds: 2
   spatialLaneSpacing: 2
   spatialRowOffset: 1
   spatialToleranceRadius: 1
@@ -1889,6 +1892,7 @@ MonoBehaviour:
   spatialGoodPercent: 0.25
   spatialBadPercent: 0.5
   spatialDespawnAfterHitSeconds: 1
+  consumeNoteOnFailedSpatialInput: 1
 --- !u!114 &476171581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,8 +1910,6 @@ MonoBehaviour:
     _error: 0
   bars: []
   buttonPrefab: {fileID: 1450655438011131660, guid: 6ffb159feccb8824cba565f2679f5072, type: 3}
-  timeToReachBar: 2
-  enableSpatialMotion: 1
   laneButtonModels:
   - {fileID: 3778523878535413240, guid: 4d4e3e6162cac754daf434cddcb8a092, type: 3}
   - {fileID: 7288682703554196010, guid: 59cdbfbbc7aff4d42879e43f3b90209b, type: 3}
@@ -1915,12 +1917,18 @@ MonoBehaviour:
   - {fileID: 8233072790779769319, guid: f0c3438446d4d714a8b9d8d09e12f98e, type: 3}
   - {fileID: 3778523878535413240, guid: eefd7dd12ee003b4a8b880726e85fab8, type: 3}
   - {fileID: 3778523878535413240, guid: b0e5a881aa207bf40800c018eef78a5b, type: 3}
+  timeToReachBar: 2
+  enableSpatialMotion: 1
   noteParent: {fileID: 0}
   lineCenter: {fileID: 0}
   lineUp: {fileID: 0}
   lineDown: {fileID: 0}
   laneColumnSpacing: 520
   runtimeNoteSize: {x: 50, y: 50}
+  keyboardKeycapSize: {x: 72, y: 58}
+  keyboardKeycapColor: {r: 0.08, g: 0.09, b: 0.1, a: 1}
+  keyboardKeycapTextColor: {r: 1, g: 1, b: 1, a: 1}
+  keyboardKeycapFontSize: 34
 --- !u!114 &476171582
 MonoBehaviour:
   m_ObjectHideFlags: 0

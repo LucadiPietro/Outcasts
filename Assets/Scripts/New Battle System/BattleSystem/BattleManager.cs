@@ -23,22 +23,41 @@ public class BattleManager : MonoBehaviour
 
     public float timeBeforeStart = 1.5f;
     public static BattleManager Instance { get; private set; }
+
     public GameObject audioController;
     public bool playTimelineOnStart = true;
 
     public List<Buttons> buttons;
+
+    private readonly Dictionary<BMButtonPrefab.Cell, Queue<BattleButton>> laneQueues =
+        new Dictionary<BMButtonPrefab.Cell, Queue<BattleButton>>();
+
+    private readonly Dictionary<BMButtonPrefab.Cell, int> lastInputFrameByCell =
+        new Dictionary<BMButtonPrefab.Cell, int>();
+
+    [Header("Input Behaviour")]
+    [SerializeField] bool blockSameFrameDuplicateInput = true;
+    [SerializeField] bool consumeNoteOnFailedSpatialInput = true;
+
+    [Header("Trigger Edge Input")]
+    [SerializeField] float triggerDownThreshold = 0.55f;
+    [SerializeField] float triggerUpThreshold = 0.25f;
+
+    private bool ltWasDown;
+    private bool rtWasDown;
 
     public BattleUIManager battleUIManager;
 
     public int counter = 0;
 
     public float deadPlayerModificator = 1;
-    
     public float deadEnemyModificator = 1;
 
     [SerializeField] bool enableKeyboardLaneFallback = true;
     [SerializeField] BattleInputDisplayMode inputDisplayMode = BattleInputDisplayMode.Keyboard;
     [SerializeField] Key inputDisplayModeSwitchKey = Key.F1;
+
+    [Header("Spatial Judgment")]
     [SerializeField] bool enableSpatialJudgment = true;
     [SerializeField] float spatialApproachDurationSeconds = 2f;
     [SerializeField] float spatialLaneSpacing = 2f;
@@ -86,9 +105,13 @@ public class BattleManager : MonoBehaviour
         }
 
         buttons = new List<Buttons>();
+        InitializeLaneQueues();
+
         BuildSpatialJudgmentService(spatialApproachDurationSeconds);
         SetupInput();
+
         yield return new WaitForSeconds(timeBeforeStart);
+
         if (!playTimelineOnStart)
         {
             yield break;
@@ -101,6 +124,26 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.LogWarning("BattleManager: AudioController o PlayableDirector non configurato.");
+        }
+    }
+
+    void InitializeLaneQueues()
+    {
+        laneQueues.Clear();
+
+        laneQueues[BMButtonPrefab.Cell.Cell1] = new Queue<BattleButton>();
+        laneQueues[BMButtonPrefab.Cell.Cell2] = new Queue<BattleButton>();
+        laneQueues[BMButtonPrefab.Cell.Cell3] = new Queue<BattleButton>();
+        laneQueues[BMButtonPrefab.Cell.Cell4] = new Queue<BattleButton>();
+        laneQueues[BMButtonPrefab.Cell.Cell5] = new Queue<BattleButton>();
+        laneQueues[BMButtonPrefab.Cell.Cell6] = new Queue<BattleButton>();
+    }
+
+    void EnsureLaneQueueExists(BMButtonPrefab.Cell cell)
+    {
+        if (!laneQueues.ContainsKey(cell))
+        {
+            laneQueues[cell] = new Queue<BattleButton>();
         }
     }
 
@@ -118,6 +161,7 @@ public class BattleManager : MonoBehaviour
         spatialBadPercent = badPercent;
         spatialDespawnAfterHitSeconds = despawnAfterHitSeconds;
         spatialApproachDurationSeconds = approachDurationSeconds;
+
         BuildSpatialJudgmentService(approachDurationSeconds);
     }
 
@@ -130,33 +174,44 @@ public class BattleManager : MonoBehaviour
     {
         InputManager.Instance().SetAction(ActionKey.NORTH, delegate(InputAction.CallbackContext obj)
         {
+            if (obj.canceled) return;
             OnMappedGamepadAction(Keys.Y);
         });
+
         InputManager.Instance().SetAction(ActionKey.SOUTH, delegate(InputAction.CallbackContext obj)
         {
+            if (obj.canceled) return;
             OnMappedGamepadAction(Keys.A);
         });
+
         InputManager.Instance().SetAction(ActionKey.EAST, delegate(InputAction.CallbackContext obj)
         {
+            if (obj.canceled) return;
             OnMappedGamepadAction(Keys.B);
         });
+
         InputManager.Instance().SetAction(ActionKey.WEST, delegate(InputAction.CallbackContext obj)
         {
+            if (obj.canceled) return;
             OnMappedGamepadAction(Keys.X);
         });
+
         InputManager.Instance().SetAction(ActionKey.LT, delegate(InputAction.CallbackContext obj)
         {
-            OnMappedGamepadAction(Keys.LT);
+            // Ignorato apposta: LT viene gestito manualmente in Update.
         });
+
         InputManager.Instance().SetAction(ActionKey.RT, delegate(InputAction.CallbackContext obj)
         {
-            OnMappedGamepadAction(Keys.RT);
+            // Ignorato apposta: RT viene gestito manualmente in Update.
         });
     }
 
     private void Update()
     {
         HandleInputDisplayModeSwitch();
+
+        HandleGamepadTriggersSingleInput();
 
         if (inputDisplayMode != BattleInputDisplayMode.Keyboard ||
             !enableKeyboardLaneFallback ||
@@ -197,17 +252,108 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void OnMappedGamepadAction(Keys key)
+    void HandleGamepadTriggersSingleInput()
     {
-        if (inputDisplayMode != BattleInputDisplayMode.Xbox ||
-            BattleInputManager.Instance == null ||
-            BattleInputManager.Instance.keyMap == null ||
-            !BattleInputManager.Instance.keyMap.TryGetValue(key, out InputAction buttonAction))
+        if (inputDisplayMode != BattleInputDisplayMode.Xbox)
         {
             return;
         }
 
-        OnButtonPressed(buttonAction);
+        if (Gamepad.current == null)
+        {
+            ltWasDown = false;
+            rtWasDown = false;
+            return;
+        }
+
+        float ltValue = Gamepad.current.leftTrigger.ReadValue();
+        float rtValue = Gamepad.current.rightTrigger.ReadValue();
+
+        HandleTriggerEdge(ltValue, ref ltWasDown, Keys.LT);
+        HandleTriggerEdge(rtValue, ref rtWasDown, Keys.RT);
+    }
+
+    void HandleTriggerEdge(float value, ref bool wasDown, Keys key)
+    {
+        if (wasDown && value <= triggerUpThreshold)
+        {
+            wasDown = false;
+            return;
+        }
+
+        if (wasDown)
+        {
+            return;
+        }
+
+        if (value >= triggerDownThreshold)
+        {
+            wasDown = true;
+            OnMappedGamepadAction(key, true);
+        }
+    }
+
+    void OnMappedGamepadAction(Keys key, bool fromManualTriggerPolling = false)
+    {
+        if (inputDisplayMode != BattleInputDisplayMode.Xbox)
+        {
+            return;
+        }
+
+        if ((key == Keys.LT || key == Keys.RT) && !fromManualTriggerPolling)
+        {
+            Debug.Log("BattleManager: input " + key + " ignorato perché arrivato da InputManager.");
+            return;
+        }
+
+        BMButtonPrefab.Cell? cell = GetCellFromXboxKey(key);
+
+        if (!cell.HasValue)
+        {
+            ResolveEmptyLanePress(key.ToString());
+            return;
+        }
+
+        ResolvePressedLaneQueue(cell.Value, key.ToString());
+    }
+
+    BMButtonPrefab.Cell? GetCellFromXboxKey(Keys key)
+    {
+        switch (key)
+        {
+            case Keys.Y:
+                return BMButtonPrefab.Cell.Cell1;
+            case Keys.X:
+                return BMButtonPrefab.Cell.Cell2;
+            case Keys.B:
+                return BMButtonPrefab.Cell.Cell3;
+            case Keys.A:
+                return BMButtonPrefab.Cell.Cell4;
+            case Keys.LT:
+                return BMButtonPrefab.Cell.Cell5;
+            case Keys.RT:
+                return BMButtonPrefab.Cell.Cell6;
+            default:
+                return null;
+        }
+    }
+
+    bool IsDuplicateLaneInput(BMButtonPrefab.Cell cell)
+    {
+        if (!blockSameFrameDuplicateInput)
+        {
+            return false;
+        }
+
+        int currentFrame = Time.frameCount;
+
+        if (lastInputFrameByCell.TryGetValue(cell, out int lastFrame) && lastFrame == currentFrame)
+        {
+            return true;
+        }
+
+        lastInputFrameByCell[cell] = currentFrame;
+        return false;
     }
 
     void HandleInputDisplayModeSwitch()
@@ -218,6 +364,7 @@ public class BattleManager : MonoBehaviour
         }
 
         var switchKey = Keyboard.current[inputDisplayModeSwitchKey];
+
         if (switchKey != null && switchKey.wasPressedThisFrame)
         {
             ToggleInputDisplayMode();
@@ -247,6 +394,7 @@ public class BattleManager : MonoBehaviour
     void RefreshInputDisplayMode()
     {
         BMBattleManager bmBattleManager = FindObjectOfType<BMBattleManager>();
+
         if (bmBattleManager != null)
         {
             bmBattleManager.RefreshActiveButtonDisplays();
@@ -255,6 +403,7 @@ public class BattleManager : MonoBehaviour
         RefreshSubscribedInputActions();
 
         string modeLabel = inputDisplayMode == BattleInputDisplayMode.Keyboard ? "KEYBOARD" : "XBOX";
+
         if (battleUIManager != null)
         {
             battleUIManager.ShowFeedback("INPUT " + modeLabel, Color.cyan);
@@ -265,10 +414,22 @@ public class BattleManager : MonoBehaviour
 
     void BuildSpatialJudgmentService(float approachDurationSeconds)
     {
-        var layout = BattlefieldLayout.CreateLaneCenteredStandard(spatialLaneSpacing, spatialRowOffset, spatialToleranceRadius);
-        var travelSettings = new NoteTravelSettings(approachDurationSeconds, spatialDespawnAfterHitSeconds);
-        var config = new SpatialJudgmentConfig(spatialPerfectPercent, spatialGoodPercent, spatialBadPercent);
+        var layout = BattlefieldLayout.CreateLaneCenteredStandard(
+            spatialLaneSpacing,
+            spatialRowOffset,
+            spatialToleranceRadius);
+
+        var travelSettings = new NoteTravelSettings(
+            approachDurationSeconds,
+            spatialDespawnAfterHitSeconds);
+
+        var config = new SpatialJudgmentConfig(
+            spatialPerfectPercent,
+            spatialGoodPercent,
+            spatialBadPercent);
+
         var motionService = new NoteMotionService(layout, travelSettings);
+
         SpatialMotionService = motionService;
         noteJudgmentService = new SpatialJudgmentService(layout, motionService, config);
     }
@@ -285,6 +446,8 @@ public class BattleManager : MonoBehaviour
             buttons = new List<Buttons>();
         }
 
+        EnsureLaneQueueExists(battleButton.cell);
+
         if (buttons.Any(b => b.button == battleButton))
         {
             return;
@@ -294,6 +457,7 @@ public class BattleManager : MonoBehaviour
         battleButton.buttonAction = GetLaneButtonAction(laneIndex);
 
         InputAction inputAction = null;
+
         if (inputDisplayMode == BattleInputDisplayMode.Xbox)
         {
             if (BattleInputManager.Instance != null &&
@@ -315,12 +479,16 @@ public class BattleManager : MonoBehaviour
         };
 
         buttons.Add(newButton);
+        laneQueues[battleButton.cell].Enqueue(battleButton);
+
         if (battleUIManager != null && !battleButton.hasSpatialJudgmentData)
         {
             battleUIManager.ShowFeedback("READY " + battleButton.cell, Color.yellow);
         }
 
-        Debug.Log($"BattleManager: pulsante in finestra {battleButton.buttonAction} su {battleButton.cell}.");
+        Debug.Log(
+            $"BattleManager: pulsante registrato su {battleButton.cell}. " +
+            $"Queue count: {laneQueues[battleButton.cell].Count}.");
     }
 
     public Keys GetLaneButtonAction(int laneIndex)
@@ -354,6 +522,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < buttons.Count; i++)
         {
             Buttons entry = buttons[i];
+
             if (entry == null || entry.button == null)
             {
                 continue;
@@ -427,15 +596,51 @@ public class BattleManager : MonoBehaviour
 
     public void Unsubscribe(BattleButton battleButton)
     {
-        if (buttons == null)
+        if (battleButton == null)
         {
             return;
         }
 
-        if (buttons.Any(b => b.button == battleButton))
+        if (buttons != null)
         {
-            buttons.Remove(buttons.Last(b => b.button == battleButton));
+            buttons.RemoveAll(b => b.button == battleButton);
         }
+
+        RemoveButtonFromLaneQueue(battleButton);
+    }
+
+    void RemoveButtonFromLaneQueue(BattleButton battleButton)
+    {
+        if (battleButton == null)
+        {
+            return;
+        }
+
+        if (!laneQueues.TryGetValue(battleButton.cell, out Queue<BattleButton> queue))
+        {
+            return;
+        }
+
+        if (queue.Count == 0)
+        {
+            return;
+        }
+
+        Queue<BattleButton> rebuiltQueue = new Queue<BattleButton>();
+
+        while (queue.Count > 0)
+        {
+            BattleButton queuedButton = queue.Dequeue();
+
+            if (queuedButton != null &&
+                queuedButton != battleButton &&
+                !queuedButton.isResolved)
+            {
+                rebuiltQueue.Enqueue(queuedButton);
+            }
+        }
+
+        laneQueues[battleButton.cell] = rebuiltQueue;
     }
 
     public void ResolveMissedButton(BattleButton battleButton)
@@ -485,23 +690,9 @@ public class BattleManager : MonoBehaviour
             battleUIManager.ShowFeedback("MISS " + battleButton.cell, Color.red);
         }
 
-        if (fadeVisual)
-        {
-            battleButton.FadeOutButton();
-        }
+        battleButton.ShakeMissAndDisappear();
 
         Debug.Log("BattleManager: miss risolto su " + battleButton.cell + ".");
-    }
-
-    void OnButtonPressed(InputAction context)
-    {
-        if (inputDisplayMode != BattleInputDisplayMode.Xbox)
-        {
-            return;
-        }
-
-        var list = buttons.Where(c => c.buttonKeys == context).ToList();
-        ResolvePressedButtons(list, context != null ? context.name : "unknown");
     }
 
     void OnLanePressed(BMButtonPrefab.Cell cell)
@@ -511,61 +702,126 @@ public class BattleManager : MonoBehaviour
 
     void OnLanePressed(BMButtonPrefab.Cell cell, string inputName)
     {
-        var list = buttons.Where(c => c.button != null && c.button.cell == cell).ToList();
-        ResolvePressedButtons(list, inputName);
+        ResolvePressedLaneQueue(cell, inputName);
     }
 
-    void ResolvePressedButtons(List<Buttons> list, string inputName)
+    void ResolvePressedLaneQueue(BMButtonPrefab.Cell cell, string inputName)
     {
-        if (list.Any())
+        if (IsDuplicateLaneInput(cell))
         {
-            var ele = list.Last();
-            JudgmentResult judgmentResult;
-            bool hasSpatialResult = TryEvaluateSpatialJudgment(ele.button, out judgmentResult);
-
-            if (hasSpatialResult && !judgmentResult.IsHit)
-            {
-                ResetCounter();
-                if (battleUIManager != null)
-                {
-                    battleUIManager.ShowFeedback("MISS " + ele.button.cell, Color.red);
-                }
-
-                Debug.Log(
-                    "BattleManager: spatial miss su " + ele.button.cell +
-                    " delta=" + judgmentResult.DeltaSeconds.ToString("0.000") +
-                    " input=" + inputName + ".");
-                return;
-            }
-
-            counter++;
-            if (battleUIManager != null)
-            {
-                battleUIManager.UpdateCounter(counter);
-            }
-
-            if (battleUIManager != null)
-            {
-                battleUIManager.ShowFeedback(
-                    GetFeedbackText(ele.button, hasSpatialResult, judgmentResult),
-                    GetFeedbackColor(hasSpatialResult, judgmentResult));
-            }
-
-            Debug.Log(GetHitLog(ele.button, inputName, counter, hasSpatialResult, judgmentResult));
-            DamageRoutine(ele.button.cell, GetDamageMultiplier(hasSpatialResult, judgmentResult));
-            ele.button.KillButton();
-            Unsubscribe(ele.button);
+            Debug.Log($"BattleManager: input duplicato ignorato su {cell} con {inputName}.");
+            return;
         }
-        else
+
+        EnsureLaneQueueExists(cell);
+
+        Queue<BattleButton> queue = laneQueues[cell];
+
+        CleanResolvedButtonsFromQueue(queue);
+
+        if (queue.Count == 0)
+        {
+            ResolveEmptyLanePress(inputName);
+            return;
+        }
+
+        BattleButton button = queue.Peek();
+
+        if (button == null || button.isResolved)
+        {
+            ResolveEmptyLanePress(inputName);
+            return;
+        }
+
+        ResolveSinglePressedButton(button, inputName);
+    }
+
+    void CleanResolvedButtonsFromQueue(Queue<BattleButton> queue)
+    {
+        if (queue == null)
+        {
+            return;
+        }
+
+        while (queue.Count > 0)
+        {
+            BattleButton button = queue.Peek();
+
+            if (button != null && !button.isResolved)
+            {
+                break;
+            }
+
+            queue.Dequeue();
+        }
+    }
+
+    void ResolveEmptyLanePress(string inputName)
+    {
+        ResetCounter();
+
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
+        }
+
+        Debug.Log($"BattleManager: input {inputName} su lane vuota. Counter reset.");
+    }
+
+    void ResolveSinglePressedButton(BattleButton button, string inputName)
+    {
+        if (button == null || button.isResolved)
+        {
+            ResolveEmptyLanePress(inputName);
+            return;
+        }
+
+        JudgmentResult judgmentResult;
+        bool hasSpatialResult = TryEvaluateSpatialJudgment(button, out judgmentResult);
+
+        if (hasSpatialResult && !judgmentResult.IsHit)
         {
             ResetCounter();
+
             if (battleUIManager != null)
             {
-                battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
+                battleUIManager.ShowFeedback("MISS " + button.cell, Color.red);
             }
 
-            Debug.Log($"BattleManager: input {inputName} fuori finestra. Counter reset.");
+            Debug.Log(
+                "BattleManager: spatial miss su " + button.cell +
+                " delta=" + judgmentResult.DeltaSeconds.ToString("0.000") +
+                " input=" + inputName + ".");
+
+            if (consumeNoteOnFailedSpatialInput)
+            {
+                button.ShakeMissAndDisappear();
+                Unsubscribe(button);
+            }
+
+            return;
         }
+
+        counter++;
+
+        if (battleUIManager != null)
+        {
+            battleUIManager.UpdateCounter(counter);
+        }
+
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowFeedback(
+                GetFeedbackText(button, hasSpatialResult, judgmentResult),
+                GetFeedbackColor(hasSpatialResult, judgmentResult));
+        }
+
+        Debug.Log(GetHitLog(button, inputName, counter, hasSpatialResult, judgmentResult));
+
+        DamageRoutine(button.cell, GetDamageMultiplier(hasSpatialResult, judgmentResult));
+
+        button.KillButton();
+        Unsubscribe(button);
     }
 
     bool TryEvaluateSpatialJudgment(BattleButton battleButton, out JudgmentResult result)
@@ -588,6 +844,7 @@ public class BattleManager : MonoBehaviour
     void ResetCounter()
     {
         counter = 0;
+
         if (battleUIManager != null)
         {
             battleUIManager.UpdateCounter(counter);
@@ -644,7 +901,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    string GetHitLog(BattleButton button, string inputName, int currentCounter, bool hasSpatialResult, JudgmentResult result)
+    string GetHitLog(
+        BattleButton button,
+        string inputName,
+        int currentCounter,
+        bool hasSpatialResult,
+        JudgmentResult result)
     {
         if (!hasSpatialResult)
         {
@@ -680,6 +942,7 @@ public class BattleManager : MonoBehaviour
                     }
 
                     break;
+
                 case BMButtonPrefab.Cell.Cell2:
                     foreach (var ene in enemies.Where(ene => ene.cell == BMButtonPrefab.Cell.Cell2))
                     {
@@ -692,6 +955,7 @@ public class BattleManager : MonoBehaviour
                     }
 
                     break;
+
                 case BMButtonPrefab.Cell.Cell3:
                     foreach (var ene in enemies.Where(ene => ene.cell == BMButtonPrefab.Cell.Cell3))
                     {
@@ -731,6 +995,7 @@ public class BattleManager : MonoBehaviour
                     }
 
                     break;
+
                 case BMButtonPrefab.Cell.Cell5:
                     foreach (var ene in enemies.Where(ene => ene.cell == BMButtonPrefab.Cell.Cell2))
                     {
@@ -743,6 +1008,7 @@ public class BattleManager : MonoBehaviour
                     }
 
                     break;
+
                 case BMButtonPrefab.Cell.Cell6:
                     foreach (var ene in enemies.Where(ene => ene.cell == BMButtonPrefab.Cell.Cell3))
                     {
@@ -770,6 +1036,7 @@ public class BattleManager : MonoBehaviour
         }
 
         var enemiesToAttach = new List<Enemy>();
+
         if (enemy.actualHealth > 0)
         {
             enemiesToAttach.Add(enemy);
@@ -778,19 +1045,27 @@ public class BattleManager : MonoBehaviour
         {
             enemiesToAttach.AddRange(enemies.Where(ene => ene.actualHealth > 0));
         }
-        
+
+        if (enemiesToAttach.Count == 0)
+        {
+            return;
+        }
+
         float constToUse = player.actualHealth > 0 ? 1 : deadPlayerModificator;
 
         foreach (var ene in enemiesToAttach)
         {
             float damageCalc =
                 (((player.attack * player.attackBuff) - (enemy.defence * enemy.defenceBuff)) + player.damageConstant) *
-                player.voteMultiplayer * counter * player.positionMultiplayer * judgmentMultiplier;
+                player.voteMultiplayer *
+                counter *
+                player.positionMultiplayer *
+                judgmentMultiplier;
 
             float singleDamage = constToUse * damageCalc;
             float damage = singleDamage / enemiesToAttach.Count;
-            
-            ene.GetHit(damage);    
+
+            ene.GetHit(damage);
         }
     }
 
@@ -803,6 +1078,7 @@ public class BattleManager : MonoBehaviour
         }
 
         var playersToAttach = new List<Player>();
+
         if (player.actualHealth > 0)
         {
             playersToAttach.Add(player);
@@ -811,7 +1087,12 @@ public class BattleManager : MonoBehaviour
         {
             playersToAttach.AddRange(players.Where(pla => pla.actualHealth > 0));
         }
-        
+
+        if (playersToAttach.Count == 0)
+        {
+            return;
+        }
+
         float constToUse = enemy.actualHealth > 0 ? 1 : deadEnemyModificator;
 
         foreach (var pla in playersToAttach)
@@ -822,8 +1103,8 @@ public class BattleManager : MonoBehaviour
 
             float singleDamage = constToUse * damageCalc;
             float damage = singleDamage / playersToAttach.Count;
-            
-            pla.GetHit(damage);    
+
+            pla.GetHit(damage);
         }
     }
 }
