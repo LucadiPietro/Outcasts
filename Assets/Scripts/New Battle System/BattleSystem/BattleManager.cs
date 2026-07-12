@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
         public PreparedSuperGain(
             BMButtonPrefab.Cell cell,
             int laneIndex,
+            int playerIndex,
             JudgmentGrade judgment,
             int combo,
             float baseGain,
@@ -31,6 +32,7 @@ public class BattleManager : MonoBehaviour
         {
             Cell = cell;
             LaneIndex = laneIndex;
+            PlayerIndex = playerIndex;
             Judgment = judgment;
             Combo = combo;
             BaseGain = baseGain;
@@ -41,11 +43,33 @@ public class BattleManager : MonoBehaviour
 
         public BMButtonPrefab.Cell Cell { get; }
         public int LaneIndex { get; }
+        public int PlayerIndex { get; }
         public JudgmentGrade Judgment { get; }
         public int Combo { get; }
         public float BaseGain { get; }
         public float ComboBonus { get; }
         public float TotalGain { get; }
+        public bool IsValid { get; }
+    }
+
+    public struct AppliedSuperGain
+    {
+        public AppliedSuperGain(PreparedSuperGain preparedGain, float appliedGain, float currentValue, float maxValue)
+        {
+            PreparedGain = preparedGain;
+            AppliedGain = appliedGain;
+            CurrentValue = currentValue;
+            MaxValue = maxValue;
+            IsFull = currentValue >= maxValue;
+            IsValid = preparedGain.IsValid;
+        }
+
+        public PreparedSuperGain PreparedGain { get; }
+        public float AppliedGain { get; }
+        public float CurrentValue { get; }
+        public float MaxValue { get; }
+        public float NormalizedValue => MaxValue > 0f ? CurrentValue / MaxValue : 0f;
+        public bool IsFull { get; }
         public bool IsValid { get; }
     }
 
@@ -83,8 +107,10 @@ public class BattleManager : MonoBehaviour
         new Dictionary<BMButtonPrefab.Cell, int>();
 
     private readonly BattleRhythmScoreState rhythmScore = new BattleRhythmScoreState();
+    private readonly List<BattleSuperMeterState> superMeters = new List<BattleSuperMeterState>();
 
     PreparedSuperGain lastPreparedSuperGain;
+    AppliedSuperGain lastAppliedSuperGain;
 
     [Header("Input Behaviour")]
     [SerializeField] bool blockSameFrameDuplicateInput = true;
@@ -126,12 +152,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] float missDamageMultiplier = 0f;
 
     [Header("Super Preparation")]
+    [SerializeField] float superMaxValue = 100f;
     [SerializeField] float perfectSuperBaseGain = 3f;
     [SerializeField] float goodSuperBaseGain = 2f;
     [SerializeField] float badSuperBaseGain = 1f;
     [SerializeField] float missSuperBaseGain = 0f;
     [SerializeField] float comboSuperBonusPerHit = 0.25f;
     [SerializeField] bool logPreparedSuperGain;
+    [SerializeField] bool logAppliedSuperGain;
 
     INoteJudgmentService noteJudgmentService;
     double currentChartTimeSeconds;
@@ -140,9 +168,12 @@ public class BattleManager : MonoBehaviour
     public double CurrentChartTimeSeconds => currentChartTimeSeconds;
     public BattleInputDisplayMode CurrentInputDisplayMode => inputDisplayMode;
     public BattleRhythmScoreState RhythmScore => rhythmScore;
+    public IReadOnlyList<BattleSuperMeterState> SuperMeters => superMeters;
     public PreparedSuperGain LastPreparedSuperGain => lastPreparedSuperGain;
+    public AppliedSuperGain LastAppliedSuperGain => lastAppliedSuperGain;
 
     public event Action<PreparedSuperGain> SuperGainPrepared;
+    public event Action<AppliedSuperGain> SuperGainApplied;
 
     private void Awake()
     {
@@ -170,10 +201,12 @@ public class BattleManager : MonoBehaviour
 
         rhythmScore.Reset();
         counter = rhythmScore.Combo;
+        InitializeSuperMeters();
 
         if (battleUIManager != null)
         {
             RefreshRhythmScoreUi();
+            RefreshSuperMeterUi();
         }
 
         buttons = new List<Buttons>();
@@ -216,6 +249,94 @@ public class BattleManager : MonoBehaviour
         if (!laneQueues.ContainsKey(cell))
         {
             laneQueues[cell] = new Queue<BattleButton>();
+        }
+    }
+
+    void InitializeSuperMeters()
+    {
+        superMeters.Clear();
+        lastPreparedSuperGain = default;
+        lastAppliedSuperGain = default;
+
+        if (players == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            BMButtonPrefab.Cell cell = player != null ? player.cell : GetPlayerCellByIndex(i);
+            superMeters.Add(new BattleSuperMeterState(i, cell, superMaxValue));
+        }
+    }
+
+    void EnsureSuperMetersReady()
+    {
+        if (superMeters.Count == 0)
+        {
+            InitializeSuperMeters();
+        }
+    }
+
+    void RefreshSuperMeterUi()
+    {
+        if (battleUIManager != null)
+        {
+            battleUIManager.UpdateSuperMeters(superMeters);
+        }
+    }
+
+    int GetPlayerIndexForCell(BMButtonPrefab.Cell cell)
+    {
+        BMButtonPrefab.Cell playerCell = GetPlayerCellForRhythmCell(cell);
+
+        if (players != null)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                Player player = players[i];
+                if (player != null && player.cell == playerCell)
+                {
+                    return i;
+                }
+            }
+        }
+
+        int fallbackIndex = (int)playerCell - (int)BMButtonPrefab.Cell.Cell4;
+        return fallbackIndex >= 0 && fallbackIndex < superMeters.Count ? fallbackIndex : -1;
+    }
+
+    static BMButtonPrefab.Cell GetPlayerCellForRhythmCell(BMButtonPrefab.Cell cell)
+    {
+        switch (cell)
+        {
+            case BMButtonPrefab.Cell.Cell1:
+            case BMButtonPrefab.Cell.Cell4:
+                return BMButtonPrefab.Cell.Cell4;
+            case BMButtonPrefab.Cell.Cell2:
+            case BMButtonPrefab.Cell.Cell5:
+                return BMButtonPrefab.Cell.Cell5;
+            case BMButtonPrefab.Cell.Cell3:
+            case BMButtonPrefab.Cell.Cell6:
+                return BMButtonPrefab.Cell.Cell6;
+            default:
+                return BMButtonPrefab.Cell.Cell4;
+        }
+    }
+
+    static BMButtonPrefab.Cell GetPlayerCellByIndex(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return BMButtonPrefab.Cell.Cell4;
+            case 1:
+                return BMButtonPrefab.Cell.Cell5;
+            case 2:
+                return BMButtonPrefab.Cell.Cell6;
+            default:
+                return BMButtonPrefab.Cell.Cell4;
         }
     }
 
@@ -865,7 +986,8 @@ public class BattleManager : MonoBehaviour
             hitGrade,
             GetFeedbackText(button, hasSpatialResult, judgmentResult),
             GetFeedbackColor(hasSpatialResult, judgmentResult));
-        PrepareSuperGain(button, hitGrade);
+        PreparedSuperGain preparedSuperGain = PrepareSuperGain(button, hitGrade);
+        ApplySuperGain(preparedSuperGain);
 
         Debug.Log(GetHitLog(button, inputName, counter, hasSpatialResult, judgmentResult));
 
@@ -922,14 +1044,15 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void PrepareSuperGain(BattleButton button, JudgmentGrade judgment)
+    PreparedSuperGain PrepareSuperGain(BattleButton button, JudgmentGrade judgment)
     {
         if (button == null)
         {
-            return;
+            return default;
         }
 
         int combo = Mathf.Max(1, rhythmScore.Combo);
+        int playerIndex = GetPlayerIndexForCell(button.cell);
         float baseGain = GetBaseSuperGain(judgment);
         float comboBonus = Mathf.Max(0, combo - 1) * comboSuperBonusPerHit;
         float totalGain = Mathf.Max(0f, baseGain + comboBonus);
@@ -937,6 +1060,7 @@ public class BattleManager : MonoBehaviour
         lastPreparedSuperGain = new PreparedSuperGain(
             button.cell,
             button.laneIndex,
+            playerIndex,
             judgment,
             combo,
             baseGain,
@@ -948,12 +1072,51 @@ public class BattleManager : MonoBehaviour
             Debug.Log(
                 "BattleManager: super gain preparata " +
                 "cell=" + lastPreparedSuperGain.Cell +
+                " playerIndex=" + lastPreparedSuperGain.PlayerIndex +
                 " judgment=" + lastPreparedSuperGain.Judgment +
                 " combo=" + lastPreparedSuperGain.Combo +
                 " gain=" + lastPreparedSuperGain.TotalGain.ToString("0.00") + ".");
         }
 
         SuperGainPrepared?.Invoke(lastPreparedSuperGain);
+        return lastPreparedSuperGain;
+    }
+
+    void ApplySuperGain(PreparedSuperGain preparedGain)
+    {
+        if (!preparedGain.IsValid || preparedGain.TotalGain <= 0f)
+        {
+            return;
+        }
+
+        EnsureSuperMetersReady();
+
+        if (preparedGain.PlayerIndex < 0 || preparedGain.PlayerIndex >= superMeters.Count)
+        {
+            return;
+        }
+
+        BattleSuperMeterState meter = superMeters[preparedGain.PlayerIndex];
+        float appliedGain = meter.Add(preparedGain.TotalGain);
+
+        lastAppliedSuperGain = new AppliedSuperGain(
+            preparedGain,
+            appliedGain,
+            meter.CurrentValue,
+            meter.MaxValue);
+
+        if (logAppliedSuperGain)
+        {
+            Debug.Log(
+                "BattleManager: super caricata " +
+                "playerIndex=" + preparedGain.PlayerIndex +
+                " applied=" + appliedGain.ToString("0.00") +
+                " current=" + meter.CurrentValue.ToString("0.00") +
+                "/" + meter.MaxValue.ToString("0.00") + ".");
+        }
+
+        RefreshSuperMeterUi();
+        SuperGainApplied?.Invoke(lastAppliedSuperGain);
     }
 
     float GetBaseSuperGain(JudgmentGrade judgment)
@@ -1297,5 +1460,34 @@ public sealed class BattleRhythmScoreState
         MissCount = 0;
         LastJudgment = JudgmentGrade.Miss;
         HasLastJudgment = false;
+    }
+}
+
+public sealed class BattleSuperMeterState
+{
+    public BattleSuperMeterState(int playerIndex, BMButtonPrefab.Cell cell, float maxValue)
+    {
+        PlayerIndex = playerIndex;
+        Cell = cell;
+        MaxValue = Mathf.Max(1f, maxValue);
+    }
+
+    public int PlayerIndex { get; }
+    public BMButtonPrefab.Cell Cell { get; }
+    public float CurrentValue { get; private set; }
+    public float MaxValue { get; }
+    public float NormalizedValue => MaxValue > 0f ? CurrentValue / MaxValue : 0f;
+    public bool IsFull => CurrentValue >= MaxValue;
+
+    public float Add(float amount)
+    {
+        if (amount <= 0f)
+        {
+            return 0f;
+        }
+
+        float before = CurrentValue;
+        CurrentValue = Mathf.Min(MaxValue, CurrentValue + amount);
+        return CurrentValue - before;
     }
 }

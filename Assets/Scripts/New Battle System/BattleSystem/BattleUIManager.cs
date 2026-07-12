@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using RhythmCombat.Domain.Timing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
 {
@@ -18,11 +20,21 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI missCountText;
     [SerializeField] bool autoBindMissingTextReferences = true;
 
+    [Header("Super UI")]
+    [SerializeField] Image[] superFillImages;
+    [SerializeField] TextMeshProUGUI[] superValueTexts;
+    [SerializeField] bool autoBindMissingSuperReferences = true;
+
     void Awake()
     {
         if (autoBindMissingTextReferences)
         {
             BindMissingTextReferences();
+        }
+
+        if (autoBindMissingSuperReferences)
+        {
+            BindMissingSuperReferences();
         }
     }
 
@@ -81,6 +93,33 @@ public class BattleUIManager : MonoBehaviour
     {
         UpdateRhythmScore(score);
         ShowFeedback(message, color);
+    }
+
+    public void UpdateSuperMeters(IReadOnlyList<BattleSuperMeterState> meters)
+    {
+        if (meters == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < meters.Count; i++)
+        {
+            BattleSuperMeterState meter = meters[i];
+            if (meter == null)
+            {
+                continue;
+            }
+
+            if (superFillImages != null && i < superFillImages.Length && superFillImages[i] != null)
+            {
+                superFillImages[i].fillAmount = Mathf.Clamp01(meter.NormalizedValue);
+            }
+
+            if (superValueTexts != null && i < superValueTexts.Length && superValueTexts[i] != null)
+            {
+                superValueTexts[i].text = Mathf.RoundToInt(meter.CurrentValue) + "/" + Mathf.RoundToInt(meter.MaxValue);
+            }
+        }
     }
 
     public void ShowFeedback(string message, Color color)
@@ -142,9 +181,29 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
+    void BindMissingSuperReferences()
+    {
+        if (superFillImages == null || superFillImages.Length == 0)
+        {
+            superFillImages = FindImages("Super", "SuperFill", "SuperMeter");
+        }
+
+        if (superValueTexts == null || superValueTexts.Length == 0)
+        {
+            superValueTexts = FindTexts("SuperValue", "SuperText", "SuperMeterText");
+        }
+    }
+
     TextMeshProUGUI FindText(params string[] names)
     {
+        TextMeshProUGUI[] texts = FindTexts(names);
+        return texts.Length > 0 ? texts[0] : null;
+    }
+
+    TextMeshProUGUI[] FindTexts(params string[] names)
+    {
         TextMeshProUGUI[] texts = FindObjectsOfType<TextMeshProUGUI>(true);
+        List<TextMeshProUGUI> matches = new List<TextMeshProUGUI>();
         for (int i = 0; i < texts.Length; i++)
         {
             TextMeshProUGUI text = texts[i];
@@ -157,12 +216,38 @@ public class BattleUIManager : MonoBehaviour
             {
                 if (text.name == names[nameIndex])
                 {
-                    return text;
+                    matches.Add(text);
+                    break;
                 }
             }
         }
 
-        return null;
+        return matches.ToArray();
+    }
+
+    Image[] FindImages(params string[] names)
+    {
+        Image[] images = FindObjectsOfType<Image>(true);
+        List<Image> matches = new List<Image>();
+        for (int i = 0; i < images.Length; i++)
+        {
+            Image image = images[i];
+            if (image == null)
+            {
+                continue;
+            }
+
+            for (int nameIndex = 0; nameIndex < names.Length; nameIndex++)
+            {
+                if (image.name == names[nameIndex])
+                {
+                    matches.Add(image);
+                    break;
+                }
+            }
+        }
+
+        return matches.ToArray();
     }
 
     static void SetText(TextMeshProUGUI text, string value)
