@@ -107,8 +107,7 @@ public class BattleManager : MonoBehaviour
 
         if (battleUIManager != null)
         {
-            battleUIManager.UpdateCounter(counter);
-            battleUIManager.UpdateRhythmScore(rhythmScore);
+            RefreshRhythmScoreUi();
         }
 
         buttons = new List<Buttons>();
@@ -690,7 +689,7 @@ public class BattleManager : MonoBehaviour
         }
 
         Unsubscribe(battleButton);
-        ResetCounter();
+        RegisterBattleMiss();
 
         if (battleUIManager != null)
         {
@@ -765,14 +764,14 @@ public class BattleManager : MonoBehaviour
 
     void ResolveEmptyLanePress(string inputName)
     {
-        ResetCounter();
+        RegisterBattleMiss();
 
         if (battleUIManager != null)
         {
             battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
         }
 
-        Debug.Log($"BattleManager: input {inputName} su lane vuota. Counter reset.");
+        Debug.Log($"BattleManager: input {inputName} su lane vuota. Combo reset.");
     }
 
     void ResolveSinglePressedButton(BattleButton button, string inputName)
@@ -788,7 +787,7 @@ public class BattleManager : MonoBehaviour
 
         if (hasSpatialResult && !judgmentResult.IsHit)
         {
-            ResetCounter();
+            RegisterBattleMiss();
 
             if (battleUIManager != null)
             {
@@ -809,12 +808,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        RegisterSuccessfulHit(hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect);
-
-        if (battleUIManager != null)
-        {
-            battleUIManager.UpdateCounter(counter);
-        }
+        RegisterBattleHit(hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect);
 
         if (battleUIManager != null)
         {
@@ -848,25 +842,25 @@ public class BattleManager : MonoBehaviour
         return true;
     }
 
-    void ResetCounter()
+    void RegisterBattleMiss()
     {
         rhythmScore.RegisterMiss();
         counter = rhythmScore.Combo;
-
-        if (battleUIManager != null)
-        {
-            battleUIManager.UpdateCounter(counter);
-            battleUIManager.UpdateRhythmScore(rhythmScore);
-        }
+        RefreshRhythmScoreUi();
     }
 
-    void RegisterSuccessfulHit(JudgmentGrade grade)
+    void RegisterBattleHit(JudgmentGrade grade)
     {
         rhythmScore.RegisterHit(grade);
         counter = rhythmScore.Combo;
+        RefreshRhythmScoreUi();
+    }
 
+    void RefreshRhythmScoreUi()
+    {
         if (battleUIManager != null)
         {
+            battleUIManager.UpdateCounter(counter);
             battleUIManager.UpdateRhythmScore(rhythmScore);
         }
     }
