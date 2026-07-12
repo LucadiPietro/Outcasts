@@ -18,6 +18,22 @@ public class BattleManager : MonoBehaviour
         public InputAction buttonKeys;
     }
 
+    struct RhythmDamageScore
+    {
+        public RhythmDamageScore(JudgmentGrade judgment, int combo, float judgmentMultiplier)
+        {
+            Judgment = judgment;
+            Combo = combo;
+            JudgmentMultiplier = judgmentMultiplier;
+            TotalMultiplier = combo * judgmentMultiplier;
+        }
+
+        public JudgmentGrade Judgment { get; }
+        public int Combo { get; }
+        public float JudgmentMultiplier { get; }
+        public float TotalMultiplier { get; }
+    }
+
     public List<Player> players;
     public List<Enemy> enemies;
 
@@ -69,6 +85,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] float spatialGoodPercent = 0.25f;
     [SerializeField] float spatialBadPercent = 0.5f;
     [SerializeField] float spatialDespawnAfterHitSeconds = 1f;
+
+    [Header("Rhythm Scoring")]
+    [SerializeField] float perfectDamageMultiplier = 1f;
+    [SerializeField] float goodDamageMultiplier = 0.75f;
+    [SerializeField] float badDamageMultiplier = 0.4f;
+    [SerializeField] float missDamageMultiplier = 0f;
 
     INoteJudgmentService noteJudgmentService;
     double currentChartTimeSeconds;
@@ -793,14 +815,16 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
+        JudgmentGrade hitGrade = hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect;
+
         RegisterBattleHit(
-            hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect,
+            hitGrade,
             GetFeedbackText(button, hasSpatialResult, judgmentResult),
             GetFeedbackColor(hasSpatialResult, judgmentResult));
 
         Debug.Log(GetHitLog(button, inputName, counter, hasSpatialResult, judgmentResult));
 
-        DamageRoutine(button.cell, GetDamageMultiplier(hasSpatialResult, judgmentResult));
+        DamageRoutine(button.cell, BuildDamageScore(hitGrade));
 
         button.KillButton();
         Unsubscribe(button);
@@ -883,23 +907,24 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    float GetDamageMultiplier(bool hasSpatialResult, JudgmentResult result)
+    RhythmDamageScore BuildDamageScore(JudgmentGrade judgment)
     {
-        if (!hasSpatialResult)
-        {
-            return 1f;
-        }
+        int combo = Mathf.Max(1, rhythmScore.Combo);
+        return new RhythmDamageScore(judgment, combo, GetJudgmentDamageMultiplier(judgment));
+    }
 
-        switch (result.Grade)
+    float GetJudgmentDamageMultiplier(JudgmentGrade judgment)
+    {
+        switch (judgment)
         {
             case JudgmentGrade.Perfect:
-                return 1f;
+                return perfectDamageMultiplier;
             case JudgmentGrade.Good:
-                return 0.75f;
+                return goodDamageMultiplier;
             case JudgmentGrade.Bad:
-                return 0.4f;
+                return badDamageMultiplier;
             default:
-                return 0f;
+                return missDamageMultiplier;
         }
     }
 
@@ -924,6 +949,14 @@ public class BattleManager : MonoBehaviour
     }
 
     public void DamageRoutine(BMButtonPrefab.Cell cell, float judgmentMultiplier = 1f)
+    {
+        DamageRoutine(cell, new RhythmDamageScore(
+            JudgmentGrade.Perfect,
+            Mathf.Max(1, counter),
+            judgmentMultiplier));
+    }
+
+    void DamageRoutine(BMButtonPrefab.Cell cell, RhythmDamageScore damageScore)
     {
         Player playerToConsider = null;
         Enemy enemyToConsider = null;
@@ -972,7 +1005,7 @@ public class BattleManager : MonoBehaviour
                     break;
             }
 
-            Attack(playerToConsider, enemyToConsider, judgmentMultiplier);
+            Attack(playerToConsider, enemyToConsider, damageScore);
         }
     }
 
@@ -1029,7 +1062,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void Attack(Player player, Enemy enemy, float judgmentMultiplier)
+    private void Attack(Player player, Enemy enemy, RhythmDamageScore damageScore)
     {
         if (player == null || enemy == null)
         {
@@ -1060,9 +1093,8 @@ public class BattleManager : MonoBehaviour
             float damageCalc =
                 (((player.attack * player.attackBuff) - (enemy.defence * enemy.defenceBuff)) + player.damageConstant) *
                 player.voteMultiplayer *
-                counter *
                 player.positionMultiplayer *
-                judgmentMultiplier;
+                damageScore.TotalMultiplier;
 
             float singleDamage = constToUse * damageCalc;
             float damage = singleDamage / enemiesToAttach.Count;
