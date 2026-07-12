@@ -108,6 +108,7 @@ public class BattleManager : MonoBehaviour
         if (battleUIManager != null)
         {
             battleUIManager.UpdateCounter(counter);
+            battleUIManager.UpdateRhythmScore(rhythmScore);
         }
 
         buttons = new List<Buttons>();
@@ -855,6 +856,7 @@ public class BattleManager : MonoBehaviour
         if (battleUIManager != null)
         {
             battleUIManager.UpdateCounter(counter);
+            battleUIManager.UpdateRhythmScore(rhythmScore);
         }
     }
 
@@ -862,6 +864,11 @@ public class BattleManager : MonoBehaviour
     {
         rhythmScore.RegisterHit(grade);
         counter = rhythmScore.Combo;
+
+        if (battleUIManager != null)
+        {
+            battleUIManager.UpdateRhythmScore(rhythmScore);
+        }
     }
 
     string GetFeedbackText(BattleButton button, bool hasSpatialResult, JudgmentResult result)

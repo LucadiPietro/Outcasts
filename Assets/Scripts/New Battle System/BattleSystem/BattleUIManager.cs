@@ -1,12 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using RhythmCombat.Domain.Timing;
 using TMPro;
 using UnityEngine;
 
 public class BattleUIManager : MonoBehaviour
 {
+    [Header("Existing Battle UI")]
     public TextMeshProUGUI counter;
     public TextMeshProUGUI feedback;
+
+    [Header("Rhythm Score UI")]
+    [SerializeField] TextMeshProUGUI comboText;
+    [SerializeField] TextMeshProUGUI maxComboText;
+    [SerializeField] TextMeshProUGUI judgmentText;
+    [SerializeField] TextMeshProUGUI perfectCountText;
+    [SerializeField] TextMeshProUGUI goodCountText;
+    [SerializeField] TextMeshProUGUI badCountText;
+    [SerializeField] TextMeshProUGUI missCountText;
+    [SerializeField] bool autoBindMissingTextReferences = true;
+
+    void Awake()
+    {
+        if (autoBindMissingTextReferences)
+        {
+            BindMissingTextReferences();
+        }
+    }
 
     public void UpdateCounter(int count)
     {
@@ -18,6 +36,27 @@ public class BattleUIManager : MonoBehaviour
         counter.text = count.ToString();
     }
 
+    public void UpdateRhythmScore(BattleRhythmScoreState score)
+    {
+        if (score == null)
+        {
+            return;
+        }
+
+        SetText(comboText, score.Combo.ToString());
+        SetText(maxComboText, score.MaxCombo.ToString());
+        SetText(perfectCountText, score.PerfectCount.ToString());
+        SetText(goodCountText, score.GoodCount.ToString());
+        SetText(badCountText, score.BadCount.ToString());
+        SetText(missCountText, score.MissCount.ToString());
+
+        if (judgmentText != null)
+        {
+            judgmentText.text = score.HasLastJudgment ? FormatJudgment(score.LastJudgment) : string.Empty;
+            judgmentText.color = GetJudgmentColor(score.LastJudgment);
+        }
+    }
+
     public void ShowFeedback(string message, Color color)
     {
         if (feedback == null)
@@ -27,5 +66,104 @@ public class BattleUIManager : MonoBehaviour
 
         feedback.text = message;
         feedback.color = color;
+    }
+
+    void BindMissingTextReferences()
+    {
+        if (counter == null)
+        {
+            counter = FindText("Counter", "ComboCounter", "RuntimeCounter");
+        }
+
+        if (feedback == null)
+        {
+            feedback = FindText("Feedback", "JudgmentFeedback", "RuntimeFeedback");
+        }
+
+        if (comboText == null)
+        {
+            comboText = FindText("Combo", "ComboText", "ComboValue");
+        }
+
+        if (maxComboText == null)
+        {
+            maxComboText = FindText("MaxCombo", "MaxComboText", "MaxComboValue");
+        }
+
+        if (judgmentText == null)
+        {
+            judgmentText = FindText("Judgment", "JudgmentText", "Vote", "VoteText", "Voto", "VotoText");
+        }
+
+        if (perfectCountText == null)
+        {
+            perfectCountText = FindText("PerfectCount", "PerfectText", "PerfectValue");
+        }
+
+        if (goodCountText == null)
+        {
+            goodCountText = FindText("GoodCount", "GoodText", "GoodValue");
+        }
+
+        if (badCountText == null)
+        {
+            badCountText = FindText("BadCount", "BadText", "BadValue");
+        }
+
+        if (missCountText == null)
+        {
+            missCountText = FindText("MissCount", "MissText", "MissValue");
+        }
+    }
+
+    TextMeshProUGUI FindText(params string[] names)
+    {
+        TextMeshProUGUI[] texts = FindObjectsOfType<TextMeshProUGUI>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            TextMeshProUGUI text = texts[i];
+            if (text == null)
+            {
+                continue;
+            }
+
+            for (int nameIndex = 0; nameIndex < names.Length; nameIndex++)
+            {
+                if (text.name == names[nameIndex])
+                {
+                    return text;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    static void SetText(TextMeshProUGUI text, string value)
+    {
+        if (text != null)
+        {
+            text.text = value;
+        }
+    }
+
+    static string FormatJudgment(JudgmentGrade judgment)
+    {
+        return judgment.ToString().ToUpperInvariant();
+    }
+
+    static Color GetJudgmentColor(JudgmentGrade judgment)
+    {
+        switch (judgment)
+        {
+            case JudgmentGrade.Perfect:
+                return new Color(0.2f, 1f, 0.85f);
+            case JudgmentGrade.Good:
+                return Color.green;
+            case JudgmentGrade.Bad:
+                return new Color(1f, 0.7f, 0.15f);
+            default:
+                return Color.red;
+        }
     }
 }
