@@ -43,18 +43,44 @@ public class BattleUIManager : MonoBehaviour
             return;
         }
 
-        SetText(comboText, score.Combo.ToString());
-        SetText(maxComboText, score.MaxCombo.ToString());
+        UpdateCombo(score.Combo, score.MaxCombo);
+        UpdateJudgment(score.LastJudgment, score.HasLastJudgment);
+        UpdateRhythmStats(score);
+    }
+
+    public void UpdateCombo(int combo, int maxCombo)
+    {
+        UpdateCounter(combo);
+        SetText(comboText, combo.ToString());
+        SetText(maxComboText, maxCombo.ToString());
+    }
+
+    public void UpdateJudgment(JudgmentGrade judgment, bool hasJudgment)
+    {
+        if (judgmentText != null)
+        {
+            judgmentText.text = hasJudgment ? FormatJudgment(judgment) : string.Empty;
+            judgmentText.color = GetJudgmentColor(judgment);
+        }
+    }
+
+    public void UpdateRhythmStats(BattleRhythmScoreState score)
+    {
+        if (score == null)
+        {
+            return;
+        }
+
         SetText(perfectCountText, score.PerfectCount.ToString());
         SetText(goodCountText, score.GoodCount.ToString());
         SetText(badCountText, score.BadCount.ToString());
         SetText(missCountText, score.MissCount.ToString());
+    }
 
-        if (judgmentText != null)
-        {
-            judgmentText.text = score.HasLastJudgment ? FormatJudgment(score.LastJudgment) : string.Empty;
-            judgmentText.color = GetJudgmentColor(score.LastJudgment);
-        }
+    public void ShowRhythmResult(BattleRhythmScoreState score, string message, Color color)
+    {
+        UpdateRhythmScore(score);
+        ShowFeedback(message, color);
     }
 
     public void ShowFeedback(string message, Color color)

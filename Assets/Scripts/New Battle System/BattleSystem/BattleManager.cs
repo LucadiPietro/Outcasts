@@ -689,12 +689,7 @@ public class BattleManager : MonoBehaviour
         }
 
         Unsubscribe(battleButton);
-        RegisterBattleMiss();
-
-        if (battleUIManager != null)
-        {
-            battleUIManager.ShowFeedback("MISS " + battleButton.cell, Color.red);
-        }
+        RegisterBattleMiss("MISS " + battleButton.cell);
 
         battleButton.ShakeMissAndDisappear();
 
@@ -764,12 +759,7 @@ public class BattleManager : MonoBehaviour
 
     void ResolveEmptyLanePress(string inputName)
     {
-        RegisterBattleMiss();
-
-        if (battleUIManager != null)
-        {
-            battleUIManager.ShowFeedback("MISS " + inputName, Color.red);
-        }
+        RegisterBattleMiss("MISS " + inputName);
 
         Debug.Log($"BattleManager: input {inputName} su lane vuota. Combo reset.");
     }
@@ -787,12 +777,7 @@ public class BattleManager : MonoBehaviour
 
         if (hasSpatialResult && !judgmentResult.IsHit)
         {
-            RegisterBattleMiss();
-
-            if (battleUIManager != null)
-            {
-                battleUIManager.ShowFeedback("MISS " + button.cell, Color.red);
-            }
+            RegisterBattleMiss("MISS " + button.cell);
 
             Debug.Log(
                 "BattleManager: spatial miss su " + button.cell +
@@ -808,14 +793,10 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        RegisterBattleHit(hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect);
-
-        if (battleUIManager != null)
-        {
-            battleUIManager.ShowFeedback(
-                GetFeedbackText(button, hasSpatialResult, judgmentResult),
-                GetFeedbackColor(hasSpatialResult, judgmentResult));
-        }
+        RegisterBattleHit(
+            hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect,
+            GetFeedbackText(button, hasSpatialResult, judgmentResult),
+            GetFeedbackColor(hasSpatialResult, judgmentResult));
 
         Debug.Log(GetHitLog(button, inputName, counter, hasSpatialResult, judgmentResult));
 
@@ -842,26 +823,33 @@ public class BattleManager : MonoBehaviour
         return true;
     }
 
-    void RegisterBattleMiss()
+    void RegisterBattleMiss(string feedbackMessage)
     {
         rhythmScore.RegisterMiss();
         counter = rhythmScore.Combo;
-        RefreshRhythmScoreUi();
+        ShowRhythmResult(feedbackMessage, Color.red);
     }
 
-    void RegisterBattleHit(JudgmentGrade grade)
+    void RegisterBattleHit(JudgmentGrade grade, string feedbackMessage, Color feedbackColor)
     {
         rhythmScore.RegisterHit(grade);
         counter = rhythmScore.Combo;
-        RefreshRhythmScoreUi();
+        ShowRhythmResult(feedbackMessage, feedbackColor);
     }
 
     void RefreshRhythmScoreUi()
     {
         if (battleUIManager != null)
         {
-            battleUIManager.UpdateCounter(counter);
             battleUIManager.UpdateRhythmScore(rhythmScore);
+        }
+    }
+
+    void ShowRhythmResult(string message, Color color)
+    {
+        if (battleUIManager != null)
+        {
+            battleUIManager.ShowRhythmResult(rhythmScore, message, color);
         }
     }
 
