@@ -18,6 +18,37 @@ public class BattleManager : MonoBehaviour
         public InputAction buttonKeys;
     }
 
+    public struct PreparedSuperGain
+    {
+        public PreparedSuperGain(
+            BMButtonPrefab.Cell cell,
+            int laneIndex,
+            JudgmentGrade judgment,
+            int combo,
+            float baseGain,
+            float comboBonus,
+            float totalGain)
+        {
+            Cell = cell;
+            LaneIndex = laneIndex;
+            Judgment = judgment;
+            Combo = combo;
+            BaseGain = baseGain;
+            ComboBonus = comboBonus;
+            TotalGain = totalGain;
+            IsValid = true;
+        }
+
+        public BMButtonPrefab.Cell Cell { get; }
+        public int LaneIndex { get; }
+        public JudgmentGrade Judgment { get; }
+        public int Combo { get; }
+        public float BaseGain { get; }
+        public float ComboBonus { get; }
+        public float TotalGain { get; }
+        public bool IsValid { get; }
+    }
+
     struct RhythmDamageScore
     {
         public RhythmDamageScore(JudgmentGrade judgment, int combo, float judgmentMultiplier)
@@ -52,6 +83,8 @@ public class BattleManager : MonoBehaviour
         new Dictionary<BMButtonPrefab.Cell, int>();
 
     private readonly BattleRhythmScoreState rhythmScore = new BattleRhythmScoreState();
+
+    PreparedSuperGain lastPreparedSuperGain;
 
     [Header("Input Behaviour")]
     [SerializeField] bool blockSameFrameDuplicateInput = true;
@@ -92,6 +125,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] float badDamageMultiplier = 0.4f;
     [SerializeField] float missDamageMultiplier = 0f;
 
+    [Header("Super Preparation")]
+    [SerializeField] float perfectSuperBaseGain = 3f;
+    [SerializeField] float goodSuperBaseGain = 2f;
+    [SerializeField] float badSuperBaseGain = 1f;
+    [SerializeField] float missSuperBaseGain = 0f;
+    [SerializeField] float comboSuperBonusPerHit = 0.25f;
+    [SerializeField] bool logPreparedSuperGain;
+
     INoteJudgmentService noteJudgmentService;
     double currentChartTimeSeconds;
 
@@ -99,6 +140,9 @@ public class BattleManager : MonoBehaviour
     public double CurrentChartTimeSeconds => currentChartTimeSeconds;
     public BattleInputDisplayMode CurrentInputDisplayMode => inputDisplayMode;
     public BattleRhythmScoreState RhythmScore => rhythmScore;
+    public PreparedSuperGain LastPreparedSuperGain => lastPreparedSuperGain;
+
+    public event Action<PreparedSuperGain> SuperGainPrepared;
 
     private void Awake()
     {
@@ -821,6 +865,7 @@ public class BattleManager : MonoBehaviour
             hitGrade,
             GetFeedbackText(button, hasSpatialResult, judgmentResult),
             GetFeedbackColor(hasSpatialResult, judgmentResult));
+        PrepareSuperGain(button, hitGrade);
 
         Debug.Log(GetHitLog(button, inputName, counter, hasSpatialResult, judgmentResult));
 
@@ -874,6 +919,55 @@ public class BattleManager : MonoBehaviour
         if (battleUIManager != null)
         {
             battleUIManager.ShowRhythmResult(rhythmScore, message, color);
+        }
+    }
+
+    void PrepareSuperGain(BattleButton button, JudgmentGrade judgment)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        int combo = Mathf.Max(1, rhythmScore.Combo);
+        float baseGain = GetBaseSuperGain(judgment);
+        float comboBonus = Mathf.Max(0, combo - 1) * comboSuperBonusPerHit;
+        float totalGain = Mathf.Max(0f, baseGain + comboBonus);
+
+        lastPreparedSuperGain = new PreparedSuperGain(
+            button.cell,
+            button.laneIndex,
+            judgment,
+            combo,
+            baseGain,
+            comboBonus,
+            totalGain);
+
+        if (logPreparedSuperGain)
+        {
+            Debug.Log(
+                "BattleManager: super gain preparata " +
+                "cell=" + lastPreparedSuperGain.Cell +
+                " judgment=" + lastPreparedSuperGain.Judgment +
+                " combo=" + lastPreparedSuperGain.Combo +
+                " gain=" + lastPreparedSuperGain.TotalGain.ToString("0.00") + ".");
+        }
+
+        SuperGainPrepared?.Invoke(lastPreparedSuperGain);
+    }
+
+    float GetBaseSuperGain(JudgmentGrade judgment)
+    {
+        switch (judgment)
+        {
+            case JudgmentGrade.Perfect:
+                return perfectSuperBaseGain;
+            case JudgmentGrade.Good:
+                return goodSuperBaseGain;
+            case JudgmentGrade.Bad:
+                return badSuperBaseGain;
+            default:
+                return missSuperBaseGain;
         }
     }
 
