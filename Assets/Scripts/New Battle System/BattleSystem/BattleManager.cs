@@ -35,6 +35,8 @@ public class BattleManager : MonoBehaviour
     private readonly Dictionary<BMButtonPrefab.Cell, int> lastInputFrameByCell =
         new Dictionary<BMButtonPrefab.Cell, int>();
 
+    private readonly BattleRhythmScoreState rhythmScore = new BattleRhythmScoreState();
+
     [Header("Input Behaviour")]
     [SerializeField] bool blockSameFrameDuplicateInput = true;
     [SerializeField] bool consumeNoteOnFailedSpatialInput = true;
@@ -74,6 +76,7 @@ public class BattleManager : MonoBehaviour
     public NoteMotionService SpatialMotionService { get; private set; }
     public double CurrentChartTimeSeconds => currentChartTimeSeconds;
     public BattleInputDisplayMode CurrentInputDisplayMode => inputDisplayMode;
+    public BattleRhythmScoreState RhythmScore => rhythmScore;
 
     private void Awake()
     {
@@ -98,6 +101,9 @@ public class BattleManager : MonoBehaviour
         {
             battleUIManager = FindObjectOfType<BattleUIManager>();
         }
+
+        rhythmScore.Reset();
+        counter = rhythmScore.Combo;
 
         if (battleUIManager != null)
         {
@@ -802,7 +808,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        counter++;
+        RegisterSuccessfulHit(hasSpatialResult ? judgmentResult.Grade : JudgmentGrade.Perfect);
 
         if (battleUIManager != null)
         {
@@ -843,12 +849,19 @@ public class BattleManager : MonoBehaviour
 
     void ResetCounter()
     {
-        counter = 0;
+        rhythmScore.RegisterMiss();
+        counter = rhythmScore.Combo;
 
         if (battleUIManager != null)
         {
             battleUIManager.UpdateCounter(counter);
         }
+    }
+
+    void RegisterSuccessfulHit(JudgmentGrade grade)
+    {
+        rhythmScore.RegisterHit(grade);
+        counter = rhythmScore.Combo;
     }
 
     string GetFeedbackText(BattleButton button, bool hasSpatialResult, JudgmentResult result)
@@ -1106,5 +1119,68 @@ public class BattleManager : MonoBehaviour
 
             pla.GetHit(damage);
         }
+    }
+}
+
+public sealed class BattleRhythmScoreState
+{
+    public int Combo { get; private set; }
+    public int MaxCombo { get; private set; }
+    public int PerfectCount { get; private set; }
+    public int GoodCount { get; private set; }
+    public int BadCount { get; private set; }
+    public int MissCount { get; private set; }
+    public JudgmentGrade LastJudgment { get; private set; }
+    public bool HasLastJudgment { get; private set; }
+
+    public void RegisterHit(JudgmentGrade grade)
+    {
+        if (grade == JudgmentGrade.Miss)
+        {
+            RegisterMiss();
+            return;
+        }
+
+        Combo++;
+        if (Combo > MaxCombo)
+        {
+            MaxCombo = Combo;
+        }
+
+        LastJudgment = grade;
+        HasLastJudgment = true;
+
+        switch (grade)
+        {
+            case JudgmentGrade.Perfect:
+                PerfectCount++;
+                break;
+            case JudgmentGrade.Good:
+                GoodCount++;
+                break;
+            case JudgmentGrade.Bad:
+                BadCount++;
+                break;
+        }
+    }
+
+    public void RegisterMiss()
+    {
+        Combo = 0;
+        MissCount++;
+        LastJudgment = JudgmentGrade.Miss;
+        HasLastJudgment = true;
+    }
+
+    public void Reset()
+    {
+        Combo = 0;
+        MaxCombo = 0;
+        PerfectCount = 0;
+        GoodCount = 0;
+        BadCount = 0;
+        MissCount = 0;
+        LastJudgment = JudgmentGrade.Miss;
+        HasLastJudgment = false;
     }
 }
