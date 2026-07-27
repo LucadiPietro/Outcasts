@@ -24,6 +24,7 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] Image[] superFillImages;
     [SerializeField] TextMeshProUGUI[] superValueTexts;
     [SerializeField] bool autoBindMissingSuperReferences = true;
+    [SerializeField] bool logMissingSuperReferences = true;
 
     void Awake()
     {
@@ -112,7 +113,12 @@ public class BattleUIManager : MonoBehaviour
 
             if (superFillImages != null && i < superFillImages.Length && superFillImages[i] != null)
             {
-                superFillImages[i].fillAmount = Mathf.Clamp01(meter.NormalizedValue);
+                Image fillImage = ResolveSuperFillImage(superFillImages[i]);
+                if (fillImage != null)
+                {
+                    EnsureFilledImage(fillImage);
+                    fillImage.fillAmount = Mathf.Clamp01(meter.NormalizedValue);
+                }
             }
 
             if (superValueTexts != null && i < superValueTexts.Length && superValueTexts[i] != null)
@@ -185,7 +191,12 @@ public class BattleUIManager : MonoBehaviour
     {
         if (superFillImages == null || superFillImages.Length == 0)
         {
-            superFillImages = FindImages("Super", "SuperFill", "SuperMeter");
+            superFillImages = FindSuperFillImages();
+
+            if (logMissingSuperReferences && superFillImages.Length == 0)
+            {
+                Debug.LogWarning("BattleUIManager: nessun fill Super trovato nel Canvas. Collega superFillImages dall'Inspector.");
+            }
         }
 
         if (superValueTexts == null || superValueTexts.Length == 0)
@@ -225,6 +236,24 @@ public class BattleUIManager : MonoBehaviour
         return matches.ToArray();
     }
 
+    Image[] FindSuperFillImages()
+    {
+        Image[] superImages = FindImages("Super", "SuperFill", "SuperMeter");
+        List<Image> fills = new List<Image>();
+
+        for (int i = 0; i < superImages.Length; i++)
+        {
+            Image fillImage = ResolveSuperFillImage(superImages[i]);
+            if (fillImage != null && !fills.Contains(fillImage))
+            {
+                fills.Add(fillImage);
+            }
+        }
+
+        fills.Sort(CompareImagesByScenePosition);
+        return fills.ToArray();
+    }
+
     Image[] FindImages(params string[] names)
     {
         Image[] images = FindObjectsOfType<Image>(true);
@@ -248,6 +277,85 @@ public class BattleUIManager : MonoBehaviour
         }
 
         return matches.ToArray();
+    }
+
+    static Image ResolveSuperFillImage(Image image)
+    {
+        if (image == null)
+        {
+            return null;
+        }
+
+        if (image.type == Image.Type.Filled)
+        {
+            return image;
+        }
+
+        Image[] children = image.GetComponentsInChildren<Image>(true);
+        for (int i = 0; i < children.Length; i++)
+        {
+            Image child = children[i];
+            if (child != null &&
+                child != image &&
+                child.type == Image.Type.Filled &&
+                IsFillName(child.name))
+            {
+                return child;
+            }
+        }
+
+        for (int i = 0; i < children.Length; i++)
+        {
+            Image child = children[i];
+            if (child != null &&
+                child != image &&
+                child.type == Image.Type.Filled)
+            {
+                return child;
+            }
+        }
+
+        return image;
+    }
+
+    static void EnsureFilledImage(Image image)
+    {
+        if (image == null || image.type == Image.Type.Filled)
+        {
+            return;
+        }
+
+        image.type = Image.Type.Filled;
+        image.fillMethod = Image.FillMethod.Vertical;
+        image.fillOrigin = 0;
+    }
+
+    static bool IsFillName(string objectName)
+    {
+        return !string.IsNullOrEmpty(objectName) && objectName.StartsWith("Fill");
+    }
+
+    static int CompareImagesByScenePosition(Image left, Image right)
+    {
+        if (left == right)
+        {
+            return 0;
+        }
+
+        if (left == null)
+        {
+            return 1;
+        }
+
+        if (right == null)
+        {
+            return -1;
+        }
+
+        Vector3 leftPosition = left.transform.position;
+        Vector3 rightPosition = right.transform.position;
+        int xComparison = leftPosition.x.CompareTo(rightPosition.x);
+        return xComparison != 0 ? xComparison : leftPosition.y.CompareTo(rightPosition.y);
     }
 
     static void SetText(TextMeshProUGUI text, string value)

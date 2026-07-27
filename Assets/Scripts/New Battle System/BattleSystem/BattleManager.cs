@@ -130,6 +130,10 @@ public class BattleManager : MonoBehaviour
     public float deadPlayerModificator = 1;
     public float deadEnemyModificator = 1;
 
+    [Header("Scene References")]
+    [SerializeField] bool autoBindSceneCharacters = true;
+    [SerializeField] bool createFallbackSuperMetersWithoutPlayers = true;
+
     [SerializeField] bool enableKeyboardLaneFallback = true;
     [SerializeField] BattleInputDisplayMode inputDisplayMode = BattleInputDisplayMode.Keyboard;
     [SerializeField] Key inputDisplayModeSwitchKey = Key.F1;
@@ -201,6 +205,7 @@ public class BattleManager : MonoBehaviour
 
         rhythmScore.Reset();
         counter = rhythmScore.Combo;
+        BindSceneCharactersIfNeeded();
         InitializeSuperMeters();
 
         if (battleUIManager != null)
@@ -232,6 +237,50 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    void BindSceneCharactersIfNeeded()
+    {
+        if (players == null)
+        {
+            players = new List<Player>();
+        }
+
+        if (enemies == null)
+        {
+            enemies = new List<Enemy>();
+        }
+
+        if (!autoBindSceneCharacters)
+        {
+            return;
+        }
+
+        if (players.Count == 0)
+        {
+            players = FindObjectsOfType<Player>(true)
+                .Where(player => player != null)
+                .OrderBy(player => (int)player.cell)
+                .ToList();
+        }
+
+        if (enemies.Count == 0)
+        {
+            enemies = FindObjectsOfType<Enemy>(true)
+                .Where(enemy => enemy != null)
+                .OrderBy(enemy => (int)enemy.cell)
+                .ToList();
+        }
+
+        if (players.Count == 0)
+        {
+            Debug.LogWarning("BattleManager: nessun Player configurato in scena. Il danno e la Super useranno solo fallback logici dove possibile.");
+        }
+
+        if (enemies.Count == 0)
+        {
+            Debug.LogWarning("BattleManager: nessun Enemy configurato in scena. Il danno non verra' applicato finche' non saranno collegati enemy reali.");
+        }
+    }
+
     void InitializeLaneQueues()
     {
         laneQueues.Clear();
@@ -260,7 +309,7 @@ public class BattleManager : MonoBehaviour
 
         if (players == null)
         {
-            return;
+            players = new List<Player>();
         }
 
         for (int i = 0; i < players.Count; i++)
@@ -268,6 +317,14 @@ public class BattleManager : MonoBehaviour
             Player player = players[i];
             BMButtonPrefab.Cell cell = player != null ? player.cell : GetPlayerCellByIndex(i);
             superMeters.Add(new BattleSuperMeterState(i, cell, superMaxValue));
+        }
+
+        if (superMeters.Count == 0 && createFallbackSuperMetersWithoutPlayers)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                superMeters.Add(new BattleSuperMeterState(i, GetPlayerCellByIndex(i), superMaxValue));
+            }
         }
     }
 
@@ -304,7 +361,17 @@ public class BattleManager : MonoBehaviour
         }
 
         int fallbackIndex = (int)playerCell - (int)BMButtonPrefab.Cell.Cell4;
-        return fallbackIndex >= 0 && fallbackIndex < superMeters.Count ? fallbackIndex : -1;
+        if (fallbackIndex < 0)
+        {
+            return -1;
+        }
+
+        if (superMeters.Count == 0 && createFallbackSuperMetersWithoutPlayers)
+        {
+            return fallbackIndex;
+        }
+
+        return fallbackIndex < superMeters.Count ? fallbackIndex : -1;
     }
 
     static BMButtonPrefab.Cell GetPlayerCellForRhythmCell(BMButtonPrefab.Cell cell)
