@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b4ae4e47a3e1142abb0821ebec2533, type: 3}
+  m_Name: Castle_00_Intro
+  m_EditorClassIdentifier: 
+  m_Lines:
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 1
+    m_Text: Are we completely sure there aren't any dragons inside the castle?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: I hate dragons!
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 5
+    m_Text: This is the first I'm hearing of this, what do you mean you hate dragons?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: "They're\u2026"
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 3
+    m_Text: Out with it man, we haven't got all day!
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: 'They''re overrated, OK? '
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: There, I said it.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 1
+    m_Text: Say what now?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: 'I do, I think they''re overrated. '
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: It's always dragons, everywhere you look, always dragons.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: 'Well... I mean yeah. '
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: All I'm saying is, would it kill them to put in a manticore every once
+      in a while?
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: It's true, you don't see many manticores about these days.
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+    m_Emotion: 0
+    m_Text: Castle's empty by the way, we've all been waiting on you for the past
+      10 minutes.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: You might have called us, you know.
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+    m_Emotion: 0
+    m_Text: Whatever.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: We might as well be on our way.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: 'I guess. '
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: How about wyverns?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: What's that now?
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: Wyverns.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: What about them?
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: I mean is it all dragons, or are you cool with wyverns?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: Wyverns aren't dragons, they're wyverns.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: You know what I mean, and yes they are.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: They are not!
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: Dude, come on.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: I am holding fast on this one, they are two entirely different things.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: So?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: I guess they're a little bit better, but not by much.
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: Where the hell have you guys been?
+  - m_Speaker: {fileID: 11400000, guid: 0aaab50e2a77e924897427056ad49653, type: 2}
+    m_Emotion: 0
+    m_Text: Something about manticores.
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: What's a manticore?
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: So a manticore-
+  - m_Speaker: {fileID: 11400000, guid: 0669054c3050f284f8c3b86c8502be9c, type: 2}
+    m_Emotion: 0
+    m_Text: Actually wait, I just remembered I don't care.
+  - m_Speaker: {fileID: 11400000, guid: f0c5eea373c7ba8479b62f9a7c9a24a5, type: 2}
+    m_Emotion: 0
+    m_Text: You're a horse's ass, Jason.
+  - m_Speaker: {fileID: 11400000, guid: b36e21735b4d8a84b9b622f18b9d7e7a, type: 2}
+    m_Emotion: 0
+    m_Text: Now that we can agree on.
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: Oh lugubrious one, the artifact is being kept in a chest in the Silver
+      Tribunal.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: I sincerely hope that the provenance of this tidbit of information is
+      more certain than the conviction I hold regarding your dubious intelligence
+      skills,my most slimy councillor.
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: "Are you guys seeing this?! There\u2019s like a million of these fuckers."
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: Oh come now your foulness, such flattery suits me ill.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: "Enlighten me then, ruffian, on the nature of this blessed serpent within
+      the bosom of the Silver Dragon\u2019s army whom they so trustingly embraced
+      to their pillowy rose tinted teats, and why with such trust betray\u2019d she
+      would choose confer unto us impious Outcasts the much revel \u0301d secret."
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: By a most circuitous route I would dare to assume, my never fading dark
+      aster.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: Kindly get to the point, Lysander
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: "Indeed I had noticed the harlot\u2019s door ajar, whereupon the miscreant
+      Father Sieghel could be seen flouncing away and fastening his belt."
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: "Naturally I leapt, libidinous o\u2019er the threshold, glaive in hand,
+      ready to punish the greedy til last breath she would draw, when hark, she,
+      exhausted, did confess to me her confession to Father Sieghel."
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: Cards on the table guys... no idea what you just said.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: Yet I wonder, for the good of this most secretive of missions who then
+      unhinged that threshold after you.
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: Heads up guys, Santiago and his boys.
+  - m_Speaker: {fileID: 11400000, guid: 35a0d981cd48a8647a033ee11cdf3bd1, type: 2}
+    m_Emotion: 0
+    m_Text: Trouble inquisitor?
+  - m_Speaker: {fileID: 11400000, guid: e9bbbac2c63ebed41b7ae91778329c04, type: 2}
+    m_Emotion: 0
+    m_Text: Mayhap, the petty stench of heresy hath tickled my nose.
+  - m_Speaker: {fileID: 11400000, guid: 35a0d981cd48a8647a033ee11cdf3bd1, type: 2}
+    m_Emotion: 0
+    m_Text: Shall we proceed?
+  - m_Speaker: {fileID: 11400000, guid: e9bbbac2c63ebed41b7ae91778329c04, type: 2}
+    m_Emotion: 0
+    m_Text: How shall I put this? Allow me to ehm... bleed the Dragon and we shall
+      continue our patrol.
+  - m_Speaker: {fileID: 11400000, guid: e9bbbac2c63ebed41b7ae91778329c04, type: 2}
+    m_Emotion: 0
+    m_Text: Onward!
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: Yo General, did he legit just piss on our heads?
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: Not a word! If anyone asks just chalk it up to an overenthusiastic, albeit
+      syphilitic whore down in the brothel.
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: All three of us?
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: "I did say overenthusiastic didn\u2019t I?"
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: Do illuminate us then, oh grand illuminator, the refined plan that your
+      refined mind has meditatively elaborated to pilfer the desired artefact.
+  - m_Speaker: {fileID: 11400000, guid: 6a32ad481bfed1d4aaba4b38e066c72c, type: 2}
+    m_Emotion: 0
+    m_Text: "Ain\u2019t no thing boys. We take \u2018em in groups of three. I slit
+      a few throats and you guys do your thing. Let\u2019s bounce."
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: I should hire another bodyguard to shield me from the villainy of my
+      current bodyguard. We shall enact  Plan R-
+  - m_Speaker: {fileID: 11400000, guid: de9e417a3576df24eb77dce0229abb2b, type: 2}
+    m_Emotion: 0
+    m_Text: Rogues in the wake enact their misdeeds.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: Quite. Now your average Silver Dragon squire is clever but not too bright.
+      It will suffice us to sneak past them without being noticed.
+  - m_Speaker: {fileID: 11400000, guid: 7551238c016f5e241acd2247aa07105d, type: 2}
+    m_Emotion: 0
+    m_Text: The clattering of their ridiculous armor will silence our steps.
