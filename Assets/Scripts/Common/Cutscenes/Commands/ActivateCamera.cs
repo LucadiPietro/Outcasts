@@ -1,4 +1,4 @@
-﻿namespace Common.Cutscenes.Commands
+namespace Common.Cutscenes.Commands
 {
     using Cinemachine;
     using System;
@@ -6,7 +6,7 @@
     using UnityEngine;
 
     /// <summary>
-    /// Activates a Cinemachine camera
+    /// Activates a Cinemachine virtual camera through the scene camera coordinator.
     /// </summary>
     [Serializable]
     [AddTypeMenu("ActivateCamera")]
@@ -14,18 +14,40 @@
     {
         [SerializeField] CinemachineVirtualCamera m_Camera;
         [SerializeField] bool m_ShouldWaitEnd = true;
+
         public bool ShouldWaitEnd => m_ShouldWaitEnd;
 
         public void Execute()
         {
-            CinemachineHelper.Instance.SwitchToCamera(m_Camera);
-        }
-        public IEnumerator ExecuteAwaitable()
-        {
-            yield return CinemachineHelper.Instance.SwitchToCameraAwaitable(m_Camera);
+            CinemachineHelper helper = CinemachineHelper.Instance;
+            if (helper == null || m_Camera == null)
+            {
+                Debug.LogWarning("ActivateCamera skipped because its helper or camera is missing.");
+                return;
+            }
+
+            helper.SwitchToCamera(m_Camera);
         }
 
-        // TODO: Implement a proper cut to the new camera
-        public void FastForward() => Execute();
+        public IEnumerator ExecuteAwaitable()
+        {
+            CinemachineHelper helper = CinemachineHelper.Instance;
+            if (helper == null || m_Camera == null)
+            {
+                Debug.LogWarning("ActivateCamera skipped because its helper or camera is missing.");
+                yield break;
+            }
+
+            yield return helper.SwitchToCameraAwaitable(m_Camera);
+        }
+
+        public void FastForward()
+        {
+            CinemachineHelper helper = CinemachineHelper.Instance;
+            if (helper != null && m_Camera != null)
+            {
+                helper.CutToCamera(m_Camera);
+            }
+        }
     }
 }

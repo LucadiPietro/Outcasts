@@ -1,4 +1,4 @@
-﻿namespace Common.Cutscenes.Commands
+namespace Common.Cutscenes.Commands
 {
     using NaughtyAttributes;
     using System;
@@ -6,21 +6,32 @@
     using UnityEngine;
 
     /// <summary>
-    /// Waits the specified amount of time
+    /// Waits for the configured duration in scaled game time.
     /// </summary>
     [Serializable]
     [AddTypeMenu("Pause")]
     public sealed class Pause : ICinematicCommand
     {
-        [SerializeField, Tooltip("In Seconds"), AllowNesting] float m_Duration;
+        [SerializeField, Tooltip("In Seconds"), AllowNesting]
+        float m_Duration;
+
         public bool ShouldWaitEnd => true;
 
-        // A non-awaitable pause does nothing
-        public void Execute() { }
+        public void Execute()
+        {
+        }
+
         public IEnumerator ExecuteAwaitable()
         {
-            yield return new WaitForSeconds(m_Duration);
+            float duration = Mathf.Max(0f, m_Duration);
+            if (duration > 0f)
+            {
+                yield return new WaitForSeconds(duration);
+            }
         }
-        public void FastForward() { }
+
+        public void FastForward()
+        {
+        }
     }
 }

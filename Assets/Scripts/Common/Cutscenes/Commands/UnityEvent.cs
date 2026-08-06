@@ -1,4 +1,4 @@
-﻿namespace Common.Cutscenes.Commands
+namespace Common.Cutscenes.Commands
 {
     using System;
     using System.Collections;
@@ -8,16 +8,25 @@
     [AddTypeMenu("Unity Event")]
     public sealed class UnityEvent : ICinematicCommand
     {
+        [SerializeField] UnityEngine.Events.UnityEvent m_Executed =
+            new UnityEngine.Events.UnityEvent();
+
         public bool ShouldWaitEnd => false;
 
-        [SerializeField] UnityEngine.Events.UnityEvent m_Executed;
+        public void Execute()
+        {
+            m_Executed?.Invoke();
+        }
 
-        public void Execute() => m_Executed.Invoke();
         public IEnumerator ExecuteAwaitable()
         {
             Execute();
             yield break;
         }
-        public void FastForward() => Execute();
+
+        public void FastForward()
+        {
+            Execute();
+        }
     }
 }

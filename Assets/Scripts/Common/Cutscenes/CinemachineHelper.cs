@@ -1,162 +1,281 @@
-﻿namespace Common.Cutscenes
+namespace Common.Cutscenes
 {
     using Cinemachine;
     using System.Collections;
-    using System.Linq;
     using UnityEngine;
 
     /// <summary>
-    /// Simplifies Cinemachine's interface so that every inactive camera has the same low priority and only one active camera with higher priority exists.
-    /// You can call SwitchToCamera or StartCoroutine(SwitchToCameraAwaitable) as much as you like and this helper will make sure only the last call is active.
-    /// If a user is yielding SwitchToCameraAwaitable and SwitchToCamera is called again, the previous routine will return early as if it's canceled by the new one.
+    /// Centralizes camera priority changes and makes interrupted blends deterministic.
     /// </summary>
+    [DisallowMultipleComponent]
     public sealed class CinemachineHelper : MonoBehaviour
     {
         [SerializeField] int m_ActiveCameraPriority = 100;
         [SerializeField] int m_InactiveCameraPriority = 10;
 
-        void OnEnable()
+        static CinemachineHelper s_Instance;
+
+        CinemachineBrain m_Brain;
+        ICinemachineCamera m_ActiveCamera;
+        CinemachineVirtualCamera[] m_SceneCameras;
+        int m_SwitchRequestId;
+
+        public static CinemachineHelper Instance
         {
-            // Currently active camera is the one with highest priority
-            m_ActiveCamera = FindObjectsByType<CinemachineVirtualCamera>(FindObjectsSortMode.None).OrderByDescending(x => x.Priority).FirstOrDefault();
+            get
+            {
+                if (s_Instance == null)
+                {
+                    s_Instance = FindObjectOfType<CinemachineHelper>();
+                }
+
+                return s_Instance;
+            }
         }
 
         /// <summary>
-        /// Ensures the targetCamera becomes active if it isn't already
+        /// Initializes singleton state and camera caches.
+        /// </summary>
+        void Awake()
+        {
+            if (s_Instance != null && s_Instance != this)
+            {
+                Debug.LogWarning("Duplicate CinemachineHelper disabled.", this);
+                enabled = false;
+                return;
+            }
+
+            s_Instance = this;
+            RefreshCache();
+        }
+
+        /// <summary>
+        /// Refreshes the active camera after scene objects become enabled.
+        /// </summary>
+        void OnEnable()
+        {
+            RefreshCache();
+        }
+
+        /// <summary>
+        /// Clears the static reference when this instance is destroyed.
+        /// </summary>
+        void OnDestroy()
+        {
+            if (s_Instance == this)
+            {
+                s_Instance = null;
+            }
+        }
+
+        /// <summary>
+        /// Switches camera without waiting for the blend.
         /// </summary>
         public void SwitchToCamera(ICinemachineCamera targetCamera)
         {
             StartCoroutine(SwitchToCameraAwaitable(targetCamera));
         }
 
-        int m_CurrentBlendId = -1;
         /// <summary>
-        /// Ensures the targetCamera becomes active if it isn't already and yields until the camera blending is complete
+        /// Switches camera and waits until the blend has completed or a newer request
+        /// supersedes this one.
         /// </summary>
         public IEnumerator SwitchToCameraAwaitable(ICinemachineCamera targetCamera)
         {
-
-            // We assign an increasing blendId to each blend
-            // This is because a blend can be interrupted by the request of a new blend
-            // If this happens, we'll be able to compare IDs and if the current blend is not the latest, we can interrupt it early
-            int blendId = ++m_CurrentBlendId;
-
-            if (m_ActiveCamera == targetCamera) yield break;
-
-            // If there's a previous blend happening, we wait for its completion before proceeding
-            if (m_ActiveCamera != null && m_IsBlending)
+            if (targetCamera == null)
             {
-                //Debug.Log($"Blend to {targetCamera.Name} waiting until previous blend is canceled...");
-                m_ShouldCancelBlend = true;
-                yield return new WaitWhile(() => m_IsBlending);
-
-                //Debug.Log($"Blend to {targetCamera.Name} can resume as the previous blend has been canceled");
-
-                // If this is not the latest blend request, we return early as there can only ever be one camera considered ACTIVE
-                if (blendId != m_CurrentBlendId)
-                {
-                    //Debug.Log($"Blend to {targetCamera.Name} is not the latest one anymore, so it will stop (currentId: {blendId}; latestId = {m_CurrentBlendId}).");
-                    yield break;
-                }
+                Debug.LogWarning("Camera switch ignored because the target is null.", this);
+                yield break;
             }
 
-            //Debug.Log($"Blend to {targetCamera.Name} starts");
-            m_IsBlending = true;
+            RefreshBrainIfNeeded();
 
-            ICinemachineCamera oldCamera = null;
-            // Switch camera priorities
-            if (m_ActiveCamera != null)
+            int requestId = ++m_SwitchRequestId;
+            ICinemachineCamera previousCamera = m_ActiveCamera;
+
+            if (previousCamera == targetCamera &&
+                (m_Brain == null || m_Brain.ActiveVirtualCamera == targetCamera))
             {
-                oldCamera = m_ActiveCamera;
-                m_ActiveCamera.Priority = m_InactiveCameraPriority;
+                yield break;
             }
+
+            ApplyPriorities(targetCamera);
             m_ActiveCamera = targetCamera;
-            if (m_ActiveCamera != null) m_ActiveCamera.Priority = m_ActiveCameraPriority;
 
-            // This is needed because cinemachine's brain is only reliable after a LateUpdate
+            // Cinemachine resolves priority changes during LateUpdate.
             yield return new WaitForEndOfFrame();
 
-            float elapsed = 0f;
-            float blendDuration = GetBlendDuration(oldCamera, targetCamera);
-
-            // Either wait until the blend has been canceled or to the end of its duration
-            while (true)
+            if (m_Brain == null)
             {
-                // If the current blend is canceled by a new one, return early
-                if (m_ShouldCancelBlend)
-                {
-                    //Debug.Log($"Blend to {targetCamera.Name} canceled");
-                    m_ShouldCancelBlend = false;
-                    break;
-                }
-
-                // If the entire blend duration has passed, we break out of the loop to return
-                if (elapsed < blendDuration)
-                {
-                    yield return null;
-                    elapsed += Time.deltaTime;
-                }
-                else
-                {
-                    // This is needed because cinemachine's brain is only reliable after a LateUpdate
-                    yield return new WaitForEndOfFrame();
-
-                    break;
-                }
+                yield break;
             }
 
-            //Debug.Log($"Blend to {targetCamera.Name} over");
-            m_IsBlending = false;
+            float expectedDuration = GetBlendDuration(previousCamera, targetCamera);
+            float timeout = Mathf.Max(1f, expectedDuration + 2f);
+            float elapsed = 0f;
+
+            while (requestId == m_SwitchRequestId && elapsed < timeout)
+            {
+                bool targetIsLive = m_Brain.ActiveVirtualCamera == targetCamera;
+                if (targetIsLive && !m_Brain.IsBlending)
+                {
+                    break;
+                }
+
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            if (requestId == m_SwitchRequestId && elapsed >= timeout)
+            {
+                Debug.LogWarning(
+                    $"Camera blend to '{targetCamera.Name}' exceeded the {timeout:0.##}s safety timeout.",
+                    this);
+            }
         }
 
         /// <summary>
-        /// Same as SwitchToCamera but callable from events
+        /// Event-friendly camera switch entry point.
         /// </summary>
         public void SwitchToCameraExposed(CinemachineVirtualCamera targetCamera)
         {
-            SwitchToCameraAwaitable(targetCamera);
+            SwitchToCamera(targetCamera);
         }
 
+        /// <summary>
+        /// Applies the target priority immediately. Used by cutscene fast-forward.
+        /// </summary>
+        public void CutToCamera(ICinemachineCamera targetCamera)
+        {
+            if (targetCamera == null)
+            {
+                return;
+            }
+
+            ++m_SwitchRequestId;
+            ApplyPriorities(targetCamera);
+            m_ActiveCamera = targetCamera;
+        }
+
+        /// <summary>
+        /// Rebuilds scene-level camera and brain references.
+        /// </summary>
+        void RefreshCache()
+        {
+            m_SceneCameras = FindObjectsOfType<CinemachineVirtualCamera>(includeInactive: true);
+            RefreshBrainIfNeeded();
+
+            if (m_Brain != null && m_Brain.ActiveVirtualCamera != null)
+            {
+                m_ActiveCamera = m_Brain.ActiveVirtualCamera;
+            }
+            else
+            {
+                m_ActiveCamera = FindHighestPriorityCamera();
+            }
+
+            if (m_ActiveCamera != null)
+            {
+                ApplyPriorities(m_ActiveCamera);
+            }
+        }
+
+        /// <summary>
+        /// Resolves the CinemachineBrain from the tagged main camera.
+        /// </summary>
+        void RefreshBrainIfNeeded()
+        {
+            if (m_Brain != null)
+            {
+                return;
+            }
+
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                m_Brain = mainCamera.GetComponent<CinemachineBrain>();
+            }
+        }
+
+        /// <summary>
+        /// Ensures that exactly one virtual camera owns the active priority.
+        /// </summary>
+        void ApplyPriorities(ICinemachineCamera targetCamera)
+        {
+            if (m_SceneCameras == null || m_SceneCameras.Length == 0)
+            {
+                m_SceneCameras = FindObjectsOfType<CinemachineVirtualCamera>(includeInactive: true);
+            }
+
+            for (int i = 0; i < m_SceneCameras.Length; i++)
+            {
+                CinemachineVirtualCamera camera = m_SceneCameras[i];
+                if (camera == null)
+                {
+                    continue;
+                }
+
+                camera.Priority = ReferenceEquals(camera, targetCamera)
+                    ? m_ActiveCameraPriority
+                    : m_InactiveCameraPriority;
+            }
+
+            // Supports other ICinemachineCamera implementations without affecting the
+            // virtual-camera normalization above.
+            targetCamera.Priority = m_ActiveCameraPriority;
+        }
+
+        /// <summary>
+        /// Finds the current priority winner when the brain is not ready yet.
+        /// </summary>
+        ICinemachineCamera FindHighestPriorityCamera()
+        {
+            ICinemachineCamera best = null;
+            int bestPriority = int.MinValue;
+
+            if (m_SceneCameras == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < m_SceneCameras.Length; i++)
+            {
+                CinemachineVirtualCamera camera = m_SceneCameras[i];
+                if (camera != null && camera.Priority > bestPriority)
+                {
+                    best = camera;
+                    bestPriority = camera.Priority;
+                }
+            }
+
+            return best;
+        }
+
+        /// <summary>
+        /// Returns the configured Cinemachine blend duration for a camera pair.
+        /// </summary>
         float GetBlendDuration(ICinemachineCamera from, ICinemachineCamera to)
         {
-            if (Brain.m_CustomBlends == null) return Brain.m_DefaultBlend.BlendTime;
-
-            string fromName = (from != null) ? from.Name : CinemachineBlenderSettings.kBlendFromAnyCameraLabel;
-            string toName = (to != null) ? to.Name : CinemachineBlenderSettings.kBlendFromAnyCameraLabel;
-            float blendDuration = Brain.m_CustomBlends.GetBlendForVirtualCameras(fromName, toName, Brain.m_DefaultBlend).BlendTime;
-            return blendDuration;
-        }
-
-        ICinemachineCamera m_ActiveCamera;
-
-        bool m_IsBlending = false;
-        bool m_ShouldCancelBlend = false;
-
-        static CinemachineHelper s_Instance = default;
-        public static CinemachineHelper Instance
-        {
-            get
+            if (m_Brain == null)
             {
-                if (s_Instance == null) s_Instance = FindObjectOfType<CinemachineHelper>();
-                return s_Instance;
+                return 0f;
             }
-        }
-        void Awake()
-        {
-            s_Instance = this;
-            m_ActiveCamera = Brain.ActiveVirtualCamera;
-        }
 
-        static CinemachineBrain m_Brain;
-        static CinemachineBrain Brain
-        {
-            get
+            if (m_Brain.m_CustomBlends == null)
             {
-                if (m_Brain == null) m_Brain = Camera.main.GetComponent<CinemachineBrain>();
-                return m_Brain;
+                return m_Brain.m_DefaultBlend.BlendTime;
             }
-        }
 
-        static readonly WaitWhile kWaitForCompletion = new WaitWhile(() => Brain.IsBlending || Instance.m_ShouldCancelBlend);
+            string fromName = from != null
+                ? from.Name
+                : CinemachineBlenderSettings.kBlendFromAnyCameraLabel;
+            string toName = to != null
+                ? to.Name
+                : CinemachineBlenderSettings.kBlendFromAnyCameraLabel;
+
+            return m_Brain.m_CustomBlends
+                .GetBlendForVirtualCameras(fromName, toName, m_Brain.m_DefaultBlend)
+                .BlendTime;
+        }
     }
 }

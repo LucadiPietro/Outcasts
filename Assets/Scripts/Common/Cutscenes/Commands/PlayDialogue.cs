@@ -1,4 +1,4 @@
-﻿namespace Common.Cutscenes.Commands
+namespace Common.Cutscenes.Commands
 {
     using Common.Dialogues;
     using NaughtyAttributes;
@@ -13,77 +13,137 @@
         [OnValueChanged(nameof(OnDialogueChanged)), AllowNesting]
         [SerializeField] DialogueData m_Dialogue;
         [SerializeField] LineRange m_Range;
-        bool IsCustom => m_Range == LineRange.Custom;
-
         [Dropdown(nameof(GetLines)), AllowNesting]
         [SerializeField, ShowIf(nameof(IsCustom))] int m_From;
         [Dropdown(nameof(GetLines)), AllowNesting]
         [SerializeField, ShowIf(nameof(IsCustom))] int m_To;
-
         [SerializeField] bool m_ShouldWaitEnd = true;
-        public bool ShouldWaitEnd => m_ShouldWaitEnd;
-
-        public void Execute()
-        {
-            if (IsCustom) DialogueController.instance.PlayDialogue(new DialogueSlice(m_Dialogue, m_From, m_To - m_From + 1));
-            else DialogueController.instance.PlayDialogue(m_Dialogue);
-        }
-        public IEnumerator ExecuteAwaitable()
-        {
-            if (IsCustom) yield return DialogueController.instance.PlayDialogueAwaitable(new DialogueSlice(m_Dialogue, m_From, m_To - m_From + 1));
-            else yield return DialogueController.instance.PlayDialogueAwaitable(m_Dialogue);
-        }
-        public void FastForward()
-        {
-            DialogueController.instance.StopCurrentDialogue();
-        }
 
         enum LineRange
         {
             All,
             Custom,
         }
-//#if UNITY_EDITOR
-        #region Lines
+
+        public bool ShouldWaitEnd => m_ShouldWaitEnd;
+        bool IsCustom => m_Range == LineRange.Custom;
+
+        public void Execute()
+        {
+            if (!TryBuildDialogue(out DialogueController controller, out DialogueSlice slice))
+            {
+                return;
+            }
+
+            if (IsCustom)
+            {
+                controller.PlayDialogue(slice);
+            }
+            else
+            {
+                controller.PlayDialogue(m_Dialogue);
+            }
+        }
+
+        public IEnumerator ExecuteAwaitable()
+        {
+            if (!TryBuildDialogue(out DialogueController controller, out DialogueSlice slice))
+            {
+                yield break;
+            }
+
+            if (IsCustom)
+            {
+                yield return controller.PlayDialogueAwaitable(slice);
+            }
+            else
+            {
+                yield return controller.PlayDialogueAwaitable(m_Dialogue);
+            }
+        }
+
+        public void FastForward()
+        {
+            if (DialogueController.instance != null)
+            {
+                DialogueController.instance.StopCurrentDialogue();
+            }
+        }
+
+        /// <summary>
+        /// Validates the controller, asset, and custom line range.
+        /// </summary>
+        bool TryBuildDialogue(out DialogueController controller, out DialogueSlice slice)
+        {
+            controller = DialogueController.instance;
+            slice = default;
+
+            if (controller == null || m_Dialogue == null)
+            {
+                Debug.LogWarning("PlayDialogue skipped because its controller or dialogue asset is missing.");
+                return false;
+            }
+
+            if (!IsCustom)
+            {
+                return true;
+            }
+
+            int lineCount = m_Dialogue.Lines.Count;
+            if (lineCount <= 0)
+            {
+                Debug.LogWarning("PlayDialogue skipped because the selected dialogue contains no lines.");
+                return false;
+            }
+
+            int from = Mathf.Clamp(m_From, 0, lineCount - 1);
+            int to = Mathf.Clamp(m_To, from, lineCount - 1);
+            slice = new DialogueSlice(m_Dialogue, from, to - from + 1);
+            return true;
+        }
+
         DropdownList<int> GetLines()
         {
             var list = new DropdownList<int>();
-            if (m_Dialogue != null)
+            if (m_Dialogue == null)
             {
-                for (int i = 0; i < m_Dialogue.Lines.Count; i++)
-                {
-                    var line = m_Dialogue.Lines[i];
-                    var preview = GetLinePreview(i);
-                    list.Add(preview, i);
-                }
+                list.Add("<None>", -1);
+                return list;
             }
-            else list.Add("<None>", -1);
+
+            for (int i = 0; i < m_Dialogue.Lines.Count; i++)
+            {
+                list.Add(GetLinePreview(i), i);
+            }
 
             return list;
         }
+
         void OnDialogueChanged()
         {
             m_From = 0;
-            m_To = 1;
+            m_To = m_Dialogue != null && m_Dialogue.Lines.Count > 1 ? 1 : 0;
         }
+
         string GetLinePreview(int lineIndex)
         {
-            if (m_Dialogue == null) return "";
-            var line = m_Dialogue.Lines[lineIndex];
-
-            const int kMaxPreviewLength = 30;
-            int previewLength = Mathf.Min(line.Text.Length, kMaxPreviewLength);
-            string suffix = "";
-            if (previewLength == kMaxPreviewLength)
+            if (m_Dialogue == null || lineIndex < 0 || lineIndex >= m_Dialogue.Lines.Count)
             {
-                previewLength -= 3;
-                suffix = "...";
+                return string.Empty;
             }
 
-            var previewText = line.Text.Substring(0, previewLength).Replace(" \n ", " ").Replace(" \n", " ").Replace("\n ", " ").Replace("\n", " ");
-            return $"{lineIndex:D2}) {line.Speaker.Name}: \"{previewText}{suffix}\"";
+            var line = m_Dialogue.Lines[lineIndex];
+            string text = line.Text ?? string.Empty;
+            text = text.Replace("\n", " ").Trim();
+
+            const int maxPreviewLength = 30;
+            if (text.Length > maxPreviewLength)
+            {
+                text = text.Substring(0, maxPreviewLength - 3) + "...";
+            }
+
+            string speaker = line.Speaker != null ? line.Speaker.Name : "Unknown";
+            return $"{lineIndex:D2}) {speaker}: \"{text}\"";
         }
-        #endregion
-//#endif
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Common.Cutscenes
+namespace Common.Cutscenes
 {
     using NaughtyAttributes;
     using System.Collections;
@@ -9,234 +9,285 @@
     using UnityEngine;
 
     /// <summary>
-    /// You can use this class to trigger an animation and wait for it to end
+    /// Triggers an Animator state and waits for it without polling every frame when idle.
     /// </summary>
     public sealed class AwaitableAnimation : AwaitableActionBase
     {
-        public string Trigger => m_Trigger;
-
-        public override void Execute()
-        {
-            m_Animator.SetTrigger(TriggerHash);
-        }
-
-        public override IEnumerator ExecuteAwaitable()
-        {
-            Execute();
-
-            // Start waiting for the target state to activate
-            {
-                const int kExpectedFramesToWait = 1;
-                const int kFramesTimeout = 60;
-                int framesWaited = 0;
-                while (!m_IsStateActive)
-                {
-                    if (framesWaited >= kFramesTimeout)
-                    {
-                        Debug.LogError($"State was not activated during the {kFramesTimeout} frames after the trigger has been set. This should never happen. Please, ensure a transition exists from the 'Any' state to the {m_TriggeredStateName} with a trigger condition on {m_Trigger} and a duration of 0 seconds");
-                        yield break;
-                    }
-
-                    yield return null;
-                    framesWaited++;
-                }
-
-                if (framesWaited > kExpectedFramesToWait) Debug.LogWarning($"State {m_TriggeredStateName} was activated in {framesWaited} frames insteaf of the expected {kExpectedFramesToWait}");
-            }
-
-            // Target state is active, start waiting it exits (i.e. the animation is completed)
-            {
-                float elapsed = 0f;
-                while (m_IsStateActive)
-                {
-                    yield return null;
-                    elapsed += Time.deltaTime;
-                    if (elapsed > m_Timeout)
-                    {
-                        Debug.LogWarning($"State {m_TriggeredStateName} didn't reach the end before the timeout of {m_Timeout} seconds");
-                        break;
-                    }
-                }
-            }
-
-            // The state is inactive
-            yield break;
-        }
-
-        // The CurrentState of the animator is updated every frame
-        void Update() => CurrentState = m_Animator.GetCurrentAnimatorStateInfo(0);
-        AnimatorStateInfo m_CurrentState;
-        AnimatorStateInfo CurrentState
-        {
-            get => m_CurrentState;
-            set
-            {
-                var previousState = m_CurrentState;
-                var newState = value;
-
-                // Do nothing if the transition is to the same state
-                if (previousState.shortNameHash == newState.shortNameHash) return;
-
-                m_CurrentState = value;
-
-                bool wasOurState = previousState.shortNameHash == m_TriggeredStateHash;
-                bool isOurState = newState.shortNameHash == m_TriggeredStateHash;
-
-                // Callbacks for when our state has entered or exited
-                if (!wasOurState && isOurState) OnStateEntered();
-                else if (wasOurState && !isOurState) OnStateExited();
-                // else there was a state change but not related to our triggered state
-            }
-        }
-
-        /// <summary>
-        /// True, if the triggered state is currently playing, false otherwise
-        /// </summary>
-        bool m_IsStateActive;
-        void OnStateEntered() => m_IsStateActive = true;
-        void OnStateExited() => m_IsStateActive = false;
-
         [SerializeField] Animator m_Animator;
 #if UNITY_EDITOR
         [Dropdown(nameof(GetTriggerParameters)), OnValueChanged(nameof(UpdateStateInfo))]
 #endif
-        [SerializeField, Tooltip("Play() will call Animator.SetTrigger with this string to start the animation")] string m_Trigger;
-        [SerializeField, Tooltip("If something goes wrong, we don't wait more than this amount of seconds")] float m_Timeout = 4;
+        [SerializeField, Tooltip("Trigger parameter used to start the animation.")]
+        string m_Trigger;
 
-        /// <summary>
-        /// When Animator.SetTrigger is called, the controller will enter a new State: this is the hash identifying that state
-        /// </summary>
+        [SerializeField, Tooltip("Maximum time spent waiting for the state to finish.")]
+        float m_Timeout = 4f;
+
         [SerializeField, HideInInspector] int m_TriggeredStateHash;
-        /// <summary>
-        /// When Animator.SetTrigger is called, the controller will enter a new State: this is the human-readable name identifying that state; Used in error messages
-        /// </summary>
         [SerializeField, HideInInspector] string m_TriggeredStateName;
 
 #if UNITY_EDITOR
-        bool IsError() => !string.IsNullOrEmpty(m_ErrorMessage);
         [InfoBox("Error", EInfoBoxType.Error)]
-        [SerializeField, ShowIf(nameof(IsError)), ReadOnly, ResizableTextArea, Label("")] string m_ErrorMessage;
-
-        AnimatorController GetAnimatorController(Animator animator)
-        {
-            if (animator == null) return null;
-
-            var runtimeController = animator.runtimeAnimatorController;
-            if (runtimeController is AnimatorOverrideController overrideController) runtimeController = overrideController.runtimeAnimatorController;
-
-            return runtimeController as AnimatorController;
-        }
-
-        // Returns a list of the Trigger parameters for the current animator, used by the Dropdown inspector attribute
-        DropdownList<string> GetTriggerParameters()
-        {
-            var list = new DropdownList<string>();
-            list.Add((m_Animator == null) ? "Select Animator first" : "None", "");
-
-            if (m_Animator == null) return list;
-
-            var editorController = GetAnimatorController(m_Animator);
-
-            // Go through all the parameters and only add them to the list if they are triggers
-            var triggers = editorController.parameters.Where(p => p.type == AnimatorControllerParameterType.Trigger);
-            foreach (var trigger in triggers) list.Add(trigger.name, trigger.name);
-
-            return list;
-        }
-
-        void OnValidate() => UpdateStateInfo();
-
-        /// <summary>
-        /// Called every time a value is changed in the inspector, it sets TriggeredStateHash, TriggeredStateName, and ErrorMessage if needed
-        /// </summary>
-        void UpdateStateInfo()
-        {
-            if (m_Animator == null)
-            {
-                m_ErrorMessage = $"The Animator is unset";
-                m_TriggeredStateHash = 0;
-                m_TriggeredStateName = "";
-                return;
-            }
-
-            var editorController = GetAnimatorController(m_Animator);
-
-            if (string.IsNullOrEmpty(m_Trigger))
-            {
-                m_ErrorMessage = $"The Trigger is unset";
-                m_TriggeredStateHash = 0;
-                m_TriggeredStateName = "";
-                return;
-            }
-
-            bool IsOurTrigger(AnimatorControllerParameter parameter) => parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == m_Trigger;
-            if (editorController.parameters.Count(IsOurTrigger) < 1)
-            {
-                m_ErrorMessage = $"AnimatorController '{editorController.name}' has no trigger parameter named {m_Trigger}; Add it, to fix this error";
-                m_TriggeredStateHash = 0;
-                m_TriggeredStateName = "";
-                return;
-            }
-
-            var mainLayer = editorController.layers[0];
-            var stateMachine = mainLayer.stateMachine;
-            AnimatorState destinationState = null;
-            AnimatorStateTransition ourTransition = null;
-            foreach (var transition in stateMachine.anyStateTransitions)
-            {
-                if (transition.conditions.Length != 1) continue;
-                var condition = transition.conditions[0];
-
-                string parameterName = condition.parameter;
-                if (parameterName != m_Trigger) continue;
-
-                bool isTrigger = condition.mode == AnimatorConditionMode.If;
-                if (!isTrigger)
-                {
-                    m_ErrorMessage = $"AnimatorController '{editorController.name}' has a transition from Any to {transition.destinationState} with a condition on a parameter named {m_Trigger} but it's not a Trigger; To fix this, change the parameter's type to Trigger";
-                    m_TriggeredStateHash = 0;
-                    m_TriggeredStateName = "";
-                    return;
-                }
-                else if (transition.duration > 0)
-                {
-                    m_ErrorMessage = $"AnimatorController '{editorController.name}': the transition triggered by {m_Trigger} has a duration of {transition.duration} seconds. {nameof(AwaitableAnimation)} only works with transitions with duration 0";
-                    m_TriggeredStateHash = 0;
-                    m_TriggeredStateName = "";
-                    return;
-                }
-                else
-                {
-                    ourTransition = transition;
-                    destinationState = transition.destinationState;
-                }
-            }
-            if (ourTransition == null)
-            {
-                m_ErrorMessage = $"AnimatorController '{editorController.name}' has no transition starting from Any with a condition on a trigger parameter named {m_Trigger}; To fix this create a new state and add a transition from Any to it using {m_Trigger} as a trigger and with a duration = 0";
-                m_TriggeredStateHash = 0;
-                m_TriggeredStateName = "";
-                return;
-            }
-
-            m_ErrorMessage = "";
-            m_TriggeredStateHash = destinationState.nameHash;
-            m_TriggeredStateName = destinationState.name;
-        }
+        [SerializeField, ShowIf(nameof(IsError)), ReadOnly, ResizableTextArea, Label("")]
+        string m_ErrorMessage;
 #endif
 
         int m_TriggerHash;
+
+        public string Trigger => m_Trigger;
+
         /// <summary>
-        /// The hash of the current trigger
+        /// Triggers the configured animation when references are valid.
         /// </summary>
+        public override void Execute()
+        {
+            if (!ValidateRuntimeConfiguration())
+            {
+                return;
+            }
+
+            m_Animator.ResetTrigger(TriggerHash);
+            m_Animator.SetTrigger(TriggerHash);
+        }
+
+        /// <summary>
+        /// Waits for state entry and exit with independent safety timeouts.
+        /// </summary>
+        public override IEnumerator ExecuteAwaitable()
+        {
+            if (!ValidateRuntimeConfiguration())
+            {
+                yield break;
+            }
+
+            Execute();
+
+            const int activationFrameTimeout = 60;
+            int framesWaited = 0;
+
+            while (!IsTriggeredStateActive() && framesWaited < activationFrameTimeout)
+            {
+                framesWaited++;
+                yield return null;
+            }
+
+            if (!IsTriggeredStateActive())
+            {
+                Debug.LogError(
+                    $"Animator state '{m_TriggeredStateName}' was not activated by trigger " +
+                    $"'{m_Trigger}' within {activationFrameTimeout} frames.",
+                    this);
+                yield break;
+            }
+
+            float elapsed = 0f;
+            float timeout = Mathf.Max(0.1f, m_Timeout);
+
+            while (IsTriggeredStateActive() && elapsed < timeout)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            if (elapsed >= timeout && IsTriggeredStateActive())
+            {
+                Debug.LogWarning(
+                    $"Animator state '{m_TriggeredStateName}' exceeded its {timeout:0.##}s timeout.",
+                    this);
+            }
+        }
+
+        /// <summary>
+        /// Checks current and next Animator states to remain correct during transitions.
+        /// </summary>
+        bool IsTriggeredStateActive()
+        {
+            if (m_Animator == null || m_TriggeredStateHash == 0)
+            {
+                return false;
+            }
+
+            AnimatorStateInfo current = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if (current.shortNameHash == m_TriggeredStateHash)
+            {
+                return true;
+            }
+
+            if (m_Animator.IsInTransition(0))
+            {
+                AnimatorStateInfo next = m_Animator.GetNextAnimatorStateInfo(0);
+                return next.shortNameHash == m_TriggeredStateHash;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Validates runtime references and authored state information.
+        /// </summary>
+        bool ValidateRuntimeConfiguration()
+        {
+            if (m_Animator == null)
+            {
+                Debug.LogError("AwaitableAnimation has no Animator reference.", this);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(m_Trigger))
+            {
+                Debug.LogError("AwaitableAnimation has no trigger configured.", this);
+                return false;
+            }
+
+            if (m_TriggeredStateHash == 0)
+            {
+                Debug.LogError(
+                    $"AwaitableAnimation trigger '{m_Trigger}' has no resolved destination state.",
+                    this);
+                return false;
+            }
+
+            return true;
+        }
+
         int TriggerHash
         {
             get
             {
-                if (m_TriggerHash == 0) m_TriggerHash = Animator.StringToHash(m_Trigger);
+                if (m_TriggerHash == 0)
+                {
+                    m_TriggerHash = Animator.StringToHash(m_Trigger);
+                }
+
                 return m_TriggerHash;
             }
         }
+
+#if UNITY_EDITOR
+        bool IsError() => !string.IsNullOrEmpty(m_ErrorMessage);
+
+        /// <summary>
+        /// Resolves the editable AnimatorController behind possible override controllers.
+        /// </summary>
+        AnimatorController GetAnimatorController(Animator animator)
+        {
+            if (animator == null)
+            {
+                return null;
+            }
+
+            RuntimeAnimatorController runtimeController = animator.runtimeAnimatorController;
+            if (runtimeController is AnimatorOverrideController overrideController)
+            {
+                runtimeController = overrideController.runtimeAnimatorController;
+            }
+
+            return runtimeController as AnimatorController;
+        }
+
+        /// <summary>
+        /// Builds the trigger dropdown used by the custom inspector.
+        /// </summary>
+        DropdownList<string> GetTriggerParameters()
+        {
+            var list = new DropdownList<string>();
+            list.Add(m_Animator == null ? "Select Animator first" : "None", string.Empty);
+
+            AnimatorController controller = GetAnimatorController(m_Animator);
+            if (controller == null)
+            {
+                return list;
+            }
+
+            foreach (AnimatorControllerParameter parameter in controller.parameters)
+            {
+                if (parameter.type == AnimatorControllerParameterType.Trigger)
+                {
+                    list.Add(parameter.name, parameter.name);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Keeps cached hashes and validation messages synchronized in the editor.
+        /// </summary>
+        void OnValidate()
+        {
+            m_TriggerHash = 0;
+            UpdateStateInfo();
+        }
+
+        /// <summary>
+        /// Resolves the Any State transition driven by the selected trigger.
+        /// </summary>
+        void UpdateStateInfo()
+        {
+            m_TriggeredStateHash = 0;
+            m_TriggeredStateName = string.Empty;
+
+            if (m_Animator == null)
+            {
+                m_ErrorMessage = "The Animator is unset.";
+                return;
+            }
+
+            AnimatorController controller = GetAnimatorController(m_Animator);
+            if (controller == null)
+            {
+                m_ErrorMessage = "The Animator does not use an editable AnimatorController.";
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(m_Trigger))
+            {
+                m_ErrorMessage = "The trigger is unset.";
+                return;
+            }
+
+            bool triggerExists = controller.parameters.Any(
+                parameter => parameter.type == AnimatorControllerParameterType.Trigger &&
+                             parameter.name == m_Trigger);
+            if (!triggerExists)
+            {
+                m_ErrorMessage = $"AnimatorController '{controller.name}' has no trigger named '{m_Trigger}'.";
+                return;
+            }
+
+            AnimatorStateMachine stateMachine = controller.layers[0].stateMachine;
+            foreach (AnimatorStateTransition transition in stateMachine.anyStateTransitions)
+            {
+                if (transition.conditions.Length != 1)
+                {
+                    continue;
+                }
+
+                AnimatorCondition condition = transition.conditions[0];
+                if (condition.parameter != m_Trigger ||
+                    condition.mode != AnimatorConditionMode.If ||
+                    transition.destinationState == null)
+                {
+                    continue;
+                }
+
+                if (transition.duration > 0f)
+                {
+                    m_ErrorMessage =
+                        $"Transition for '{m_Trigger}' must have zero duration for deterministic waiting.";
+                    return;
+                }
+
+                m_TriggeredStateHash = transition.destinationState.nameHash;
+                m_TriggeredStateName = transition.destinationState.name;
+                m_ErrorMessage = string.Empty;
+                return;
+            }
+
+            m_ErrorMessage =
+                $"No Any State transition driven only by trigger '{m_Trigger}' was found.";
+        }
+#endif
     }
 
     public interface IAwaitableAction
@@ -244,6 +295,7 @@
         void Execute();
         IEnumerator ExecuteAwaitable();
     }
+
     public abstract class AwaitableActionBase : MonoBehaviour, IAwaitableAction
     {
         public abstract void Execute();
