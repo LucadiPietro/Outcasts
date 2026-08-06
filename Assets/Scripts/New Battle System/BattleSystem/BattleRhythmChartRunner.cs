@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,57 +11,93 @@ using UnityEditor;
 
 public class BattleRhythmChartRunner : MonoBehaviour
 {
-    const string DefaultChartPath = "Assets/RhythmCombat/Generated/Charts/Tutorial Battaglia   Epic Metal Feels_pump-halfdouble_Beginner.asset";
-    const string DefaultMusicPath = "Assets/Scriptables/Resources/Battle/Charts/Tutorial/Tutorial Battaglia   Epic Metal Feels.mp3";
-    const string DefaultMusicResourcePath = "Battle/Charts/Tutorial/Tutorial Battaglia   Epic Metal Feels";
-    const string DefaultMusicProjectRelativePath = "Scriptables/Resources/Battle/Charts/Tutorial/Tutorial Battaglia   Epic Metal Feels.mp3";
-    const string DefaultMusicAssetGuid = "9770822bd7e92344db8574c32fe148e2";
+    const string DefaultChartPath =
+        "Assets/RhythmCombat/Generated/Charts/" +
+        "Tutorial Battaglia   Epic Metal Feels_" +
+        "pump-halfdouble_Beginner.asset";
 
+    const string DefaultMusicPath =
+        "Assets/Scriptables/Resources/Battle/Charts/Tutorial/" +
+        "Tutorial Battaglia   Epic Metal Feels.mp3";
+
+    const string DefaultMusicResourcePath =
+        "Battle/Charts/Tutorial/" +
+        "Tutorial Battaglia   Epic Metal Feels";
+
+    const string DefaultMusicProjectRelativePath =
+        "Scriptables/Resources/Battle/Charts/Tutorial/" +
+        "Tutorial Battaglia   Epic Metal Feels.mp3";
+
+    const string DefaultMusicAssetGuid =
+        "9770822bd7e92344db8574c32fe148e2";
+
+    [Header("Chart")]
     [SerializeField] ChartDataAsset chart;
+    [SerializeField] int maxNotesToSchedule = 128;
+    [SerializeField] float approachDurationSeconds = 2f;
+    [SerializeField] float simultaneousToleranceSeconds = 0.0005f;
+
+    [Header("Audio")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioClip musicClip;
     [SerializeField] bool useAudioSourceClock = true;
     [SerializeField] bool playMusicOnStart = true;
     [SerializeField] bool scheduleMusicWithDspClock = true;
-    [SerializeField] bool playOnStart = true;
-    [SerializeField] int maxNotesToSchedule = 128;
-    [SerializeField] float startDelaySeconds = 1.5f;
     [SerializeField] float audioScheduleLeadSeconds = 0.1f;
     [SerializeField] float manualChartSyncOffsetSeconds = 0f;
-    [SerializeField] float approachDurationSeconds = 2f;
-    [SerializeField] Color attackColor = new Color(0.95f, 0.25f, 0.2f, 1f);
-    [SerializeField] Color defenseColor = new Color(0.2f, 0.55f, 1f, 1f);
-    [SerializeField] Color holdColor = new Color(0.9f, 0.75f, 0.2f, 1f);
 
-    readonly List<ScheduledButton> scheduledButtons = new List<ScheduledButton>();
+    [Header("Playback")]
+    [SerializeField] bool playOnStart = true;
+    [SerializeField] float startDelaySeconds = 1.5f;
 
-    BMBattleManager battleManager;
+    [Header("Colors")]
+    [SerializeField] Color attackColor =
+        new Color(0.95f, 0.25f, 0.2f, 1f);
+
+    [SerializeField] Color defenseColor =
+        new Color(0.2f, 0.55f, 1f, 1f);
+
+    [SerializeField] Color holdColor =
+        new Color(0.9f, 0.75f, 0.2f, 1f);
+
+    [Header("Scene References")]
+    [SerializeField] BMBattleManager battleManager;
+    [SerializeField] BattleChordFlashController chordFlashController;
+
+    readonly List<ScheduledButton> scheduledButtons =
+        new List<ScheduledButton>(256);
+
     double elapsedSeconds;
     double fallbackClockStartTime;
     double scheduledDspStartTime;
     int nextButtonIndex;
     bool isPlaying;
+    bool isPaused;
+    bool musicWasPlayingBeforePause;
+    double pauseStartedRealtime;
+    double pauseStartedDspTime;
 
-    public void Configure(
-        ChartDataAsset chartData,
+    public double CurrentChartTimeSeconds =>
+        elapsedSeconds;
+
+    public bool IsPaused => isPaused;
+
+#if UNITY_EDITOR
+    public void ConfigureEditorReferences(
         BMBattleManager manager,
-        float startDelay,
-        float approachDuration,
-        int maxNotes,
-        bool autoPlay)
+        BattleChordFlashController chordController)
     {
-        chart = chartData;
         battleManager = manager;
-        startDelaySeconds = startDelay;
-        approachDurationSeconds = approachDuration;
-        maxNotesToSchedule = maxNotes;
-        playOnStart = autoPlay;
+        chordFlashController = chordController;
     }
+#endif
 
     IEnumerator Start()
     {
         TryLoadDefaultChart();
+
         musicClip = ResolveMusicClip(musicClip);
+
         if (musicClip == null)
         {
             yield return LoadDefaultMusicClipFromFile();
@@ -69,7 +105,14 @@ public class BattleRhythmChartRunner : MonoBehaviour
 
         if (battleManager == null)
         {
-            battleManager = FindObjectOfType<BMBattleManager>();
+            battleManager =
+                FindObjectOfType<BMBattleManager>();
+        }
+
+        if (chordFlashController == null)
+        {
+            chordFlashController =
+                FindObjectOfType<BattleChordFlashController>();
         }
 
         if (musicSource == null)
@@ -90,7 +133,7 @@ public class BattleRhythmChartRunner : MonoBehaviour
 
     void Update()
     {
-        if (!isPlaying)
+        if (!isPlaying || isPaused)
         {
             return;
         }
@@ -99,22 +142,75 @@ public class BattleRhythmChartRunner : MonoBehaviour
 
         if (BattleManager.Instance != null)
         {
-            BattleManager.Instance.SetChartTimeSeconds(elapsedSeconds);
+            BattleManager.Instance.SetChartTimeSeconds(
+                elapsedSeconds);
         }
 
         SpawnDueButtons();
+    }
+
+    public void SetPaused(bool paused)
+    {
+        if (isPaused == paused)
+        {
+            return;
+        }
+
+        isPaused = paused;
+
+        if (isPaused)
+        {
+            pauseStartedRealtime = Time.unscaledTimeAsDouble;
+            pauseStartedDspTime = AudioSettings.dspTime;
+            musicWasPlayingBeforePause =
+                musicSource != null && musicSource.isPlaying;
+
+            if (musicWasPlayingBeforePause)
+            {
+                musicSource.Pause();
+            }
+
+            return;
+        }
+
+        double realtimePauseDuration =
+            Time.unscaledTimeAsDouble - pauseStartedRealtime;
+
+        double dspPauseDuration =
+            AudioSettings.dspTime - pauseStartedDspTime;
+
+        fallbackClockStartTime +=
+            Math.Max(0d, realtimePauseDuration);
+
+        if (scheduledDspStartTime > 0d)
+        {
+            scheduledDspStartTime +=
+                Math.Max(0d, dspPauseDuration);
+        }
+
+        if (musicWasPlayingBeforePause && musicSource != null)
+        {
+            musicSource.UnPause();
+        }
+
+        musicWasPlayingBeforePause = false;
     }
 
     public void Play()
     {
         if (chart == null || battleManager == null)
         {
-            Debug.LogWarning("BattleRhythmChartRunner: impossibile avviare, chart o BMBattleManager mancanti.");
+            Debug.LogWarning(
+                "BattleRhythmChartRunner: chart o " +
+                "BMBattleManager mancanti.");
+
             return;
         }
 
         elapsedSeconds = 0d;
-        fallbackClockStartTime = Time.timeAsDouble;
+        isPaused = false;
+        musicWasPlayingBeforePause = false;
+        fallbackClockStartTime = Time.unscaledTimeAsDouble;
         scheduledDspStartTime = 0d;
         nextButtonIndex = 0;
 
@@ -123,22 +219,26 @@ public class BattleRhythmChartRunner : MonoBehaviour
 
         if (BattleManager.Instance != null)
         {
-            BattleManager.Instance.SetChartTimeSeconds(elapsedSeconds);
+            BattleManager.Instance.SetChartTimeSeconds(
+                elapsedSeconds);
         }
-
-        Debug.Log("BattleRhythmChartRunner: avvio chart '" + chart.name + "' con " + scheduledButtons.Count + " note schedulate.");
     }
 
     void PrepareAndPlayMusic()
     {
         if (musicSource == null)
         {
-            Debug.LogWarning("BattleRhythmChartRunner: nessun AudioSource in scena, uso clock fallback senza musica.");
-            fallbackClockStartTime = Time.timeAsDouble;
+            fallbackClockStartTime =
+                Time.unscaledTimeAsDouble;
+
             return;
         }
 
-        musicClip = ResolveMusicClip(musicClip != null ? musicClip : musicSource.clip);
+        musicClip = ResolveMusicClip(
+            musicClip != null
+                ? musicClip
+                : musicSource.clip);
+
         if (musicClip != null)
         {
             musicSource.clip = musicClip;
@@ -147,36 +247,37 @@ public class BattleRhythmChartRunner : MonoBehaviour
         musicSource.playOnAwake = false;
         musicSource.time = 0f;
 
-        if (!playMusicOnStart || musicSource.clip == null)
+        if (!playMusicOnStart ||
+            musicSource.clip == null)
         {
-            Debug.LogWarning(
-                "BattleRhythmChartRunner: musica non avviata. playMusicOnStart=" + playMusicOnStart +
-                ", hasClip=" + (musicSource.clip != null) +
-                ", defaultResourcePath='" + DefaultMusicResourcePath + "'" +
-                ". Uso clock fallback.");
-            fallbackClockStartTime = Time.timeAsDouble;
+            fallbackClockStartTime =
+                Time.unscaledTimeAsDouble;
+
             return;
         }
 
-        if (musicSource.clip.loadState != AudioDataLoadState.Loaded)
+        if (musicSource.clip.loadState !=
+            AudioDataLoadState.Loaded)
         {
             musicSource.clip.LoadAudioData();
         }
 
         if (scheduleMusicWithDspClock)
         {
-            scheduledDspStartTime = AudioSettings.dspTime + Mathf.Max(0f, audioScheduleLeadSeconds);
-            musicSource.PlayScheduled(scheduledDspStartTime);
-            Debug.Log(
-                "BattleRhythmChartRunner: musica schedulata su AudioSource esistente, dspStart=" +
-                scheduledDspStartTime.ToString("0.000") +
-                ", clip='" + musicSource.clip.name + "'.");
+            scheduledDspStartTime =
+                AudioSettings.dspTime +
+                Mathf.Max(
+                    0f,
+                    audioScheduleLeadSeconds);
+
+            musicSource.PlayScheduled(
+                scheduledDspStartTime);
         }
         else
         {
             musicSource.Play();
-            scheduledDspStartTime = AudioSettings.dspTime;
-            Debug.Log("BattleRhythmChartRunner: musica avviata su AudioSource esistente, clip='" + musicSource.clip.name + "'.");
+            scheduledDspStartTime =
+                AudioSettings.dspTime;
         }
     }
 
@@ -184,136 +285,30 @@ public class BattleRhythmChartRunner : MonoBehaviour
     {
         double chartTime;
 
-        if (useAudioSourceClock && musicSource != null && playMusicOnStart && musicSource.clip != null)
+        if (useAudioSourceClock &&
+            musicSource != null &&
+            playMusicOnStart &&
+            musicSource.clip != null)
         {
-            if (scheduleMusicWithDspClock && scheduledDspStartTime > 0d)
-            {
-                chartTime = AudioSettings.dspTime - scheduledDspStartTime;
-            }
-            else
-            {
-                chartTime = musicSource.time;
-            }
+            chartTime =
+                scheduleMusicWithDspClock &&
+                scheduledDspStartTime > 0d
+                    ? AudioSettings.dspTime -
+                      scheduledDspStartTime
+                    : musicSource.time;
         }
         else
         {
-            chartTime = Time.timeAsDouble - fallbackClockStartTime;
+            chartTime =
+                Time.unscaledTimeAsDouble -
+                fallbackClockStartTime;
         }
 
         chartTime += manualChartSyncOffsetSeconds;
-        return chartTime < 0d ? 0d : chartTime;
-    }
 
-    AudioSource FindSceneAudioSource()
-    {
-        AudioSource[] sources = FindObjectsOfType<AudioSource>(true);
-        if (sources == null || sources.Length == 0)
-        {
-            return null;
-        }
-
-        for (int i = 0; i < sources.Length; i++)
-        {
-            if (sources[i] != null && musicClip != null && sources[i].clip == musicClip)
-            {
-                return sources[i];
-            }
-        }
-
-        for (int i = 0; i < sources.Length; i++)
-        {
-            if (sources[i] != null && sources[i].clip != null)
-            {
-                return sources[i];
-            }
-        }
-
-        return sources[0];
-    }
-
-    AudioClip ResolveMusicClip(AudioClip currentClip)
-    {
-        if (currentClip != null)
-        {
-            return currentClip;
-        }
-
-        AudioClip resourceClip = Resources.Load<AudioClip>(DefaultMusicResourcePath);
-        if (resourceClip != null)
-        {
-            Debug.Log("BattleRhythmChartRunner: clip musica caricata da Resources '" + DefaultMusicResourcePath + "'.");
-            return resourceClip;
-        }
-
-#if UNITY_EDITOR
-        AudioClip clipFromPath = AssetDatabase.LoadAssetAtPath<AudioClip>(DefaultMusicPath);
-        if (clipFromPath != null)
-        {
-            Debug.Log("BattleRhythmChartRunner: clip musica caricata da AssetDatabase path '" + DefaultMusicPath + "'.");
-            return clipFromPath;
-        }
-
-        string guidPath = AssetDatabase.GUIDToAssetPath(DefaultMusicAssetGuid);
-        if (!string.IsNullOrEmpty(guidPath))
-        {
-            AudioClip clipFromGuid = AssetDatabase.LoadAssetAtPath<AudioClip>(guidPath);
-            if (clipFromGuid != null)
-            {
-                Debug.Log("BattleRhythmChartRunner: clip musica caricata da GUID '" + DefaultMusicAssetGuid + "'.");
-                return clipFromGuid;
-            }
-        }
-
-        string[] audioGuids = AssetDatabase.FindAssets("Tutorial Battaglia Epic Metal Feels t:AudioClip");
-        for (int i = 0; i < audioGuids.Length; i++)
-        {
-            string audioPath = AssetDatabase.GUIDToAssetPath(audioGuids[i]);
-            AudioClip foundClip = AssetDatabase.LoadAssetAtPath<AudioClip>(audioPath);
-            if (foundClip != null && foundClip.name == "Tutorial Battaglia   Epic Metal Feels")
-            {
-                Debug.Log("BattleRhythmChartRunner: clip musica caricata tramite ricerca AssetDatabase '" + audioPath + "'.");
-                return foundClip;
-            }
-        }
-
-        Debug.LogWarning(
-            "BattleRhythmChartRunner: impossibile risolvere AudioClip. resourcePath='" +
-            DefaultMusicResourcePath + "', assetPath='" + DefaultMusicPath + "', guidPath='" + guidPath + "'.");
-        return null;
-#else
-        return null;
-#endif
-    }
-
-    IEnumerator LoadDefaultMusicClipFromFile()
-    {
-        string absolutePath = Path.Combine(Application.dataPath, DefaultMusicProjectRelativePath);
-        if (!File.Exists(absolutePath))
-        {
-            Debug.LogWarning("BattleRhythmChartRunner: file musica non trovato su disco '" + absolutePath + "'.");
-            yield break;
-        }
-
-        string fileUri = new Uri(absolutePath).AbsoluteUri;
-        using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(fileUri, AudioType.MPEG))
-        {
-            yield return request.SendWebRequest();
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogWarning(
-                    "BattleRhythmChartRunner: caricamento mp3 da file fallito. uri='" +
-                    fileUri + "', error='" + request.error + "'.");
-                yield break;
-            }
-
-            musicClip = DownloadHandlerAudioClip.GetContent(request);
-            if (musicClip != null)
-            {
-                musicClip.name = "Tutorial Battaglia   Epic Metal Feels";
-                Debug.Log("BattleRhythmChartRunner: clip musica caricata da file '" + absolutePath + "'.");
-            }
-        }
+        return chartTime < 0d
+            ? 0d
+            : chartTime;
     }
 
     void BuildSchedule()
@@ -323,141 +318,461 @@ public class BattleRhythmChartRunner : MonoBehaviour
 
         if (chart == null)
         {
-            Debug.LogWarning("BattleRhythmChartRunner: nessun ChartDataAsset assegnato.");
+            Debug.LogWarning(
+                "BattleRhythmChartRunner: chart mancante.");
+
             return;
         }
 
-        if (battleManager == null)
-        {
-            Debug.LogWarning("BattleRhythmChartRunner: nessun BMBattleManager disponibile.");
-            return;
-        }
+        PendingHold[] pendingHolds =
+            new PendingHold[6];
 
-        int scheduledCount = 0;
-        for (int rowIndex = 0; rowIndex < chart.rows.Count && scheduledCount < maxNotesToSchedule; rowIndex++)
+        int playableCount = 0;
+
+        for (int rowIndex = 0;
+             rowIndex < chart.rows.Count;
+             rowIndex++)
         {
             ChartRow row = chart.rows[rowIndex];
+
             if (row == null || row.lanes == null)
             {
                 continue;
             }
 
-            for (int laneIndex = 0; laneIndex < row.lanes.Length && laneIndex < 6 && scheduledCount < maxNotesToSchedule; laneIndex++)
+            int laneCount =
+                Mathf.Min(6, row.lanes.Length);
+
+            for (int laneIndex = 0;
+                 laneIndex < laneCount;
+                 laneIndex++)
             {
-                byte laneValue = row.lanes[laneIndex];
+                byte laneValue =
+                    row.lanes[laneIndex];
+
                 if (laneValue == 0)
                 {
                     continue;
                 }
 
-                scheduledButtons.Add(CreateScheduledButton(rowIndex, laneIndex, laneValue, row.time));
-                scheduledCount++;
+                if (laneValue == 2)
+                {
+                    pendingHolds[laneIndex] =
+                        new PendingHold(
+                            rowIndex,
+                            row.time);
+
+                    continue;
+                }
+
+                if (laneValue == 3)
+                {
+                    PendingHold pending =
+                        pendingHolds[laneIndex];
+
+                    if (!pending.IsActive)
+                    {
+                        Debug.LogWarning(
+                            "BattleRhythmChartRunner: " +
+                            "hold end senza start, lane " +
+                            laneIndex + ".");
+
+                        continue;
+                    }
+
+                    if (playableCount <
+                        maxNotesToSchedule)
+                    {
+                        scheduledButtons.Add(
+                            CreateScheduledButton(
+                                pending.RowIndex,
+                                laneIndex,
+                                2,
+                                pending.HitTimeSeconds,
+                                true,
+                                row.time));
+
+                        playableCount++;
+                    }
+
+                    pendingHolds[laneIndex] =
+                        default;
+
+                    continue;
+                }
+
+                if (playableCount >=
+                    maxNotesToSchedule)
+                {
+                    continue;
+                }
+
+                scheduledButtons.Add(
+                    CreateScheduledButton(
+                        rowIndex,
+                        laneIndex,
+                        laneValue,
+                        row.time,
+                        false,
+                        0d));
+
+                playableCount++;
             }
         }
 
-        scheduledButtons.Sort((a, b) => a.SpawnTimeSeconds.CompareTo(b.SpawnTimeSeconds));
-        Debug.Log("BattleRhythmChartRunner: lette " + scheduledButtons.Count + " note da ChartDataAsset '" + chart.name + "'.");
+        for (int laneIndex = 0;
+             laneIndex < pendingHolds.Length &&
+             playableCount < maxNotesToSchedule;
+             laneIndex++)
+        {
+            PendingHold pending =
+                pendingHolds[laneIndex];
+
+            if (!pending.IsActive)
+            {
+                continue;
+            }
+
+            Debug.LogWarning(
+                "BattleRhythmChartRunner: " +
+                "hold start senza end, lane " +
+                laneIndex +
+                ". Convertito in tap.");
+
+            scheduledButtons.Add(
+                CreateScheduledButton(
+                    pending.RowIndex,
+                    laneIndex,
+                    1,
+                    pending.HitTimeSeconds,
+                    false,
+                    0d));
+
+            playableCount++;
+        }
+
+        AssignSimultaneousGroups();
+
+        scheduledButtons.Sort(
+            CompareBySpawnTime);
     }
 
-    ScheduledButton CreateScheduledButton(int rowIndex, int laneIndex, byte laneValue, double hitTimeSeconds)
+    ScheduledButton CreateScheduledButton(
+        int rowIndex,
+        int laneIndex,
+        byte laneValue,
+        double hitTimeSeconds,
+        bool isHold,
+        double holdEndTimeSeconds)
     {
-        double spawnTime = hitTimeSeconds - approachDurationSeconds - 0.1d;
+        double spawnTime =
+            hitTimeSeconds -
+            approachDurationSeconds -
+            0.1d;
+
         if (spawnTime < 0d)
         {
             spawnTime = 0d;
         }
 
-        return new ScheduledButton(
-            rowIndex,
-            laneIndex,
-            laneValue,
-            spawnTime,
-            hitTimeSeconds,
-            ToCell(laneIndex),
-            ToKey(laneIndex),
-            ToColor(laneIndex, laneValue));
+        return new ScheduledButton
+        {
+            RowIndex = rowIndex,
+            LaneIndex = laneIndex,
+            LaneValue = laneValue,
+            SpawnTimeSeconds = spawnTime,
+            HitTimeSeconds = hitTimeSeconds,
+            IsHold = isHold,
+            HoldEndTimeSeconds = holdEndTimeSeconds,
+            Cell = ToCell(laneIndex),
+            Color = ToColor(laneIndex, laneValue),
+            ChordGroupId = -1,
+            ChordSize = 1
+        };
+    }
+
+    void AssignSimultaneousGroups()
+    {
+        scheduledButtons.Sort(
+            CompareByHitTime);
+
+        int nextGroupId = 0;
+        int startIndex = 0;
+
+        while (startIndex <
+               scheduledButtons.Count)
+        {
+            double referenceTime =
+                scheduledButtons[startIndex]
+                    .HitTimeSeconds;
+
+            int endIndex =
+                startIndex + 1;
+
+            while (endIndex <
+                   scheduledButtons.Count &&
+                   Math.Abs(
+                       scheduledButtons[endIndex]
+                           .HitTimeSeconds -
+                       referenceTime) <=
+                   simultaneousToleranceSeconds)
+            {
+                endIndex++;
+            }
+
+            int count =
+                endIndex - startIndex;
+
+            if (count >= 2)
+            {
+                for (int i = startIndex;
+                     i < endIndex;
+                     i++)
+                {
+                    ScheduledButton scheduled =
+                        scheduledButtons[i];
+
+                    scheduled.ChordGroupId =
+                        nextGroupId;
+
+                    scheduled.ChordSize =
+                        count;
+
+                    scheduledButtons[i] =
+                        scheduled;
+                }
+
+                nextGroupId++;
+            }
+
+            startIndex = endIndex;
+        }
     }
 
     void SpawnDueButtons()
     {
-        while (nextButtonIndex < scheduledButtons.Count && scheduledButtons[nextButtonIndex].SpawnTimeSeconds <= elapsedSeconds)
+        while (nextButtonIndex <
+                   scheduledButtons.Count &&
+               scheduledButtons[nextButtonIndex]
+                   .SpawnTimeSeconds <=
+               elapsedSeconds)
         {
-            ScheduledButton scheduled = scheduledButtons[nextButtonIndex];
+            ScheduledButton scheduled =
+                scheduledButtons[nextButtonIndex];
+
             if (battleManager == null)
             {
                 return;
             }
 
-            Keys buttonKey = BattleManager.Instance != null
-                ? BattleManager.Instance.GetLaneButtonAction(scheduled.LaneIndex)
-                : scheduled.Key;
+            BattleButton button =
+                battleManager.CreateButton(
+                    scheduled.Cell,
+                    Keys.NONE,
+                    null,
+                    scheduled.Color,
+                    scheduled.LaneIndex,
+                    scheduled.HitTimeSeconds);
 
-            battleManager.CreateButton(
-                scheduled.Cell,
-                buttonKey,
-                null,
-                scheduled.Color,
-                scheduled.LaneIndex,
-                scheduled.HitTimeSeconds);
-            Debug.Log(
-                "BattleRhythmChartRunner: spawn row " + scheduled.RowIndex +
-                " lane " + scheduled.LaneIndex +
-                " value " + scheduled.LaneValue +
-                " -> " + scheduled.Cell);
+            if (button != null &&
+                scheduled.IsHold)
+            {
+                button.ConfigureHold(
+                    scheduled.HoldEndTimeSeconds,
+                    holdColor,
+                    approachDurationSeconds);
+            }
+
+            if (button != null &&
+                scheduled.ChordGroupId >= 0)
+            {
+                chordFlashController?.RegisterSpawn(
+                    scheduled.ChordGroupId,
+                    scheduled.ChordSize,
+                    button);
+            }
+
             nextButtonIndex++;
         }
     }
 
-    BMButtonPrefab.Cell ToCell(int laneIndex)
+    static int CompareByHitTime(
+        ScheduledButton left,
+        ScheduledButton right)
     {
-        switch (laneIndex)
-        {
-            case 0:
-                return BMButtonPrefab.Cell.Cell1;
-            case 1:
-                return BMButtonPrefab.Cell.Cell2;
-            case 2:
-                return BMButtonPrefab.Cell.Cell3;
-            case 3:
-                return BMButtonPrefab.Cell.Cell4;
-            case 4:
-                return BMButtonPrefab.Cell.Cell5;
-            case 5:
-                return BMButtonPrefab.Cell.Cell6;
-            default:
-                return BMButtonPrefab.Cell.Cell1;
-        }
+        int timeComparison =
+            left.HitTimeSeconds.CompareTo(
+                right.HitTimeSeconds);
+
+        return timeComparison != 0
+            ? timeComparison
+            : left.LaneIndex.CompareTo(
+                right.LaneIndex);
     }
 
-    Keys ToKey(int laneIndex)
+    static int CompareBySpawnTime(
+        ScheduledButton left,
+        ScheduledButton right)
     {
-        switch (laneIndex)
-        {
-            case 0:
-                return Keys.Y;
-            case 1:
-                return Keys.X;
-            case 2:
-                return Keys.B;
-            case 3:
-                return Keys.A;
-            case 4:
-                return Keys.LT;
-            case 5:
-                return Keys.RT;
-            default:
-                return Keys.NONE;
-        }
+        int timeComparison =
+            left.SpawnTimeSeconds.CompareTo(
+                right.SpawnTimeSeconds);
+
+        return timeComparison != 0
+            ? timeComparison
+            : left.LaneIndex.CompareTo(
+                right.LaneIndex);
     }
 
-    Color ToColor(int laneIndex, byte laneValue)
+    static BMButtonPrefab.Cell ToCell(
+        int laneIndex)
     {
-        if (laneValue == 2 || laneValue == 3)
+        if (laneIndex < 0 || laneIndex > 5)
+        {
+            return BMButtonPrefab.Cell.Cell1;
+        }
+
+        return (BMButtonPrefab.Cell)laneIndex;
+    }
+
+    Color ToColor(
+        int laneIndex,
+        byte laneValue)
+    {
+        if (laneValue == 2 ||
+            laneValue == 3)
         {
             return holdColor;
         }
 
-        return laneIndex < 3 ? attackColor : defenseColor;
+        return laneIndex < 3
+            ? attackColor
+            : defenseColor;
+    }
+
+    AudioSource FindSceneAudioSource()
+    {
+        AudioSource[] sources =
+            FindObjectsOfType<AudioSource>(true);
+
+        if (sources == null ||
+            sources.Length == 0)
+        {
+            return null;
+        }
+
+        for (int i = 0;
+             i < sources.Length;
+             i++)
+        {
+            if (sources[i] != null &&
+                musicClip != null &&
+                sources[i].clip == musicClip)
+            {
+                return sources[i];
+            }
+        }
+
+        for (int i = 0;
+             i < sources.Length;
+             i++)
+        {
+            if (sources[i] != null &&
+                sources[i].clip != null)
+            {
+                return sources[i];
+            }
+        }
+
+        return sources[0];
+    }
+
+    AudioClip ResolveMusicClip(
+        AudioClip currentClip)
+    {
+        if (currentClip != null)
+        {
+            return currentClip;
+        }
+
+        AudioClip resourceClip =
+            Resources.Load<AudioClip>(
+                DefaultMusicResourcePath);
+
+        if (resourceClip != null)
+        {
+            return resourceClip;
+        }
+
+#if UNITY_EDITOR
+        AudioClip clipFromPath =
+            AssetDatabase.LoadAssetAtPath<AudioClip>(
+                DefaultMusicPath);
+
+        if (clipFromPath != null)
+        {
+            return clipFromPath;
+        }
+
+        string guidPath =
+            AssetDatabase.GUIDToAssetPath(
+                DefaultMusicAssetGuid);
+
+        if (!string.IsNullOrEmpty(guidPath))
+        {
+            AudioClip clipFromGuid =
+                AssetDatabase.LoadAssetAtPath<AudioClip>(
+                    guidPath);
+
+            if (clipFromGuid != null)
+            {
+                return clipFromGuid;
+            }
+        }
+#endif
+
+        return null;
+    }
+
+    IEnumerator LoadDefaultMusicClipFromFile()
+    {
+        string absolutePath =
+            Path.Combine(
+                Application.dataPath,
+                DefaultMusicProjectRelativePath);
+
+        if (!File.Exists(absolutePath))
+        {
+            yield break;
+        }
+
+        string fileUri =
+            new Uri(absolutePath).AbsoluteUri;
+
+        using (UnityWebRequest request =
+               UnityWebRequestMultimedia.GetAudioClip(
+                   fileUri,
+                   AudioType.MPEG))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result !=
+                UnityWebRequest.Result.Success)
+            {
+                yield break;
+            }
+
+            musicClip =
+                DownloadHandlerAudioClip.GetContent(
+                    request);
+
+            if (musicClip != null)
+            {
+                musicClip.name =
+                    "Tutorial Battaglia   " +
+                    "Epic Metal Feels";
+            }
+        }
     }
 
     void TryLoadDefaultChart()
@@ -468,44 +783,40 @@ public class BattleRhythmChartRunner : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        chart = AssetDatabase.LoadAssetAtPath<ChartDataAsset>(DefaultChartPath);
+        chart =
+            AssetDatabase.LoadAssetAtPath<ChartDataAsset>(
+                DefaultChartPath);
 #endif
     }
 
-    void TryLoadDefaultMusic()
+    struct PendingHold
     {
-        musicClip = ResolveMusicClip(musicClip);
+        public PendingHold(
+            int rowIndex,
+            double hitTimeSeconds)
+        {
+            RowIndex = rowIndex;
+            HitTimeSeconds = hitTimeSeconds;
+            IsActive = true;
+        }
+
+        public int RowIndex;
+        public double HitTimeSeconds;
+        public bool IsActive;
     }
 
     struct ScheduledButton
     {
-        public ScheduledButton(
-            int rowIndex,
-            int laneIndex,
-            byte laneValue,
-            double spawnTimeSeconds,
-            double hitTimeSeconds,
-            BMButtonPrefab.Cell cell,
-            Keys key,
-            Color color)
-        {
-            RowIndex = rowIndex;
-            LaneIndex = laneIndex;
-            LaneValue = laneValue;
-            SpawnTimeSeconds = spawnTimeSeconds;
-            HitTimeSeconds = hitTimeSeconds;
-            Cell = cell;
-            Key = key;
-            Color = color;
-        }
-
         public int RowIndex;
         public int LaneIndex;
         public byte LaneValue;
         public double SpawnTimeSeconds;
         public double HitTimeSeconds;
+        public bool IsHold;
+        public double HoldEndTimeSeconds;
         public BMButtonPrefab.Cell Cell;
-        public Keys Key;
         public Color Color;
+        public int ChordGroupId;
+        public int ChordSize;
     }
 }

@@ -1,106 +1,137 @@
 using System.Collections.Generic;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BMBattleManager : BMManager
 {
+    [Header("Note Prefab")]
     public BattleButton buttonPrefab;
     public List<BMButtonPrefab> laneButtonModels = new List<BMButtonPrefab>();
 
-    public float timeToReachBar = 2;
+    [Header("Movement")]
+    public float timeToReachBar = 2f;
     public bool enableSpatialMotion = true;
 
+    [Header("Scene References")]
     [SerializeField] RectTransform noteParent;
     [SerializeField] RectTransform lineCenter;
     [SerializeField] RectTransform lineUp;
     [SerializeField] RectTransform lineDown;
+
+    [Header("Fallback Layout")]
     [SerializeField] float laneColumnSpacing = 520f;
+    [SerializeField] float topTargetY = 467f;
+    [SerializeField] float bottomTargetY = -467f;
+
+    [Header("Note Display")]
     [SerializeField] Vector2 runtimeNoteSize = new Vector2(50f, 50f);
-    [SerializeField] Vector2 keyboardKeycapSize = new Vector2(72f, 58f);
-    [SerializeField] Color keyboardKeycapColor = new Color(0.08f, 0.09f, 0.1f, 1f);
-    [SerializeField] Color keyboardKeycapTextColor = Color.white;
-    [SerializeField] float keyboardKeycapFontSize = 34f;
+    [SerializeField] Vector2 keycapSize = new Vector2(72f, 58f);
+    [SerializeField] Color keycapColor = new Color(0.08f, 0.09f, 0.1f, 1f);
+    [SerializeField] Color keycapTextColor = Color.white;
+    [SerializeField] float keycapFontSize = 34f;
 
     public override void CreateButton(BMButtonPrefab prefab)
     {
+        if (prefab == null)
+        {
+            return;
+        }
+
         Image image = prefab.GetComponent<Image>();
         Sprite sprite = image != null ? image.sprite : null;
         Color color = image != null ? image.color : Color.white;
-        CreateButton(prefab.cell, prefab.key, sprite, color);
-    }
 
-    public BattleButton CreateButton(BMButtonPrefab.Cell cell, Keys key, Sprite sprite, Color color)
-    {
-        return CreateButton(cell, key, sprite, color, -1, 0d);
+        CreateButton(
+            prefab.cell,
+            Keys.NONE,
+            sprite,
+            color,
+            (int)prefab.cell,
+            BattleManager.Instance != null
+                ? BattleManager.Instance.CurrentChartTimeSeconds + timeToReachBar
+                : 0d);
     }
 
     public BattleButton CreateButton(
         BMButtonPrefab.Cell cell,
-        Keys key,
+        Keys ignoredLegacyKey,
+        Sprite sprite,
+        Color color)
+    {
+        return CreateButton(cell, Keys.NONE, sprite, color, (int)cell, 0d);
+    }
+
+    public BattleButton CreateButton(
+        BMButtonPrefab.Cell cell,
+        Keys ignoredLegacyKey,
         Sprite sprite,
         Color color,
         int laneIndex,
         double hitTimeSeconds)
     {
-        string cellName = cell.ToString();
-        EnsureLayoutReferences();
-        GameObject cellObject = TryGetConfiguredCell(cellName);
+        EnsureSceneReferences();
 
-        ApplyLaneModelFallback(cell, ref key, ref sprite, ref color);
+        GameObject cellObject = TryGetConfiguredCell(cell.ToString());
+        ApplyLaneModelVisualFallback(cell, ref sprite, ref color);
 
-        BattleButton prefabToUse = buttonPrefab;
-        bool canUseSpatialMotion =
-            enableSpatialMotion &&
-            laneIndex >= 0 &&
-            BattleManager.Instance != null &&
-            BattleManager.Instance.SpatialMotionService != null;
+        Transform parent = GetNoteParent(cellObject);
+        BattleButton note = CreateButtonInstance(parent);
 
-        Transform buttonParent = canUseSpatialMotion ? GetSpatialParent(cellObject) : GetLegacyParent(cellObject);
-        var newBut = CreateButtonInstance(prefabToUse, buttonParent);
-        newBut.transform.localPosition = Vector3.zero;
-        newBut.buttonAction = key;
-        newBut.cell = cell;
+        note.transform.localPosition = Vector3.zero;
+        note.transform.localScale = Vector3.one;
+        note.buttonAction = Keys.NONE;
+        note.cell = cell;
+        note.timeToReachBar = timeToReachBar;
 
-        Vector2 targetPosition = GetLaneCenterAnchoredPosition(cell);
-        newBut.positionToReach = targetPosition.y + (IsTopCell(cell) ? 100f : -100f);
-        newBut.barPosition = targetPosition.y;
+        Vector2 spawnPosition = GetLaneSpawnAnchoredPosition(cell);
+        Vector2 targetPosition = GetLaneTargetAnchoredPosition(cell);
 
-        newBut.timeToReachBar = timeToReachBar;
+        note.barPosition = targetPosition.y;
+        note.positionToReach = targetPosition.y + (IsAttackCell(cell) ? 100f : -100f);
+
         if (laneIndex >= 0)
         {
-            newBut.ConfigureSpatialJudgment(laneIndex, hitTimeSeconds);
+            note.ConfigureSpatialJudgment(laneIndex, hitTimeSeconds);
         }
 
-        ApplyInputDisplay(newBut, sprite, color);
+        ApplyInputDisplay(note, sprite, color);
 
-        if (canUseSpatialMotion)
+        if (enableSpatialMotion &&
+            laneIndex >= 0 &&
+            BattleManager.Instance != null &&
+            BattleManager.Instance.SpatialMotionService != null)
         {
-            newBut.ConfigureSpatialMotion(
+            note.ConfigureSpatialMotion(
                 BattleManager.Instance.SpatialMotionService,
                 () => BattleManager.Instance.CurrentChartTimeSeconds,
-                GetLaneStartAnchoredPosition(cell),
-                GetLaneCenterAnchoredPosition(cell));
+                spawnPosition,
+                targetPosition);
         }
+
+        BattleNoteRegistry.Register(note);
 
         if (BattleManager.Instance != null)
         {
-            BattleManager.Instance.SubcribeButton(newBut);
+            BattleManager.Instance.SubcribeButton(note);
         }
 
-        if (!newBut.gameObject.activeSelf)
+        if (!note.gameObject.activeSelf)
         {
-            newBut.gameObject.SetActive(true);
+            note.gameObject.SetActive(true);
         }
 
-        return newBut;
+        return note;
     }
 
     public void RefreshActiveButtonDisplays()
     {
         BattleButton[] activeButtons = FindObjectsOfType<BattleButton>();
+
         for (int i = 0; i < activeButtons.Length; i++)
         {
             BattleButton button = activeButtons[i];
+
             if (button == null || button.isResolved)
             {
                 continue;
@@ -108,53 +139,62 @@ public class BMBattleManager : BMManager
 
             Sprite sprite = null;
             Color color = Color.white;
-            Keys key = Keys.NONE;
-            ApplyLaneModelFallback(button.cell, ref key, ref sprite, ref color);
+            ApplyLaneModelVisualFallback(button.cell, ref sprite, ref color);
             ApplyInputDisplay(button, sprite, color);
         }
     }
 
-    BattleButton CreateButtonInstance(BattleButton prefabToUse, Transform parent)
+    public Vector2 GetLaneSpawnAnchoredPosition(BMButtonPrefab.Cell cell)
     {
-        if (prefabToUse != null)
-        {
-            return Instantiate(prefabToUse, parent);
-        }
+        EnsureSceneReferences();
 
-        var buttonObject = new GameObject(
-            "BattleButton",
-            typeof(RectTransform),
-            typeof(CanvasRenderer),
-            typeof(Image),
-            typeof(BattleButton),
-            typeof(BoxCollider2D),
-            typeof(Rigidbody2D));
-
-        RectTransform rect = buttonObject.GetComponent<RectTransform>();
-        rect.SetParent(parent, false);
-        rect.anchorMin = new Vector2(0.5f, 0.5f);
-        rect.anchorMax = new Vector2(0.5f, 0.5f);
-        rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.sizeDelta = runtimeNoteSize;
-
-        Image image = buttonObject.GetComponent<Image>();
-        image.preserveAspect = true;
-        image.raycastTarget = false;
-
-        BoxCollider2D collider = buttonObject.GetComponent<BoxCollider2D>();
-        collider.isTrigger = true;
-        collider.size = runtimeNoteSize;
-
-        Rigidbody2D body = buttonObject.GetComponent<Rigidbody2D>();
-        body.bodyType = RigidbodyType2D.Kinematic;
-        body.gravityScale = 0f;
-
-        BattleButton button = buttonObject.GetComponent<BattleButton>();
-        button.image = image;
-        return button;
+        return new Vector2(
+            GetLaneX(cell),
+            lineCenter != null ? lineCenter.anchoredPosition.y : 0f);
     }
 
-    Transform GetSpatialParent(GameObject cellObject)
+    public Vector2 GetLaneTargetAnchoredPosition(BMButtonPrefab.Cell cell)
+    {
+        EnsureSceneReferences();
+
+        float target = IsAttackCell(cell)
+            ? (lineUp != null ? lineUp.anchoredPosition.y : topTargetY)
+            : (lineDown != null ? lineDown.anchoredPosition.y : bottomTargetY);
+
+        return new Vector2(GetLaneX(cell), target);
+    }
+
+#if UNITY_EDITOR
+    public void ConfigureEditorReferences(
+        RectTransform newNoteParent,
+        RectTransform newLineCenter,
+        RectTransform newLineUp,
+        RectTransform newLineDown,
+        BattleButton newButtonPrefab)
+    {
+        noteParent = newNoteParent;
+        lineCenter = newLineCenter;
+        lineUp = newLineUp;
+        lineDown = newLineDown;
+        buttonPrefab = newButtonPrefab;
+        enableSpatialMotion = true;
+    }
+#endif
+
+    BattleButton CreateButtonInstance(Transform parent)
+    {
+        if (buttonPrefab == null)
+        {
+            Debug.LogError(
+                "BMBattleManager: BattleButton prefab non configurato. " +
+                "Reimporta la patch Battle Enhanced v3 e controlla la Console.");
+            return null;
+        }
+
+        return Instantiate(buttonPrefab, parent);
+    }
+
+    Transform GetNoteParent(GameObject cellObject)
     {
         if (noteParent != null)
         {
@@ -169,154 +209,107 @@ public class BMBattleManager : BMManager
         return transform;
     }
 
-    Transform GetLegacyParent(GameObject cellObject)
-    {
-        if (cellObject != null)
-        {
-            return cellObject.transform;
-        }
-
-        return GetSpatialParent(cellObject);
-    }
-
     GameObject TryGetConfiguredCell(string cellName)
     {
-        if (cells != null && cells.TryGetValue(cellName, out GameObject cellObject))
+        if (cells != null &&
+            cells.TryGetValue(cellName, out GameObject cellObject) &&
+            cellObject != null)
         {
             return cellObject;
         }
 
-        GameObject found = GameObject.Find(cellName);
-        return found;
+        return GameObject.Find(cellName);
     }
 
-    void ApplyLaneModelFallback(BMButtonPrefab.Cell cell, ref Keys key, ref Sprite sprite, ref Color color)
+    void ApplyLaneModelVisualFallback(
+        BMButtonPrefab.Cell cell,
+        ref Sprite sprite,
+        ref Color color)
     {
         int index = (int)cell;
-        if (laneButtonModels == null || index < 0 || index >= laneButtonModels.Count)
+
+        if (laneButtonModels == null ||
+            index < 0 ||
+            index >= laneButtonModels.Count)
         {
             return;
         }
 
         BMButtonPrefab model = laneButtonModels[index];
+
         if (model == null)
         {
             return;
         }
 
-        if (key == Keys.NONE)
-        {
-            key = model.key;
-        }
-
         Image modelImage = model.GetComponent<Image>();
-        if (modelImage != null)
-        {
-            if (sprite == null)
-            {
-                sprite = modelImage.sprite;
-            }
 
-            color = modelImage.color;
+        if (modelImage == null)
+        {
+            return;
         }
+
+        if (sprite == null)
+        {
+            sprite = modelImage.sprite;
+        }
+
+        color = modelImage.color;
     }
 
-    void ApplyInputDisplay(BattleButton button, Sprite xboxSprite, Color xboxColor)
+    void ApplyInputDisplay(
+        BattleButton button,
+        Sprite laneSprite,
+        Color laneColor)
     {
         if (button == null)
         {
             return;
         }
 
-        int laneIndex = button.laneIndex >= 0 ? button.laneIndex : (int)button.cell;
-        BattleManager battleManagerInstance = BattleManager.Instance;
-        BattleInputDisplayMode mode = battleManagerInstance != null
-            ? battleManagerInstance.CurrentInputDisplayMode
-            : BattleInputDisplayMode.Xbox;
+        BattleLaneInputRouter router = BattleLaneInputRouter.Instance;
 
-        if (mode == BattleInputDisplayMode.Keyboard)
+        if (router != null)
         {
-            if (battleManagerInstance != null)
+            Sprite configuredSprite = router.GetDisplaySprite(button.cell);
+            string configuredLabel = router.GetDisplayLabel(button.cell);
+            Color configuredColor = router.GetDisplayColor(button.cell, laneColor);
+
+            if (configuredSprite != null)
             {
-                button.buttonAction = battleManagerInstance.GetLaneButtonAction(laneIndex);
+                button.ApplySpriteDisplay(
+                    configuredSprite,
+                    configuredColor,
+                    runtimeNoteSize);
+
+                return;
             }
 
-            string label = battleManagerInstance != null
-                ? battleManagerInstance.GetLaneDisplayLabel(laneIndex)
-                : GetKeyboardFallbackLabel(laneIndex);
-            button.ApplyKeycapDisplay(label, keyboardKeycapColor, keyboardKeycapTextColor, keyboardKeycapFontSize, keyboardKeycapSize);
+            button.ApplyKeycapDisplay(
+                configuredLabel,
+                keycapColor,
+                keycapTextColor,
+                keycapFontSize,
+                keycapSize);
+
             return;
         }
 
-        Keys key = battleManagerInstance != null ? battleManagerInstance.GetLaneButtonAction(laneIndex) : Keys.NONE;
-        if (key != Keys.NONE)
+        if (laneSprite != null)
         {
-            button.buttonAction = key;
+            button.ApplySpriteDisplay(laneSprite, laneColor, runtimeNoteSize);
+            return;
         }
 
-        button.ApplySpriteDisplay(xboxSprite, xboxColor, runtimeNoteSize);
+        button.ApplyKeycapDisplay(
+            button.cell.ToString(),
+            keycapColor,
+            keycapTextColor,
+            keycapFontSize,
+            keycapSize);
     }
 
-    string GetKeyboardFallbackLabel(int laneIndex)
-    {
-        switch (laneIndex)
-        {
-            case 0:
-                return "A";
-            case 1:
-                return "S";
-            case 2:
-                return "D";
-            case 3:
-                return "J";
-            case 4:
-                return "K";
-            case 5:
-                return "L";
-            default:
-                return "?";
-        }
-    }
-
-    Vector2 GetLaneStartAnchoredPosition(BMButtonPrefab.Cell cell)
-    {
-        string cellName = cell.ToString();
-        GameObject cellObject = TryGetConfiguredCell(cellName);
-        RectTransform cellRect = cellObject != null ? cellObject.GetComponent<RectTransform>() : null;
-        float x = cellRect != null && cells != null && cells.ContainsKey(cellName)
-            ? cellRect.anchoredPosition.x
-            : GetLaneX(cell);
-
-        return new Vector2(x, GetLineY(lineCenter, 0f));
-    }
-
-    Vector2 GetLaneCenterAnchoredPosition(BMButtonPrefab.Cell cell)
-    {
-        string cellName = cell.ToString();
-        GameObject cellObject = TryGetConfiguredCell(cellName);
-        RectTransform cellRect = cellObject != null ? cellObject.GetComponent<RectTransform>() : null;
-        GameObject bar = TryGetConfiguredBar(cell);
-        RectTransform barRect = bar != null ? bar.GetComponent<RectTransform>() : null;
-
-        float x = cellRect != null && cells != null && cells.ContainsKey(cellName)
-            ? cellRect.anchoredPosition.x
-            : GetLaneX(cell);
-        float fallbackY = IsTopCell(cell) ? 460f : -460f;
-        float y = barRect != null ? barRect.anchoredPosition.y : GetLineY(IsTopCell(cell) ? lineUp : lineDown, fallbackY);
-        return new Vector2(x, y);
-    }
-
-    GameObject TryGetConfiguredBar(BMButtonPrefab.Cell cell)
-    {
-        if (bars == null || bars.Count < 2)
-        {
-            return null;
-        }
-
-        return IsTopCell(cell) ? bars[0] : bars[1];
-    }
-
-    void EnsureLayoutReferences()
+    void EnsureSceneReferences()
     {
         if (lineCenter == null)
         {
@@ -342,29 +335,51 @@ public class BMBattleManager : BMManager
             else
             {
                 Canvas canvas = FindObjectOfType<Canvas>();
-                noteParent = canvas != null ? canvas.GetComponent<RectTransform>() : null;
+                noteParent = canvas != null
+                    ? canvas.GetComponent<RectTransform>()
+                    : null;
             }
         }
     }
 
     RectTransform FindRectTransform(string objectName)
     {
-        GameObject found = GameObject.Find(objectName);
-        return found != null ? found.GetComponent<RectTransform>() : null;
+        RectTransform[] rectTransforms =
+            FindObjectsOfType<RectTransform>(true);
+
+        for (int i = 0; i < rectTransforms.Length; i++)
+        {
+            RectTransform rect = rectTransforms[i];
+
+            if (rect != null &&
+                rect.gameObject.scene.IsValid() &&
+                rect.name == objectName)
+            {
+                return rect;
+            }
+        }
+
+        return null;
     }
 
     float GetLaneX(BMButtonPrefab.Cell cell)
     {
-        float spacing = laneColumnSpacing;
-        if (noteParent != null && noteParent.rect.width > 0f)
+        GameObject cellObject = TryGetConfiguredCell(cell.ToString());
+        RectTransform cellRect =
+            cellObject != null
+                ? cellObject.GetComponent<RectTransform>()
+                : null;
+
+        if (cellRect != null)
         {
-            spacing = Mathf.Min(laneColumnSpacing, Mathf.Max(300f, noteParent.rect.width * 0.28f));
+            return cellRect.anchoredPosition.x;
         }
 
         int column = (int)cell % 3;
+
         if (column == 0)
         {
-            return -spacing;
+            return -laneColumnSpacing;
         }
 
         if (column == 1)
@@ -372,15 +387,10 @@ public class BMBattleManager : BMManager
             return 0f;
         }
 
-        return spacing;
+        return laneColumnSpacing;
     }
 
-    float GetLineY(RectTransform line, float fallback)
-    {
-        return line != null ? line.anchoredPosition.y : fallback;
-    }
-
-    static bool IsTopCell(BMButtonPrefab.Cell cell)
+    static bool IsAttackCell(BMButtonPrefab.Cell cell)
     {
         return cell == BMButtonPrefab.Cell.Cell1 ||
                cell == BMButtonPrefab.Cell.Cell2 ||
